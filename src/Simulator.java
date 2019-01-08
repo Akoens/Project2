@@ -78,9 +78,10 @@ public class Simulator {
     }
     
     private void handleExit(){
-        carsReadyToLeave();
-        carsPaying();
-        carsLeaving();
+        // Fixing the simulator :)
+//        carsReadyToLeave();
+//        carsPaying();
+//        carsLeaving();
     }
     
     private void updateViews(){
