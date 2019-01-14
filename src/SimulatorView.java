@@ -24,6 +24,8 @@ public class SimulatorView extends JFrame {
         setVisible(true);
 
         updateView();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
     }
 
     public void updateView() {
