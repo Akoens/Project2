@@ -69,7 +69,6 @@ public class Simulator {
         while (day > 6) {
             day -= 7;
         }
-
     }
 
     private void handleEntrance(){
@@ -97,7 +96,6 @@ public class Simulator {
         addArrivingCars(numberOfCars, PASS);
         numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
         addArrivingCars(numberOfCars, RESV);
-
     }
 
     private void carsEntering(CarQueue queue){
@@ -165,16 +163,16 @@ public class Simulator {
     private void addArrivingCars(int numberOfCars, String type){
         // Add the cars to the back of the queue.
     	switch(type) {
-    	case AD_HOC: 
-            for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new AdHocCar());
-            }
-            break;
-    	case PASS:
-            for (int i = 0; i < numberOfCars; i++) {
-            	entrancePassResvQueue.addCar(new ParkingPassCar());
-            }
-            break;
+    	    case AD_HOC:
+                for (int i = 0; i < numberOfCars; i++) {
+            	    entranceCarQueue.addCar(new AdHocCar());
+                }
+                break;
+    	    case PASS:
+                for (int i = 0; i < numberOfCars; i++) {
+            	    entrancePassResvQueue.addCar(new ParkingPassCar());
+                }
+                break;
             case RESV:
                 for(int i = 0; i < numberOfCars; i++){
                     entrancePassResvQueue.addCar(new ReservationCar());
