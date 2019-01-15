@@ -9,6 +9,10 @@ public class SimulatorView extends JFrame {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
+    //Adding a new label and panel for statistics
+    private JLabel newTickLabel = new JLabel("Current tick: ");
+    private JPanel statistics = new JPanel();
+
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
@@ -16,11 +20,22 @@ public class SimulatorView extends JFrame {
         this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-        
+
         carParkView = new CarParkView();
+
+        //Testing new code in panel/frame
+        setTitle("ParkeerBeheer");
+        setLayout(new FlowLayout());
+
+        //Adding layout manager, adding test JLabel to statistics JPanel,
+        //Then adding statistics JPanel to SimulatorView
+        setLayout(new FlowLayout());
+        statistics.add(newTickLabel);
+        add(statistics);
 
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
+
         pack();
         setVisible(true);
 
@@ -28,6 +43,10 @@ public class SimulatorView extends JFrame {
         
 
 
+    }
+    //New class to manipulate tick label
+    public JLabel getTickLabel(){
+        return newTickLabel;
     }
 
     public void updateView() {
@@ -141,8 +160,8 @@ public class SimulatorView extends JFrame {
     private class CarParkView extends JPanel {
         
         private Dimension size;
-        private Image carParkImage;    
-    
+        private Image carParkImage;
+
         /**
          * Constructor for objects of class CarPark
          */
