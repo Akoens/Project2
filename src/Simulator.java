@@ -4,10 +4,11 @@ public class Simulator {
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
+	private static final String RESV = "3";
 	
 	
 	private CarQueue entranceCarQueue;
-    private CarQueue entrancePassQueue;
+    private CarQueue entrancePassResvQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
@@ -29,7 +30,7 @@ public class Simulator {
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
-        entrancePassQueue = new CarQueue();
+        entrancePassResvQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
@@ -39,6 +40,37 @@ public class Simulator {
         for (int i = 0; i < 10000; i++) {
             tick();
         }
+    }
+
+    private String getTime() {
+        return String.format("%02d:%02d", getHour(), getMinute());
+    }
+
+    private String getDay() {
+        switch(day) {
+            case 0:
+                return "Monday";
+            case 1:
+                return "Tuesday";
+            case 2:
+                return "Wednesday";
+            case 3:
+                return "Thursday";
+            case 4:
+                return "Friday";
+            case 5:
+                return "Saturday";
+            case 6:
+                return "Sunday";
+                default:
+                    return "Error";
+        }
+    }
+    private int getHour() {
+        return hour;
+    }
+    private int getMinute() {
+        return minute;
     }
 
     private void tick() {
@@ -68,12 +100,11 @@ public class Simulator {
         while (day > 6) {
             day -= 7;
         }
-
     }
 
     private void handleEntrance(){
     	carsArriving();
-    	carsEntering(entrancePassQueue);
+    	carsEntering(entrancePassResvQueue);
     	carsEntering(entranceCarQueue);  	
     }
     
@@ -84,6 +115,9 @@ public class Simulator {
     }
     
     private void updateViews(){
+        //get time and day
+        simulatorView.getTimeLabel().setText("Current time: "+getTime());
+        simulatorView.getDayLabel().setText("Current day: "+getDay());
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();	
@@ -93,7 +127,9 @@ public class Simulator {
     	int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals);
         addArrivingCars(numberOfCars, AD_HOC);    	
     	numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
-        addArrivingCars(numberOfCars, PASS);    	
+        addArrivingCars(numberOfCars, PASS);
+        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
+        addArrivingCars(numberOfCars, RESV);
     }
 
     private void carsEntering(CarQueue queue){
@@ -161,16 +197,21 @@ public class Simulator {
     private void addArrivingCars(int numberOfCars, String type){
         // Add the cars to the back of the queue.
     	switch(type) {
-    	case AD_HOC: 
-            for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new AdHocCar());
-            }
-            break;
-    	case PASS:
-            for (int i = 0; i < numberOfCars; i++) {
-            	entrancePassQueue.addCar(new ParkingPassCar());
-            }
-            break;	            
+    	    case AD_HOC:
+                for (int i = 0; i < numberOfCars; i++) {
+            	    entranceCarQueue.addCar(new AdHocCar());
+                }
+                break;
+    	    case PASS:
+                for (int i = 0; i < numberOfCars; i++) {
+            	    entrancePassResvQueue.addCar(new ParkingPassCar());
+                }
+                break;
+            case RESV:
+                for(int i = 0; i < numberOfCars; i++){
+                    entrancePassResvQueue.addCar(new ReservationCar());
+                }
+                break;
     	}
     }
     
