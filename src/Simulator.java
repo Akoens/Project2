@@ -41,6 +41,37 @@ public class Simulator {
         }
     }
 
+    private String getTime() {
+        return String.format("%02d:%02d", getHour(), getMinute());
+    }
+
+    private String getDay() {
+        switch(day) {
+            case 0:
+                return "Monday";
+            case 1:
+                return "Tuesday";
+            case 2:
+                return "Wednesday";
+            case 3:
+                return "Thursday";
+            case 4:
+                return "Friday";
+            case 5:
+                return "Saturday";
+            case 6:
+                return "Sunday";
+                default:
+                    return "Error";
+        }
+    }
+    private int getHour() {
+        return hour;
+    }
+    private int getMinute() {
+        return minute;
+    }
+
     private void tick() {
     	advanceTime();
     	handleExit();
@@ -67,8 +98,8 @@ public class Simulator {
         }
         while (day > 6) {
             day -= 7;
-        }
 
+        }
     }
 
     private void handleEntrance(){
@@ -84,6 +115,9 @@ public class Simulator {
     }
     
     private void updateViews(){
+        //get time and day
+        simulatorView.getTimeLabel().setText("Current time: "+getTime());
+        simulatorView.getDayLabel().setText("Current day: "+getDay());
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();	
