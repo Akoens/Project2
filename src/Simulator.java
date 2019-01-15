@@ -27,8 +27,6 @@ public class Simulator {
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
 
-    //added Simulatorview to be used in Simulator
-    private SimulatorView view;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -43,7 +41,7 @@ public class Simulator {
             //Converted the tick int to string
             String tickAsString = Integer.toString(i);
             //from View, get ticketlabel and set the text
-            view.getTickLabel().setText("Current tick: ");
+            simulatorView.getTickLabel().setText("Current tick: "+tickAsString);
             tick();
         }
     }
