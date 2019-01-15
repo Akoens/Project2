@@ -37,9 +37,6 @@ public class Simulator {
 
     public void run() {
         for (int i = 0; i < 10000; i++) {
-            //get time and day
-            simulatorView.getTimeLabel().setText("Current time: "+getTime());
-            simulatorView.getDayLabel().setText("Current day: "+getDay());
             tick();
         }
     }
@@ -118,6 +115,9 @@ public class Simulator {
     }
     
     private void updateViews(){
+        //get time and day
+        simulatorView.getTimeLabel().setText("Current time: "+getTime());
+        simulatorView.getDayLabel().setText("Current day: "+getDay());
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();	
