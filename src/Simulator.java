@@ -1,7 +1,3 @@
-import sun.java2d.pipe.SpanShapeRenderer;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 
 public class Simulator {
@@ -20,7 +16,7 @@ public class Simulator {
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 5;
+    private int tickPause = 100;
 
     int weekDayArrivals= 100; // average number of arriving cars per hour
     int weekendArrivals = 200; // average number of arriving cars per hour
@@ -43,7 +39,7 @@ public class Simulator {
     }
 
     public void run() {
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             //get time and day
             simulatorView.getTimeLabel().setText("Current time: "+getTime());
             simulatorView.getDayLabel().setText("Current day: "+getDay());
