@@ -33,8 +33,6 @@ public class SimulatorView extends JFrame {
         statistics.add(dayLabel);
         statistics.add(timeLabel);
 
-//        add(statistics);
-
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
         contentPane.add(statistics, BorderLayout.SOUTH);
@@ -43,9 +41,6 @@ public class SimulatorView extends JFrame {
         setVisible(true);
 
         updateView();
-        
-
-
     }
     //New class to manipulate tick label
     public JLabel getDayLabel(){
@@ -176,7 +171,7 @@ public class SimulatorView extends JFrame {
             size = new Dimension(0, 0);
         }
     
-        /**minute
+        /**
          * Overridden. Tell the GUI manager how big we would like to be.
          */
         public Dimension getPreferredSize() {
