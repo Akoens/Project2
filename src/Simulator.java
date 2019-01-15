@@ -1,3 +1,7 @@
+import sun.java2d.pipe.SpanShapeRenderer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Simulator {
@@ -16,7 +20,7 @@ public class Simulator {
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
+    private int tickPause = 5;
 
     int weekDayArrivals= 100; // average number of arriving cars per hour
     int weekendArrivals = 200; // average number of arriving cars per hour
@@ -26,6 +30,8 @@ public class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
+
+    private String time;
 
 
     public Simulator() {
@@ -37,13 +43,43 @@ public class Simulator {
     }
 
     public void run() {
-        for (int i = 0; i < 10000; i++) {
-            //Converted the tick int to string
-            String tickAsString = Integer.toString(i);
-            //from View, get ticketlabel and set the text
-            simulatorView.getTickLabel().setText("Current tick: "+tickAsString);
+        for (int i = 0; i < 100000; i++) {
+            //get time and day
+            simulatorView.getTimeLabel().setText("Current time: "+getTime());
+            simulatorView.getDayLabel().setText("Current day: "+getDay());
             tick();
         }
+    }
+
+    private String getTime() {
+        return String.format("%02d:%02d", getHour(), getMinute());
+    }
+
+    private String getDay() {
+        switch(day) {
+            case 0:
+                return "Monday";
+            case 1:
+                return "Tuesday";
+            case 2:
+                return "Wednesday";
+            case 3:
+                return "Thursday";
+            case 4:
+                return "Friday";
+            case 5:
+                return "Saturday";
+            case 6:
+                return "Sunday";
+                default:
+                    return "Error";
+        }
+    }
+    private int getHour() {
+        return hour;
+    }
+    private int getMinute() {
+        return minute;
     }
 
     private void tick() {
@@ -72,8 +108,8 @@ public class Simulator {
         }
         while (day > 6) {
             day -= 7;
-        }
 
+        }
     }
 
     private void handleEntrance(){

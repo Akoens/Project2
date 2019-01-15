@@ -10,7 +10,8 @@ public class SimulatorView extends JFrame {
     private Car[][][] cars;
 
     //Adding a new label and panel for statistics
-    private JLabel newTickLabel = new JLabel("Current tick: ");
+    private JLabel timeLabel = new JLabel();
+    private JLabel dayLabel = new JLabel();
     private JPanel statistics = new JPanel();
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
@@ -25,16 +26,18 @@ public class SimulatorView extends JFrame {
 
         //Testing new code in panel/frame
         setTitle("ParkeerBeheer");
-        setLayout(new FlowLayout());
+        statistics.setLayout(new BoxLayout(statistics, BoxLayout.Y_AXIS));
 
         //Adding layout manager, adding test JLabel to statistics JPanel,
         //Then adding statistics JPanel to SimulatorView
-        setLayout(new FlowLayout());
-        statistics.add(newTickLabel);
-        add(statistics);
+        statistics.add(dayLabel);
+        statistics.add(timeLabel);
+
+//        add(statistics);
 
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
+        contentPane.add(statistics, BorderLayout.SOUTH);
 
         pack();
         setVisible(true);
@@ -45,8 +48,12 @@ public class SimulatorView extends JFrame {
 
     }
     //New class to manipulate tick label
-    public JLabel getTickLabel(){
-        return newTickLabel;
+    public JLabel getDayLabel(){
+        return dayLabel;
+    }
+
+    public JLabel getTimeLabel(){
+        return timeLabel;
     }
 
     public void updateView() {
@@ -169,7 +176,7 @@ public class SimulatorView extends JFrame {
             size = new Dimension(0, 0);
         }
     
-        /**
+        /**minute
          * Overridden. Tell the GUI manager how big we would like to be.
          */
         public Dimension getPreferredSize() {
