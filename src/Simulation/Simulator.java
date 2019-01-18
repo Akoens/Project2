@@ -1,3 +1,6 @@
+package Simulation;
+
+import Car.*;
 import java.util.Random;
 
 public class Simulator {

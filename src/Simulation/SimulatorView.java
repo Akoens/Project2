@@ -1,3 +1,7 @@
+package Simulation;
+
+import Car.Car;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,7 +33,7 @@ public class SimulatorView extends JFrame {
         statistics.setLayout(new BoxLayout(statistics, BoxLayout.Y_AXIS));
 
         //Adding layout manager, adding test JLabel to statistics JPanel,
-        //Then adding statistics JPanel to SimulatorView
+        //Then adding statistics JPanel to Simulation.SimulatorView
         statistics.add(dayLabel);
         statistics.add(timeLabel);
 

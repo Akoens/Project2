@@ -1,3 +1,5 @@
+package Car;
+
 import java.awt.*;
 import java.util.Random;
 
