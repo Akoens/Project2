@@ -10,7 +10,14 @@ public class ParkingPassCar extends Car {
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
     }
-    
+
+    public ParkingPassCar(String licensePlate) {
+        super(licensePlate);
+        Random random = new Random();
+        int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
+        this.setMinutesLeft(stayMinutes);
+        this.setHasToPay(false);
+    }
     public Color getColor(){
     	return COLOR;
     }

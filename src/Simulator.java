@@ -2,6 +2,8 @@ import java.util.Random;
 
 public class Simulator {
 
+    LicensePlateGenerator lpg = new LicensePlateGenerator(200, 1000, 5);
+
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
 	private static final String RESV = "3";
@@ -199,17 +201,17 @@ public class Simulator {
     	switch(type) {
     	    case AD_HOC:
                 for (int i = 0; i < numberOfCars; i++) {
-            	    entranceCarQueue.addCar(new AdHocCar());
+                    entranceCarQueue.addCar(new AdHocCar(lpg.generatePlate()));
                 }
                 break;
     	    case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
-            	    entrancePassResvQueue.addCar(new ParkingPassCar());
+                    entrancePassResvQueue.addCar(new ParkingPassCar(lpg.generatePlate()));
                 }
                 break;
             case RESV:
                 for(int i = 0; i < numberOfCars; i++){
-                    entrancePassResvQueue.addCar(new ReservationCar());
+                    entrancePassResvQueue.addCar(new ReservationCar(lpg.generatePlate()));
                 }
                 break;
     	}
