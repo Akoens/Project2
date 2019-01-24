@@ -9,7 +9,6 @@ public class Main {
 
         //!!** RUN MAIN TO TEST! **!!//
         LicensePlateGenerator ln = new LicensePlateGenerator(200, 100, 5);
-        CarBrand cb = new CarBrand();
         int countNL = 0;
         int countD = 0;
         int countB = 0;
@@ -32,13 +31,6 @@ public class Main {
 
         System.out.println("------------------------------------");
 
-        Car ahc = new AdHocCar(ln.generatePlate(), cb.getRandomAverage());
-        Car ppc = new ParkingPassCar(ln.generatePlate(), cb.getRandomExpensive());
-        Car rc = new ReservationCar(ln.generatePlate(), cb.getRandomExotic());
-
-        System.out.println("Kenteken bij AHC-car= " + ahc.getLicensePlate() + " en van het merk: " + ahc.getBrand());
-        System.out.println("Kenteken bij PPC-car= " + ppc.getLicensePlate() + " en van het merk: " + ppc.getBrand());
-        System.out.println("Kenteken bij RC-car= " + rc.getLicensePlate() + " en van het merk: " + rc.getBrand());
 
 
 

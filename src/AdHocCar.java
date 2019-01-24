@@ -11,8 +11,8 @@ public class AdHocCar extends Car {
         this.setHasToPay(true);
     }
 
-    public AdHocCar(String licensePlate, String brand) {
-        super(licensePlate, brand);
+    public AdHocCar(String licensePlate) {
+        super(licensePlate);
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);

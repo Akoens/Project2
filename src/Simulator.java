@@ -3,8 +3,6 @@ import java.util.Random;
 public class Simulator {
 
     LicensePlateGenerator lpg = new LicensePlateGenerator(200, 1000, 5);
-    CarBrand cb = new CarBrand();
-    private Random rd;
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
@@ -202,40 +200,13 @@ public class Simulator {
         // Add the cars to the back of the queue.
     	switch(type) {
     	    case AD_HOC:
-                for (int i = 0; i < numberOfCars; i++) {
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate(), cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate(), cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate(), cb.getRandomAverage()));
-                    }
-                }
+                entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
                 break;
     	    case PASS:
-                for (int i = 0; i < numberOfCars; i++) {
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cb.getRandomAverage()));
-                    }
-                }
+                entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
                 break;
             case RESV:
-                for(int i = 0; i < numberOfCars; i++){
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new ReservationCar(lpg.generatePlate(), cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new ReservationCar(lpg.generatePlate(), cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new ReservationCar(lpg.generatePlate(), cb.getRandomAverage()));
-                    }
-                }
+                entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
                 break;
     	}
     }
