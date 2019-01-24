@@ -11,6 +11,14 @@ public class ReservationCar extends Car{
         this.setHasToPay(true);
     }
 
+    public ReservationCar(String brand) {
+        super(brand);
+        Random random = new Random();
+        int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
+        this.setMinutesLeft(stayMinutes);
+        this.setHasToPay(true);
+    }
+
     public Color getColor(){
         return COLOR;
     }

@@ -2,6 +2,10 @@ import java.util.Random;
 
 public class Simulator {
 
+
+    CarBrand cb = new CarBrand();
+    private Random rd;
+
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
 	private static final String RESV = "3";
@@ -34,6 +38,7 @@ public class Simulator {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
+        rd = new Random();
     }
 
     public void run() {
@@ -199,17 +204,38 @@ public class Simulator {
     	switch(type) {
     	    case AD_HOC:
                 for (int i = 0; i < numberOfCars; i++) {
-            	    entranceCarQueue.addCar(new AdHocCar());
+                    int x = rd.nextInt(1000);
+                    if (x <= 3) {
+                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomExotic()));
+                    } else if (x > 3 && x <= 20) {
+                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomExpensive()));
+                    } else {
+                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomAverage()));
+                    }
                 }
                 break;
     	    case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
-            	    entrancePassResvQueue.addCar(new ParkingPassCar());
+                    int x = rd.nextInt(1000);
+                    if (x <= 3) {
+                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomExotic()));
+                    } else if (x > 3 && x <= 20) {
+                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomExpensive()));
+                    } else {
+                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomAverage()));
+                    }
                 }
                 break;
             case RESV:
                 for(int i = 0; i < numberOfCars; i++){
-                    entrancePassResvQueue.addCar(new ReservationCar());
+                    int x = rd.nextInt(1000);
+                    if (x <= 3) {
+                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomExotic()));
+                    } else if (x > 3 && x <= 20) {
+                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomExpensive()));
+                    } else {
+                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomAverage()));
+                    }
                 }
                 break;
     	}

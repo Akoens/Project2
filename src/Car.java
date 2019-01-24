@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public abstract class Car {
-
+    private String brand;
     private Location location;
     private int minutesLeft;
     private boolean isPaying;
@@ -11,7 +11,10 @@ public abstract class Car {
      * Constructor for objects of class Car
      */
     public Car() {
+    }
 
+    public Car(String brand) {
+        this.brand = brand;
     }
 
     public Location getLocation() {
@@ -49,6 +52,15 @@ public abstract class Car {
     public void tick() {
         minutesLeft--;
     }
-    
+
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public abstract Color getColor();
 }
