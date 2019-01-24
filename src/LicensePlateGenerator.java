@@ -81,11 +81,11 @@ public class LicensePlateGenerator {
     }
 
     public int randomValueCharacter(){
-        return rd.nextInt(25) + 65;
+        return rd.nextInt(26) + 65;
     }
 
     public int randomValueNumber(){
-        return rd.nextInt(9) + 48;
+        return rd.nextInt(10) + 48;
     }
 
     public String generateCharacters(int x, String charOrNumber){

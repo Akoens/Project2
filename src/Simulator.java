@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Simulator {
 
-    LicensePlateGenerator lpg = new LicensePlateGenerator(200, 1000, 5);
+    LicensePlateGenerator lpg = new LicensePlateGenerator(200, 10, 5);
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
@@ -203,10 +203,10 @@ public class Simulator {
                 entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
                 break;
     	    case PASS:
-                entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
+                entrancePassResvQueue.addCar(new ParkingPassCar(lpg.generatePlate()));
                 break;
             case RESV:
-                entrancePassResvQueue.addCar(new AdHocCar(lpg.generatePlate()));
+                entrancePassResvQueue.addCar(new ReservationCar(lpg.generatePlate()));
                 break;
     	}
     }
