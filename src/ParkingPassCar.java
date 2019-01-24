@@ -11,8 +11,8 @@ public class ParkingPassCar extends Car {
         this.setHasToPay(false);
     }
 
-    public ParkingPassCar(String licensePlate) {
-        super(licensePlate);
+    public ParkingPassCar(String licensePlate, String brand) {
+        super(licensePlate, brand);
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
