@@ -6,6 +6,7 @@ public class Main {
         //Simulator parkingSimulator = new Simulator();
         //parkingSimulator.run();
 
+
         //!!** RUN MAIN TO TEST! **!!//
         LicensePlateGenerator ln = new LicensePlateGenerator(200, 100, 5);
         CarBrand cb = new CarBrand();
