@@ -1,6 +1,6 @@
 package Car;
 
-import Simulation.Location;
+import ParkingGarage.Location;
 
 import javax.swing.*;
 

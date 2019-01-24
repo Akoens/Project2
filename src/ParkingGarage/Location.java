@@ -1,4 +1,4 @@
-package Simulation;
+package ParkingGarage;
 
 public class Location {
 
@@ -7,7 +7,7 @@ public class Location {
     private int place;
 
     /**
-     * Constructor for objects of class Simulation.Location
+     * Constructor for objects of class ParkingGarage.Location
      */
     public Location(int floor, int row, int place) {
         this.floor = floor;

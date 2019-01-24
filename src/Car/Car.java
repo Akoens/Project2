@@ -1,6 +1,6 @@
 package Car;
 
-import Simulation.Location;
+import ParkingGarage.Location;
 
 import java.awt.*;
 
@@ -50,7 +50,7 @@ public abstract class Car {
         this.hasToPay = hasToPay;
     }
 
-    public void tick() {
+    public void step() {
         minutesLeft--;
     }
     

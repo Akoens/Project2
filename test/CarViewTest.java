@@ -1,6 +1,6 @@
 import Car.*;
 import Car.ReservationCar;
-import Simulation.Location;
+import ParkingGarage.Location;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
