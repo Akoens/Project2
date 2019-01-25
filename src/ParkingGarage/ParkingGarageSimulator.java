@@ -56,7 +56,7 @@ public class ParkingGarageSimulator {
                             }
 
 
-                for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
+                for (int i = 0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
                     exitQueue.removeCar();
                 }
             }
@@ -67,7 +67,7 @@ public class ParkingGarageSimulator {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i=0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
+                for (int i = 0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
                     Car car = entryQueue.removeCar();
                     Location freeLocation = parkingGarage.getFirstFreeLocation();
                     parkingGarage.setCarAt(freeLocation, car);

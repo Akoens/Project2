@@ -5,7 +5,7 @@ import ParkingGarage.Location;
 import java.awt.*;
 
 public abstract class Car {
-
+    private String licensePlate;
     private Location location;
     private int minutesLeft;
     private boolean isPaying;
@@ -15,6 +15,10 @@ public abstract class Car {
      * Constructor for objects of class Car.Car
      */
     public Car() {
+    }
+
+    public Car(String licensePlate) {
+        this.licensePlate = licensePlate;
 
     }
 
@@ -33,7 +37,7 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
-    
+
     public boolean getIsPaying() {
         return isPaying;
     }
@@ -53,6 +57,14 @@ public abstract class Car {
     public void tick() {
         minutesLeft--;
     }
-    
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
     public abstract Color getColor();
 }

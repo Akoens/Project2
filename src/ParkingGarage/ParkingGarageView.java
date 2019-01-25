@@ -51,9 +51,9 @@ public class ParkingGarageView extends JPanel {
         graphics.setColor(getBackground());
         graphics.fillRect(0, 0, (int) size.getWidth(), (int) size.getHeight());
 
-        for(int floor = 0; floor < parkingGarage.getFloors(); floor++) {
-            for(int row = 0; row < parkingGarage.getRows(); row++) {
-                for(int place = 0; place < parkingGarage.getPlaces(); place++) {
+        for (int floor = 0; floor < parkingGarage.getFloors(); floor++) {
+            for (int row = 0; row < parkingGarage.getRows(); row++) {
+                for (int place = 0; place < parkingGarage.getPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = parkingGarage.getCarAt(location);
                     Color color = car == null ? Color.white : car.getColor();
@@ -69,7 +69,7 @@ public class ParkingGarageView extends JPanel {
     private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
         graphics.fillRect(
-                location.getFloor() * 260 + (1 + (int)Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
+                location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
                 60 + location.getPlace() * 10,
                 20 - 1,
                 10 - 1); // TODO use dynamic size or constants
