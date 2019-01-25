@@ -1,4 +1,5 @@
 import Car.*;
+import Generator.LicensePlateGenerator;
 import ParkingGarage.ParkingGarage;
 import ParkingGarage.ParkingGarageView;
 import ParkingGarage.ParkingGarageSimulator;
