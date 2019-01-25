@@ -1,3 +1,7 @@
+package Car;
+
+import ParkingGarage.Location;
+
 import java.awt.*;
 
 public abstract class Car {
@@ -8,7 +12,7 @@ public abstract class Car {
     private boolean hasToPay;
 
     /**
-     * Constructor for objects of class Car
+     * Constructor for objects of class Car.Car
      */
     public Car() {
 
