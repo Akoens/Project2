@@ -22,10 +22,6 @@ public class ParkingGarageSimulator {
         this.parkingGarageView = parkingGarageView;
 
         calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.YEAR, 0);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-
         thread = new Thread(this::run);
     }
 
