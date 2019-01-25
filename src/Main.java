@@ -29,7 +29,7 @@ public class Main {
 
         ParkingGarageSimulator parkingGarageSimulator = new ParkingGarageSimulator(parkingGarage, parkingGarageView);
 
-        JFrame frame = new JFrame("Hallo");
+        JFrame frame = new JFrame("ParkingGarage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
         frame.setLocationRelativeTo(null);
