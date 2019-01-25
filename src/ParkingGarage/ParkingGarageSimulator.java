@@ -37,12 +37,12 @@ public class ParkingGarageSimulator {
         calendar.add(Calendar.MINUTE, 1);
     }
 
-    private void preformCarStep() {
+    private void preformCarTick() {
         for (Car[][] carFloor : parkingGarage.getCars())
             for (Car[] carRow : carFloor)
                 for (Car car : carRow)
                     if (car != null) {
-                        car.step();
+                        car.tick();
                     }
     }
 
@@ -80,8 +80,8 @@ public class ParkingGarageSimulator {
         }
     }
 
-    private void step() {
-        preformCarStep();
+    private void tick() {
+        preformCarTick();
         preformCarExit();
         preformCarEntry();
     }
@@ -90,7 +90,7 @@ public class ParkingGarageSimulator {
         while (true) {
             try {
                 advanceTime();
-                step();
+                tick();
                 updateView();
                 Thread.sleep((long) (60000d / timeScale));
             } catch (InterruptedException e) {

@@ -50,7 +50,7 @@ public abstract class Car {
         this.hasToPay = hasToPay;
     }
 
-    public void step() {
+    public void tick() {
         minutesLeft--;
     }
     
