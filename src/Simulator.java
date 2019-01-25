@@ -3,7 +3,7 @@ import java.util.Random;
 public class Simulator {
 
 
-    CarBrand cb = new CarBrand();
+    CarBrandGenerator cbg = new CarBrandGenerator();
     private Random rd;
 
 	private static final String AD_HOC = "1";
@@ -204,38 +204,17 @@ public class Simulator {
     	switch(type) {
     	    case AD_HOC:
                 for (int i = 0; i < numberOfCars; i++) {
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new AdHocCar(cb.getRandomAverage()));
-                    }
+                    entrancePassResvQueue.addCar(new AdHocCar(cbg.getRandomBrand()));
                 }
                 break;
     	    case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new ParkingPassCar(cb.getRandomAverage()));
-                    }
+                    entrancePassResvQueue.addCar(new ParkingPassCar(cbg.getRandomBrand()));
                 }
                 break;
             case RESV:
                 for(int i = 0; i < numberOfCars; i++){
-                    int x = rd.nextInt(1000);
-                    if (x <= 3) {
-                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomExotic()));
-                    } else if (x > 3 && x <= 20) {
-                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomExpensive()));
-                    } else {
-                        entrancePassResvQueue.addCar(new ReservationCar(cb.getRandomAverage()));
-                    }
+                    entrancePassResvQueue.addCar(new ReservationCar(cbg.getRandomBrand()));
                 }
                 break;
     	}
