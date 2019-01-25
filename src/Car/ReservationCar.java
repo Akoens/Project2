@@ -1,8 +1,10 @@
+package Car;
+
 import java.awt.*;
 import java.util.Random;
 
 public class ReservationCar extends Car{
-    private static final Color COLOR=Color.yellow;
+    private static final Color COLOR = Color.yellow;
 
     public ReservationCar() {
         Random random = new Random();
