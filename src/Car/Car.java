@@ -66,6 +66,5 @@ public abstract class Car {
         this.licensePlate = licensePlate;
     }
 
-
     public abstract Color getColor();
 }
