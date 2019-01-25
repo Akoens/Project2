@@ -45,6 +45,7 @@ public class LicensePlateGenerator {
                     break;
                 case 7:
                     licenseplate += generateCharacters(2, "char") + "-" + generateCharacters(2, "number") + "-" + generateCharacters(2, "number");
+                    break;
             }
             return licenseplate;
         } else if (decideCountry < dRatio + nlRatio) {
@@ -77,6 +78,7 @@ public class LicensePlateGenerator {
                     break;
                 case 3:
                     licenseplate += generateCharacters(1, "number") + "-" + generateCharacters(3, "char") + "-" + generateCharacters(3, "number");
+                    break;
             }
         }
         return licenseplate;

@@ -5,6 +5,8 @@ import ParkingGarage.Location;
 import java.awt.*;
 
 public abstract class Car {
+
+    private String brand;
     private String licensePlate;
     private Location location;
     private int minutesLeft;
@@ -17,9 +19,9 @@ public abstract class Car {
     public Car() {
     }
 
-    public Car(String licensePlate) {
+    public Car(String licensePlate, String brand) {
         this.licensePlate = licensePlate;
-
+        this.brand = brand;
     }
 
     public Location getLocation() {
@@ -56,6 +58,14 @@ public abstract class Car {
 
     public void tick() {
         minutesLeft--;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getLicensePlate() {
