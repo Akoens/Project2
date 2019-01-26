@@ -21,6 +21,7 @@ public abstract class StatisticView extends JComponent {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawView(g, dataSetList.toArray(new DataSet[0]));
+        repaint();
     }
 
     public abstract void drawView(Graphics g, DataSet[] dataSetList);
