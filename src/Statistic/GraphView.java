@@ -44,8 +44,8 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         g2d.translate(getX() + shift.x, getY() + shift.y);
 
         //Draw sidelines
-        g2d.drawLine(axisLabelPadding+22, -shift.y, axisLabelPadding+22, getHeight());
-        g2d.drawLine(0, getHeight()-axisLabelPadding-24, getWidth() - shift.x, getHeight()-axisLabelPadding-24);
+        g2d.drawLine(axisLabelPadding+22, -shift.y, axisLabelPadding+22, getHeight()-axisLabelPadding-24);
+        g2d.drawLine(axisLabelPadding+22, getHeight()-axisLabelPadding-24, getWidth() - shift.x, getHeight()-axisLabelPadding-24);
 
         int j=0;
         for (int step=0; step<getWidth() - shift.x; step+=xAxisStepSize) {
@@ -68,20 +68,22 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         //Draw data
         if (dataSets != null) {
             for (DataSet dataSet : dataSets) {
-                int dataX;
-                int dataY;
-                int lastDataX = 0;
-                int lastDataY = 0;
-                g2d.setColor(dataSet.color);
-                for (int i=0; i<dataSet.data.length; i++) {
-                    dataX = i * xAxisStepSize + axisLabelPadding + 22 - 2;
-                    dataY = (int) (((getHeight() - axisLabelPadding - 24) - dataSet.data[i] * yAxisStepSize) - 2);
-                    g.drawOval(dataX, dataY, 4, 4);
-                    if (lastDataX != 0 && lastDataY != 0) {
-                        g.drawLine(lastDataX + 2, lastDataY + 2, dataX + 2, dataY + 2);
+                if (dataSet != null) {
+                    int dataX;
+                    int dataY;
+                    int lastDataX = 0;
+                    int lastDataY = 0;
+                    g2d.setColor(dataSet.color);
+                    for (int i=0; i<dataSet.data.length; i++) {
+                        dataX = i * xAxisStepSize + axisLabelPadding + 22 - 2;
+                        dataY = (int) (((getHeight() - axisLabelPadding - 24) - dataSet.data[i] * yAxisStepSize) - 2);
+                        g.drawOval(dataX, dataY, 4, 4);
+                        if (lastDataX != 0 && lastDataY != 0) {
+                            g.drawLine(lastDataX + 2, lastDataY + 2, dataX + 2, dataY + 2);
+                        }
+                        lastDataX = dataX;
+                        lastDataY = dataY;
                     }
-                    lastDataX = dataX;
-                    lastDataY = dataY;
                 }
             }
         }
