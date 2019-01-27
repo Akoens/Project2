@@ -1,11 +1,13 @@
 package ParkingGarage;
 
 import Car.*;
+import Generator.CarSpawnGenerator;
 
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
 
+    private CarSpawnGenerator csg;
 
     private ParkingGarage parkingGarage;
     private ParkingGarageView parkingGarageView;
@@ -23,6 +25,7 @@ public class ParkingGarageSimulator {
 
         calendar = Calendar.getInstance();
         thread = new Thread(this::run);
+        csg = new CarSpawnGenerator();
     }
 
     public void start() {
@@ -76,8 +79,18 @@ public class ParkingGarageSimulator {
         }
     }
 
+    private void performCarGeneration() {
+        for (CarQueue queue : parkingGarage.getCarQueues()) {
+            if (queue instanceof CarEntryQueue) {
+                for (Car car : csg.carGeneration(calendar.get(Calendar.HOUR_OF_DAY))) {
+                    queue.addCar(car);
+                }
+            }
+        }
+    }
     private void tick() {
         preformCarTick();
+        performCarGeneration();
         preformCarExit();
         preformCarEntry();
     }
