@@ -68,7 +68,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         //Draw data
         if (dataSets != null) {
             for (DataSet dataSet : dataSets) {
-                if (dataSet != null) {
+                if (dataSet != null && dataSet.data != null) {
                     int dataX;
                     int dataY;
                     int lastDataX = 0;
