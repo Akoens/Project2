@@ -1,8 +1,3 @@
-import Car.Car;
-import Car.CarController;
-import Car.CarView;
-import Car.ReservationCar;
-import ParkingGarage.Location;
 import Statistic.DataSet;
 import Statistic.GraphView;
 import org.junit.jupiter.api.Test;
@@ -50,9 +45,7 @@ public class GraphViewTest {
                 dataSetList.add(new DataSet(dataSet, Color.BLUE));
                 graphView.updateView(dataSetList);
                 x++;
-                frame.revalidate();
-                frame.repaint();
-                Thread.sleep(16);
+                Thread.sleep(33);
             } catch (InterruptedException e) {
                 fail();
             }
