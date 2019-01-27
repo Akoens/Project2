@@ -19,9 +19,10 @@ public abstract class Car {
     public Car() {
     }
 
-    public Car(String licensePlate, String brand) {
+    public Car(String licensePlate, String brand, int minutesLeft) {
         this.licensePlate = licensePlate;
         this.brand = brand;
+        this.minutesLeft = minutesLeft;
     }
 
     public Location getLocation() {

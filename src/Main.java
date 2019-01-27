@@ -12,6 +12,7 @@ public class Main {
     public static void main(String[] args) {
         LicensePlateGenerator lpg = new LicensePlateGenerator(200, 10, 5);
         CarBrandGenerator cbg = new CarBrandGenerator();
+        CarSpawnGenerator csg = new CarSpawnGenerator();
 
         ParkingGarage parkingGarage = new ParkingGarage(3, 2, 64);
         ParkingGarageView parkingGarageView = new ParkingGarageView();
@@ -19,16 +20,16 @@ public class Main {
         ArrayList<CarQueue> queues = parkingGarage.getCarQueues();
         CarEntryQueue entryQueue = new CarEntryQueue(3);
 
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
+        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
+        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
         queues.add(entryQueue);
         queues.add(new CarExitQueue(7, 5));
 
