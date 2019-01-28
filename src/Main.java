@@ -6,6 +6,7 @@ import ParkingGarage.ParkingGarageView;
 import ParkingGarage.ParkingGarageSimulator;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -33,13 +34,14 @@ public class Main {
         queues.add(new CarPaymentQueue(7));
         queues.add(new CarExitQueue( 5));
 
-        ParkingGarageSimulator parkingGarageSimulator = new ParkingGarageSimulator(parkingGarage, parkingGarageView);
-
         JFrame frame = new JFrame("Parkeer Beheer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(parkingGarageView);
+        frame.setLocation(frame.getX() - frame.getWidth() / 2, frame.getY());
+
+        ParkingGarageSimulator parkingGarageSimulator = new ParkingGarageSimulator(frame, parkingGarage, parkingGarageView);
 
         frame.setVisible(true);
         parkingGarageSimulator.start();
