@@ -36,6 +36,7 @@ public abstract class Car {
     public int getInitialMinutesLeft() {
         return initialMinutesLeft;
     }
+
     public void setInitialMinutesLeft(int initialMinutesLeft){
         this.initialMinutesLeft = initialMinutesLeft;
     }

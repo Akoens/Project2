@@ -94,7 +94,7 @@ public class ParkingGarageSimulator {
             }
         }
     }
-    
+
     public void performCarPayment() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarPaymentQueue) {

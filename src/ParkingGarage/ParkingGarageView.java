@@ -36,7 +36,7 @@ public class ParkingGarageView extends JPanel {
         }
     }
 
-    public void updateView(Date time, ParkingGarage parkingGarage,double moneyPaid) {
+    public void updateView(Date time, ParkingGarage parkingGarage, double moneyPaid) {
         if (!size.equals(getSize())) {
             size = getSize();
             carParkImage = createImage(size.width, size.height);
