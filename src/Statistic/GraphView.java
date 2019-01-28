@@ -55,7 +55,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
                 int x = step + axisLabelPadding + xMargin - 2;
                 int y = getHeight() - axisLabelPadding - 24 - 2;
                 g2d.fillOval(x, y, 4, 4);
-                g2d.drawString("" + i * xAxisStep, x, y + 15);
+                g2d.drawString("" + i * xAxisStep % 24, x, y + 15);//TODO non-static step %
                 i++;
             }
         }

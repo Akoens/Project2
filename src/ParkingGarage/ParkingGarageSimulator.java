@@ -5,6 +5,7 @@ import Statistic.DataSet;
 import Statistic.GraphView;
 import Statistic.StatisticWindow;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,14 +28,17 @@ public class ParkingGarageSimulator {
     //private double timeScale = 60d; //Every real life second a simulated minute passes
     private double timeScale = 3750d; //Every real life second a simulated hour passes
 
-    public ParkingGarageSimulator(ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
+    public ParkingGarageSimulator(JFrame frame, ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
         this.parkingGarage = parkingGarage;
         this.parkingGarageView = parkingGarageView;
+
+        Point location = frame.getLocation();
+        location.x += frame.getWidth();
 
         calendar = Calendar.getInstance();
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
         thread = new Thread(this::run);
-        statisticWindow = new StatisticWindow("Car flow", new GraphView("Number of cars", "Hour of day", Color.BLACK));
+        statisticWindow = new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK));
         dataSetList = new ArrayList<>();
         data = new double[24];
         dataPos = 0;
