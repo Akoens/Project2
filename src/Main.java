@@ -31,7 +31,7 @@ public class Main {
         entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
         entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
         queues.add(entryQueue);
-        queues.add(new CarPaymentQueue(7));
+        queues.add(new CarPaymentQueue(1));
         queues.add(new CarExitQueue(5));
 
         JFrame frame = new JFrame("Parkeer Beheer");
