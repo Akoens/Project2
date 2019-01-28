@@ -65,7 +65,7 @@ public class CarSpawnGenerator {
         } else if ((hour == 8) && spawnRate < 0.65) {
             cars.add(randomCar(680));
             return cars;
-        } else if ((hour > 8 && hour <= 11) && spawnRate < 0.30) {
+        } else if ((hour > 8 && hour <= 11) && spawnRate < 0.45) {
             cars.add(randomCar(120));
             return cars;
         } else if ((hour == 12) && spawnRate < 0.40) {
@@ -78,19 +78,19 @@ public class CarSpawnGenerator {
             cars.add(randomCar(60));
             return cars;
         } else if ((hour == 16 || hour == 17) && spawnRate < 0.02) {
-            cars.add(randomCar(580));
+            cars.add(randomCar(840));
             return cars;
-        } else if ((hour >= 18 && hour <= 20) && spawnRate < 0.07) {
-            cars.add(randomCar(520));
+        } else if ((hour >= 18 && hour <= 20) && spawnRate < 0.15) {
+            cars.add(randomCar(780));
             return cars;
-        } else if ((hour == 21 || hour == 22) && spawnRate < 0.05) {
+        } else if ((hour == 21 || hour == 22) && spawnRate < 0.10) {
+            cars.add(randomCar(540));
+            return cars;
+        } else if ((hour == 23) && spawnRate < 0.05) {
             cars.add(randomCar(480));
             return cars;
-        } else if ((hour == 23) && spawnRate < 0.03) {
-            cars.add(randomCar(500));
-            return cars;
-        } else if ((hour == 24) && spawnRate < 0.02) {
-            cars.add(randomCar(360));
+        } else if ((hour == 24) && spawnRate < 0.03) {
+            cars.add(randomCar(420));
             return cars;
         }
         return cars;
