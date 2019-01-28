@@ -34,7 +34,7 @@ public class ParkingGarageSimulator {
         calendar = Calendar.getInstance();
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
         thread = new Thread(this::run);
-        statisticWindow = new StatisticWindow("Car flow", new GraphView("Time", "Number of cars", Color.BLACK));
+        statisticWindow = new StatisticWindow("Car flow", new GraphView("Number of cars", "Hour of day", Color.BLACK));
         dataSetList = new ArrayList<>();
         data = new double[24];
         dataPos = 0;
