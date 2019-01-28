@@ -25,7 +25,8 @@ public class Main {
         entryQueue.addCar(new ParkingPassCar());
         entryQueue.addCar(new ParkingPassCar());
         queues.add(entryQueue);
-        queues.add(new CarExitQueue(7, 5));
+        queues.add(new CarPaymentQueue(7));
+        queues.add(new CarExitQueue( 5));
 
         ParkingGarageSimulator parkingGarageSimulator = new ParkingGarageSimulator(parkingGarage, parkingGarageView);
 

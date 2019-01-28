@@ -2,10 +2,10 @@ package ParkingGarage;
 
 import Car.*;
 
+import java.awt.*;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
-
 
     private ParkingGarage parkingGarage;
     private ParkingGarageView parkingGarageView;
@@ -14,7 +14,7 @@ public class ParkingGarageSimulator {
     private Calendar calendar;
 
     private Integer amountPayed;
-
+    private static final double PRICE = 5.00;
 
 
 
@@ -60,7 +60,6 @@ public class ParkingGarageSimulator {
                                 parkingGarage.carLeavesSpot(car);
                             }
 
-
                 for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
                     exitQueue.removeCar();
                 }
@@ -81,25 +80,37 @@ public class ParkingGarageSimulator {
         }
     }
 
-    public void preformCarsPayment(){
-        int i=0;
-        while (paymentQueue.carsInQueue()>0 && i < paymentQueue.getpaymentSpeed){
-            Car car = paymentCarQueue.removeCar();
-            // TODO Handle payment.
-            if(car.getColor() == Color.red){
+    public void preformCarPayment() {
+        for (CarQueue queue : parkingGarage.getCarQueues()) {
+            if (queue instanceof CarPaymentQueue) {
+                CarPaymentQueue paymentQueue = (CarPaymentQueue) queue;
 
-                amountPayed += Double.valueOf(String.format("%1.2f",(car.getMinutesStaying()/60PRICE)));
+                for (Car[][] carFloor : parkingGarage.getCars())
+                    for (Car[] carRow : carFloor)
+                        for (Car car : carRow)
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                                paymentQueue.addCar(car);
+                            }
+
+                int i = 0;
+                while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
+                    Car car = paymentQueue.removeCar();
+                    // TODO Handle payment.
+                    if (car instanceof AdHocCar) {
+                        amountPayed += (int) (car.getInitialMinutesLeft() / 60 * PRICE);
+                    }
+                    if (car instanceof ParkingPassCar) {
+                        amountPayed += (int) (car.getInitialMinutesLeft() / 60 * PRICE * 2);
+                    }
+                    i++;
+                }
             }
-            if(car.getColor() == Color.yellow){
-                amountPayed += Double.valueOf(String.format("%1.2f",(car.getMinutesStaying()/60PRICE*2)));
-            }
-            parkingGarage.carLeavesSpot(car);
-            i++;
         }
     }
 
     private void tick() {
         preformCarTick();
+        preformCarPayment();
         preformCarExit();
         preformCarEntry();
     }

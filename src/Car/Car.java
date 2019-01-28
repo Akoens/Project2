@@ -8,6 +8,7 @@ public abstract class Car {
 
     private Location location;
     private int minutesLeft;
+    private int initialMinutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
 
@@ -26,6 +27,13 @@ public abstract class Car {
         this.location = location;
     }
 
+    public int getInitialMinutesLeft() {
+        return initialMinutesLeft;
+    }
+    public void setInitialMinutesLeft(int initialMinutesLeft){
+        this.initialMinutesLeft = initialMinutesLeft;
+    }
+
     public int getMinutesLeft() {
         return minutesLeft;
     }
@@ -41,8 +49,6 @@ public abstract class Car {
     public void setIsPaying(boolean isPaying) {
         this.isPaying = isPaying;
     }
-
-
 
     public boolean getHasToPay() {
         return hasToPay;
