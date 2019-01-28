@@ -48,7 +48,7 @@ public class ParkingGarageSimulator {
         calendar.add(Calendar.MINUTE, 1);
     }
 
-    private void preformCarTick() {
+    private void performCarTick() {
         for (Car[][] carFloor : parkingGarage.getCars())
             for (Car[] carRow : carFloor)
                 for (Car car : carRow)
@@ -57,7 +57,7 @@ public class ParkingGarageSimulator {
                     }
     }
 
-    private void preformCarExit() {
+    private void performCarExit() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarExitQueue) {
                 CarExitQueue exitQueue = (CarExitQueue) queue;
@@ -78,7 +78,7 @@ public class ParkingGarageSimulator {
         }
     }
 
-    private void preformCarEntry() {
+    private void performCarEntry() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
@@ -117,9 +117,9 @@ public class ParkingGarageSimulator {
     }
 
     private void tick() {
-        preformCarTick();
-        preformCarExit();
-        preformCarEntry();
+        performCarTick();
+        performCarExit();
+        performCarEntry();
         performStatisticTick();
     }
 
