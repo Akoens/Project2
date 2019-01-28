@@ -3,14 +3,17 @@ package ParkingGarage;
 import Car.*;
 import Statistic.DataSet;
 import Statistic.GraphView;
+import Statistic.StatisticManager;
 import Statistic.StatisticWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
+
+    public static final int TAG_THROUGHPUT = 0;
+    public static final int TAG_TROUGHPUT = 1;
 
     private ParkingGarage parkingGarage;
     private ParkingGarageView parkingGarageView;
@@ -18,11 +21,8 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
-    private StatisticWindow statisticWindow;
-    private ArrayList<DataSet> dataSetList;
-    private double[] data;
-    private int dataPos;
     private int lastHour;
+    private StatisticManager statisticManager;
 
     //private double timeScale = 1d;  //Every real life second a simulated second passes
     //private double timeScale = 60d; //Every real life second a simulated minute passes
@@ -37,11 +37,11 @@ public class ParkingGarageSimulator {
 
         calendar = Calendar.getInstance();
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
+        statisticManager = new StatisticManager(new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK)));
+        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
+        statisticManager.putDataSet(TAG_TROUGHPUT, new DataSet(new double[240], Color.GREEN));
+
         thread = new Thread(this::run);
-        statisticWindow = new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK));
-        dataSetList = new ArrayList<>();
-        data = new double[24];
-        dataPos = 0;
     }
 
     public void start() {
@@ -100,23 +100,8 @@ public class ParkingGarageSimulator {
             return;
         }
 
-        int count = parkingGarage.getCarCount();
-        if (count > 0) {
-            data[dataPos] = count;
-            dataPos++;
-        }
+        statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
 
-        if (dataPos > data.length - 1) {
-            dataPos = 0;
-        }
-
-        dataSetList.clear();
-        dataSetList.add(new DataSet(data, Color.BLUE));
-
-        if (statisticWindow.getStatisticView() instanceof GraphView) {
-            GraphView graphView = (GraphView) statisticWindow.getStatisticView();
-            graphView.updateView(dataSetList);
-        }
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 
