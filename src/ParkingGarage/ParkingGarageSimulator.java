@@ -2,12 +2,21 @@ package ParkingGarage;
 
 import Car.*;
 import Generator.CarSpawnGenerator;
+import Statistic.DataSet;
+import Statistic.GraphView;
+import Statistic.StatisticManager;
+import Statistic.StatisticWindow;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
 
+
     private CarSpawnGenerator csg;
+
+    public static final int TAG_THROUGHPUT = 0;
 
     private ParkingGarage parkingGarage;
     private ParkingGarageView parkingGarageView;
@@ -15,15 +24,25 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
+    private int lastHour;
+    private StatisticManager statisticManager;
+
     //private double timeScale = 1d;  //Every real life second a simulated second passes
     //private double timeScale = 60d; //Every real life second a simulated minute passes
     private double timeScale = 3750d; //Every real life second a simulated hour passes
 
-    public ParkingGarageSimulator(ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
+    public ParkingGarageSimulator(JFrame frame, ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
         this.parkingGarage = parkingGarage;
         this.parkingGarageView = parkingGarageView;
 
+        Point location = frame.getLocation();
+        location.x += frame.getWidth();
+
         calendar = Calendar.getInstance();
+        lastHour = calendar.get(Calendar.HOUR_OF_DAY);
+        statisticManager = new StatisticManager(new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK)));
+        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
+
         thread = new Thread(this::run);
         csg = new CarSpawnGenerator();
     }
@@ -36,7 +55,7 @@ public class ParkingGarageSimulator {
         calendar.add(Calendar.MINUTE, 1);
     }
 
-    private void preformCarTick() {
+    private void performCarTick() {
         for (Car[][] carFloor : parkingGarage.getCars())
             for (Car[] carRow : carFloor)
                 for (Car car : carRow)
@@ -45,7 +64,7 @@ public class ParkingGarageSimulator {
                     }
     }
 
-    private void preformCarExit() {
+    private void performCarExit() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarExitQueue) {
                 CarExitQueue exitQueue = (CarExitQueue) queue;
@@ -66,7 +85,7 @@ public class ParkingGarageSimulator {
         }
     }
 
-    private void preformCarEntry() {
+    private void performCarEntry() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
@@ -89,11 +108,24 @@ public class ParkingGarageSimulator {
         }
     }
     private void tick() {
-        preformCarTick();
+        performCarTick();
         performCarGeneration();
-        preformCarExit();
-        preformCarEntry();
+        performCarExit();
+        performCarEntry();
+        performStatisticTick();
     }
+
+    private void performStatisticTick() {
+        if (lastHour == calendar.get(Calendar.HOUR_OF_DAY)) {
+            return;
+        }
+
+        statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
+
+        lastHour = calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+
 
     private void run() {
         while (true) {

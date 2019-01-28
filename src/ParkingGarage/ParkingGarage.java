@@ -81,6 +81,17 @@ public class ParkingGarage {
         return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
 
+    public int getCarCount() {
+        int count = 0;
+        for (Car[][] carFloor : cars)
+            for (Car[] carRow : carFloor)
+                for (Car car : carRow)
+                    if (car != null) {
+                        count++;
+                    }
+        return count;
+    }
+
     public void setCarAt(Location location, Car car) {
         if (!validateLocation(location)) {
             return;
