@@ -6,6 +6,8 @@ import java.awt.*;
 
 public abstract class Car {
 
+    private String brand;
+    private String licensePlate;
     private Location location;
     private int minutesLeft;
     private int initialMinutesLeft;
@@ -16,7 +18,11 @@ public abstract class Car {
      * Constructor for objects of class Car.Car
      */
     public Car() {
+    }
 
+    public Car(String licensePlate, String brand) {
+        this.licensePlate = licensePlate;
+        this.brand = brand;
     }
 
     public Location getLocation() {
@@ -41,7 +47,7 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
-    
+
     public boolean getIsPaying() {
         return isPaying;
     }
@@ -61,6 +67,22 @@ public abstract class Car {
     public void tick() {
         minutesLeft--;
     }
-    
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
     public abstract Color getColor();
 }
