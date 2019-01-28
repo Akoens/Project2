@@ -17,10 +17,9 @@ public abstract class Car {
     /**
      * Constructor for objects of class Car.Car
      */
-    public Car() {
-    }
-
-    public Car(String licensePlate, String brand) {
+    public Car(int minutesLeft, String licensePlate, String brand) {
+        this.minutesLeft = minutesLeft;
+        this.initialMinutesLeft = minutesLeft;
         this.licensePlate = licensePlate;
         this.brand = brand;
     }
@@ -37,9 +36,6 @@ public abstract class Car {
         return initialMinutesLeft;
     }
 
-    public void setInitialMinutesLeft(int initialMinutesLeft){
-        this.initialMinutesLeft = initialMinutesLeft;
-    }
 
     public int getMinutesLeft() {
         return minutesLeft;
