@@ -37,7 +37,7 @@ public class ParkingGarageSimulator {
         calendar = Calendar.getInstance();
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
         statisticManager = new StatisticManager(new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK)));
-        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
+        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[24], Color.BLUE));
 
         thread = new Thread(this::run);
     }
@@ -98,7 +98,7 @@ public class ParkingGarageSimulator {
             return;
         }
 
-        statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
+        statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount() + 1);
 
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }

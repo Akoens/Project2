@@ -38,12 +38,12 @@ public class StatisticManager {
             return;
         }
 
+        if (data.cursor > data.dataSet.data.length - 1) {
+            data.cursor = 0;
+        }
+
         data.dataSet.data[data.cursor] = value;
         data.cursor++;
-
-        if (dataPos > data.dataSet.data.length - 1) {
-            dataPos = 0;
-        }
 
         updateView();
     }
