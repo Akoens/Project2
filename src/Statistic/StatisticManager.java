@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class StatisticManager {
 
     private StatisticWindow window;
-    private int dataPos;
 
     private HashMap<Integer, DataSetCursor> dataSetMap;
 
