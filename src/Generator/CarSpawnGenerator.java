@@ -8,6 +8,7 @@ import Generator.CarBrandGenerator;
 import Generator.LicensePlateGenerator;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class CarSpawnGenerator {
@@ -46,14 +47,36 @@ public class CarSpawnGenerator {
     }
 
 
-
-    public ArrayList<Car> carGeneration(int hour) {
+    public ArrayList<Car> carGeneration(Calendar calendar) {
         ArrayList<Car> cars = new ArrayList<Car>();
         spawnRate = rd.nextDouble();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
+        boolean isWeekend = false;
+        if (dayNumber == 1 || dayNumber == 7) {
+            isWeekend = true;
+        }
+
 
         if (hour < 3 && spawnRate < 0.02) {
             cars.add(randomCar(360));
             return cars;
+        } else if ((hour == 6 || hour == 7 || hour == 8) && spawnRate < 1.00 && isWeekend) {
+            cars.add(randomCar(80));
+            return cars;
+        } else if ((hour >= 18 && hour <= 20) && spawnRate < 0.30 && dayNumber == 5) { //koopavond
+            cars.add(randomCar(120));
+            return cars;
+        } else if ((hour >= 19 && hour <= 23) && spawnRate < 0.75 && dayNumber == 6) { //theater avond, altijd uitverkocht
+            cars.add(randomCar(180));
+            return cars;
+        } else if ((hour >= 19 && hour <= 23) && spawnRate < 0.65 && dayNumber == 7) { //theater avond, altijd uitverkocht
+            cars.add(randomCar(180));
+            return cars;
+        } else if ((hour >= 13 && hour <= 15) && spawnRate < 0.60 && dayNumber == 1) {  //theater middag, altijd uitverkocht
+            cars.add(randomCar(180));
+            return cars;
+
         } else if ((hour >= 3 && hour <= 5) && spawnRate < 0.05) {
             cars.add(randomCar(300));
             return cars;

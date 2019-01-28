@@ -82,7 +82,7 @@ public class ParkingGarageSimulator {
     private void performCarGeneration() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
-                for (Car car : csg.carGeneration(calendar.get(Calendar.HOUR_OF_DAY))) {
+                for (Car car : csg.carGeneration(calendar)) {
                     queue.addCar(car);
                 }
             }
