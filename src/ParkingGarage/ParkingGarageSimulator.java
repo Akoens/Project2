@@ -2,7 +2,6 @@ package ParkingGarage;
 
 import Car.*;
 
-import java.awt.*;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
@@ -13,7 +12,7 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
-    private Integer amountPayed;
+    private double amountPaid = 0;
     private static final double PRICE = 5.00;
 
 
@@ -97,10 +96,10 @@ public class ParkingGarageSimulator {
                     Car car = paymentQueue.removeCar();
                     // TODO Handle payment.
                     if (car instanceof AdHocCar) {
-                        amountPayed += (int) (car.getInitialMinutesLeft() / 60 * PRICE);
+                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
-                    if (car instanceof ParkingPassCar) {
-                        amountPayed += (int) (car.getInitialMinutesLeft() / 60 * PRICE * 2);
+                    if (car instanceof ReservationCar) {
+                        amountPaid += (double)car.getInitialMinutesLeft() / 60 * PRICE * 2;
                     }
                     i++;
                 }
@@ -129,7 +128,7 @@ public class ParkingGarageSimulator {
     }
 
     public void updateView() {
-        parkingGarageView.updateView(calendar.getTime(), parkingGarage);
+        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaid);
         parkingGarageView.repaint();
         parkingGarageView.revalidate();
     }
