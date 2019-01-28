@@ -13,7 +13,6 @@ import java.util.Calendar;
 public class ParkingGarageSimulator {
 
     public static final int TAG_THROUGHPUT = 0;
-    public static final int TAG_TROUGHPUT = 1;
 
     private ParkingGarage parkingGarage;
     private ParkingGarageView parkingGarageView;
@@ -39,7 +38,6 @@ public class ParkingGarageSimulator {
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
         statisticManager = new StatisticManager(new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK)));
         statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
-        statisticManager.putDataSet(TAG_TROUGHPUT, new DataSet(new double[240], Color.GREEN));
 
         thread = new Thread(this::run);
     }
