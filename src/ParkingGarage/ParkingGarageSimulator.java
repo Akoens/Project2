@@ -13,6 +13,11 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
+    private Integer amountPayed;
+
+
+
+
     //private double timeScale = 1d;  //Every real life second a simulated second passes
     //private double timeScale = 60d; //Every real life second a simulated minute passes
     private double timeScale = 3750d; //Every real life second a simulated hour passes
@@ -73,6 +78,23 @@ public class ParkingGarageSimulator {
                     parkingGarage.setCarAt(freeLocation, car);
                 }
             }
+        }
+    }
+
+    public void preformCarsPayment(){
+        int i=0;
+        while (paymentQueue.carsInQueue()>0 && i < paymentQueue.getpaymentSpeed){
+            Car car = paymentCarQueue.removeCar();
+            // TODO Handle payment.
+            if(car.getColor() == Color.red){
+
+                amountPayed += Double.valueOf(String.format("%1.2f",(car.getMinutesStaying()/60PRICE)));
+            }
+            if(car.getColor() == Color.yellow){
+                amountPayed += Double.valueOf(String.format("%1.2f",(car.getMinutesStaying()/60PRICE*2)));
+            }
+            parkingGarage.carLeavesSpot(car);
+            i++;
         }
     }
 

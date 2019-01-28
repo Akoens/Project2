@@ -42,6 +42,8 @@ public abstract class Car {
         this.isPaying = isPaying;
     }
 
+
+
     public boolean getHasToPay() {
         return hasToPay;
     }
