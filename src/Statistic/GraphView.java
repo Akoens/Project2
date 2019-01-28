@@ -21,8 +21,6 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     private Point shift;
     private Point lastShift;
 
-
-
     public GraphView(String xAxisLabel, String yAxisLabel, Color graphColor) {
         this.xAxisLabel = xAxisLabel;
         this.yAxisLabel = yAxisLabel;
@@ -119,13 +117,10 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -133,16 +128,11 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 }

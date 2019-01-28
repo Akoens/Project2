@@ -6,16 +6,12 @@ import java.util.HashMap;
 public class StatisticManager {
 
     private StatisticWindow window;
-
-    private double[] data;
     private int dataPos;
-    private int lastHour;
 
     private HashMap<Integer, DataSetCursor> dataSetMap;
 
     public StatisticManager(StatisticWindow window) {
         this.window = window;
-
         dataSetMap = new HashMap<>();
     }
 
