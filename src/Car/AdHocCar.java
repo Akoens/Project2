@@ -6,6 +6,7 @@ import java.awt.*;
 public class AdHocCar extends Car {
     private static final Color COLOR = Color.red;
 
+    // TODO remove car non-parameter constructor
     public AdHocCar() {
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
@@ -17,6 +18,7 @@ public class AdHocCar extends Car {
         super(licensePlate, brand);
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
+        this.setInitialMinutesLeft(stayMinutes);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(true);
     }

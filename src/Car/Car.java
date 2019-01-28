@@ -10,6 +10,7 @@ public abstract class Car {
     private String licensePlate;
     private Location location;
     private int minutesLeft;
+    private int initialMinutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
 
@@ -30,6 +31,14 @@ public abstract class Car {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public int getInitialMinutesLeft() {
+        return initialMinutesLeft;
+    }
+
+    public void setInitialMinutesLeft(int initialMinutesLeft){
+        this.initialMinutesLeft = initialMinutesLeft;
     }
 
     public int getMinutesLeft() {

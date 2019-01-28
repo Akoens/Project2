@@ -3,7 +3,7 @@ package Car;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class CarQueue {
+public abstract class CarQueue {
 
     private Queue<Car> queue = new LinkedList<>();
 

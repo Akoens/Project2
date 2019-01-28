@@ -20,6 +20,9 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
+    private double amountPaid = 0;
+    private static final double PRICE = 5.00;
+
     private int lastHour;
     private StatisticManager statisticManager;
 
@@ -72,8 +75,7 @@ public class ParkingGarageSimulator {
                                 parkingGarage.carLeavesSpot(car);
                             }
 
-
-                for (int i = 0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
+                for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
                     exitQueue.removeCar();
                 }
             }
@@ -84,10 +86,38 @@ public class ParkingGarageSimulator {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i = 0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
+                for (int i=0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
                     Car car = entryQueue.removeCar();
                     Location freeLocation = parkingGarage.getFirstFreeLocation();
                     parkingGarage.setCarAt(freeLocation, car);
+                }
+            }
+        }
+    }
+
+    public void performCarPayment() {
+        for (CarQueue queue : parkingGarage.getCarQueues()) {
+            if (queue instanceof CarPaymentQueue) {
+                CarPaymentQueue paymentQueue = (CarPaymentQueue) queue;
+
+                for (Car[][] carFloor : parkingGarage.getCars())
+                    for (Car[] carRow : carFloor)
+                        for (Car car : carRow)
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                                paymentQueue.addCar(car);
+                            }
+
+                int i = 0;
+                while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
+                    Car car = paymentQueue.removeCar();
+                    // TODO Handle payment.
+                    if (car instanceof AdHocCar) {
+                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
+                    }
+                    if (car instanceof ReservationCar) {
+                        amountPaid += (double)car.getInitialMinutesLeft() / 60 * PRICE * 2;
+                    }
+                    i++;
                 }
             }
         }
@@ -105,6 +135,7 @@ public class ParkingGarageSimulator {
 
     private void tick() {
         performCarTick();
+        performCarPayment();
         performCarExit();
         performCarEntry();
         performStatisticTick();
@@ -124,7 +155,7 @@ public class ParkingGarageSimulator {
     }
 
     public void updateView() {
-        parkingGarageView.updateView(calendar.getTime(), parkingGarage);
+        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaid);
         parkingGarageView.repaint();
         parkingGarageView.revalidate();
     }
