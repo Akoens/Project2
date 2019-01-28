@@ -21,7 +21,7 @@ public class ParkingGarageSimulator {
     private Calendar calendar;
 
     private double amountPaid = 0;
-    private static final double PRICE = 5.00;
+    private static final double PRICE = 2.00;
 
     private int lastHour;
     private StatisticManager statisticManager;
@@ -70,7 +70,7 @@ public class ParkingGarageSimulator {
                 for (Car[][] carFloor : parkingGarage.getCars())
                     for (Car[] carRow : carFloor)
                         for (Car car : carRow)
-                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !car.getHasToPay()) {
                                 exitQueue.addCar(car);
                                 parkingGarage.carLeavesSpot(car);
                             }
@@ -103,14 +103,14 @@ public class ParkingGarageSimulator {
                 for (Car[][] carFloor : parkingGarage.getCars())
                     for (Car[] carRow : carFloor)
                         for (Car car : carRow)
-                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && car.getHasToPay()) {
                                 paymentQueue.addCar(car);
+                                car.setIsPaying(true);
                             }
 
                 int i = 0;
                 while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
                     Car car = paymentQueue.removeCar();
-                    // TODO Handle payment.
                     if (car instanceof AdHocCar) {
                         amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
@@ -118,6 +118,8 @@ public class ParkingGarageSimulator {
                         amountPaid += (double)car.getInitialMinutesLeft() / 60 * PRICE * 2;
                     }
                     i++;
+                    car.setHasToPay(false);
+                    car.setIsPaying(false);
                 }
             }
         }
