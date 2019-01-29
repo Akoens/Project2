@@ -1,7 +1,5 @@
 package ParkingGarage;
 
-import Car.Car;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
