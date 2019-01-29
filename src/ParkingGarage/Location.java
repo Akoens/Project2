@@ -1,7 +1,6 @@
 package ParkingGarage;
 
 import Car.Car;
-
 import java.awt.*;
 
 public class Location {

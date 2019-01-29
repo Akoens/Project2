@@ -108,13 +108,13 @@ public class LicensePlateGenerator {
         switch (type) {
             case CHARACTER:
                 if (x <= 3) {
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i<x; i++)
                         result.append(randomCharacter());
                     break;
                 }
             case NUMBER:
                 if (x <= 4) {
-                    for (int i=0; i<3; i++)
+                    for (int i=0; i<x; i++)
                         result.append(randomNumber());
                 }
         }
