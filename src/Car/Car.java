@@ -11,6 +11,7 @@ public abstract class Car {
     private Location location;
     private int minutesLeft;
     private int initialMinutesLeft;
+    private int patience;
     private boolean isPaying;
     private boolean hasToPay;
 
@@ -32,6 +33,10 @@ public abstract class Car {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public void setPatience(int patience) { this.patience = patience; }
+
+    public int getPatience() { return patience; }
 
     public int getInitialMinutesLeft() {
         return initialMinutesLeft;
@@ -68,6 +73,8 @@ public abstract class Car {
     public void tick() {
         minutesLeft--;
     }
+
+    public void tickPatience() { patience--; }
 
     public String getBrand() {
         return brand;

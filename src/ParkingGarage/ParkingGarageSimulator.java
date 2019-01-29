@@ -62,6 +62,19 @@ public class ParkingGarageSimulator {
                     }
     }
 
+    private void performCarTickPatience() {
+        for (CarQueue queue : parkingGarage.getCarQueues()) {
+            if (queue instanceof CarEntryQueue) {
+                CarEntryQueue entryQueue = (CarEntryQueue) queue;
+                for (int i=0; entryQueue.carsInQueue() > 0; ++i) {
+                    Car car = entryQueue.getCar();
+                    if (car.getPatience() <= 0) { entryQueue.removeCar(); }
+                    car.tickPatience();
+                }
+            }
+        }
+    }
+
     private void performCarExit() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarExitQueue) {
@@ -76,7 +89,7 @@ public class ParkingGarageSimulator {
                             }
 
                 for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
-                    exitQueue.removeCar();
+                    exitQueue.getCar();
                 }
             }
         }
@@ -87,7 +100,7 @@ public class ParkingGarageSimulator {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
                 for (int i=0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
-                    Car car = entryQueue.removeCar();
+                    Car car = entryQueue.getCar();
                     Location freeLocation = parkingGarage.getFirstFreeLocation();
                     parkingGarage.setCarAt(freeLocation, car);
                 }
@@ -110,7 +123,7 @@ public class ParkingGarageSimulator {
 
                 int i = 0;
                 while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
-                    Car car = paymentQueue.removeCar();
+                    Car car = paymentQueue.getCar();
                     if (car instanceof AdHocCar) {
                         amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
@@ -137,6 +150,7 @@ public class ParkingGarageSimulator {
 
     private void tick() {
         performCarTick();
+        performCarTickPatience();
         performCarPayment();
         performCarExit();
         performCarEntry();
