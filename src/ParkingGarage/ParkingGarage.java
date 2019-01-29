@@ -11,15 +11,20 @@ public class ParkingGarage {
     private int rows;
     private int places;
 
-    private Car[][][] cars;
+    private Location[][][] locations;
     private ArrayList<CarQueue> queues;
 
     public ParkingGarage(int floors, int rows, int places) {
         this.floors = floors;
         this.rows = rows;
         this.places = places;
-        cars = new Car[floors][rows][places];
+        locations = new Location[floors][rows][places];
         queues = new ArrayList<CarQueue>();
+
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
+                for (int place = 0; place < places; place++)
+                    locations[floor][row][place] = new Location();
     }
 
     public int getFloors() {
@@ -38,69 +43,65 @@ public class ParkingGarage {
         return queues;
     }
 
-    public Car[][][] getCars() {
-        return cars;
+    public Location[][][] getLocations() {
+        return locations;
     }
 
-    public boolean validateLocation(Location location) {
-        return (location != null) && (cars != null) && (location.getFloor() > -1 && location.getRow() > -1 && location.getPlace() > -1 && location.getFloor() < floors && location.getRow() < rows && location.getPlace() < places);
+    public boolean validateLocation(int floor, int row, int place) {
+        return floor > -1 && row > -1 && place > -1 && floor < floors && row < rows && place < places;
+    }
+
+    public Location getLocation(int floor, int row, int place) {
+        if (validateLocation(floor, row, place))
+            return locations[floor][row][place];
+        return null;
     }
 
     public Location getFirstFreeLocation() {
-        for (int floor = 0; floor < floors; floor++) {
-            for (int row = 0; row < rows; row++) {
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++) {
-                    Location location = new Location(floor, row, place);
-                    if (cars[location.getFloor()][location.getRow()][location.getPlace()] == null) {
+                    Location location = getLocation(floor, row, place);
+                    if (location != null && !location.hasCar()) {
                         return location;
                     }
                 }
-            }
-        }
         return null;
     }
 
     public void carLeavesSpot(Car car) {
-        if (car == null) {
-            return;
-        }
-
-        Location location = car.getLocation();
-
-        if (!validateLocation(location)) {
-            return;
-        }
-        cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
-        car.setLocation(null);
-    }
-
-    public Car getCarAt(Location location) {
-        if (!validateLocation(location)) {
-            return null;
-        }
-        return cars[location.getFloor()][location.getRow()][location.getPlace()];
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
+                for (int place = 0; place < places; place++) {
+                    Location location = getLocation(floor, row, place);
+                    if (location != null && location.getCar() == car) {
+                        location.setCar(null);
+                    }
+                }
     }
 
     public int getCarCount() {
         int count = 0;
-        for (Car[][] carFloor : cars)
-            for (Car[] carRow : carFloor)
-                for (Car car : carRow)
-                    if (car != null) {
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
+                for (int place = 0; place < places; place++) {
+                    Location location = getLocation(floor, row, place);
+                    if (location != null && location.hasCar()) {
                         count++;
                     }
+                }
         return count;
     }
 
     public void setCarAt(Location location, Car car) {
-        if (!validateLocation(location)) {
+        if (location == null || car == null) {
             return;
         }
 
-        Car oldCar = getCarAt(location);
-        if (oldCar == null) {
-            cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
-            car.setLocation(location);
+        if (location.hasCar()) {
+            carLeavesSpot(location.getCar());
         }
+
+        location.setCar(car);
     }
 }

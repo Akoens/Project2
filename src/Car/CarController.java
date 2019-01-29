@@ -11,7 +11,7 @@ public class CarController {
     }
 
     public void updateView() {
-        view.update(car.getLocation(), car.getIsPaying(), car.getHasToPay());
+        view.update(car.getIsPaying(), car.getHasToPay());
     }
 
 }

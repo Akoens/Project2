@@ -1,14 +1,11 @@
 package Car;
 
-import ParkingGarage.Location;
-
 import java.awt.*;
 
 public abstract class Car {
 
     private String brand;
     private String licensePlate;
-    private Location location;
     private int minutesLeft;
     private int initialMinutesLeft;
     private boolean isPaying;
@@ -24,18 +21,9 @@ public abstract class Car {
         this.brand = brand;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public int getInitialMinutesLeft() {
         return initialMinutesLeft;
     }
-
 
     public int getMinutesLeft() {
         return minutesLeft;

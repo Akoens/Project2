@@ -12,7 +12,6 @@ public class CarViewTest {
     @Test
     public void testView() {
         Car car = new ReservationCar("", "");
-        car.setLocation(new Location(5, 0, 55));
         CarView view = new CarView();
         CarController controller = new CarController(car, view);
 
