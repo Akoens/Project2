@@ -1,6 +1,4 @@
 import Car.*;
-import Car.ReservationCar;
-import ParkingGarage.Location;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -11,8 +9,7 @@ public class CarViewTest {
 
     @Test
     public void testView() {
-        Car car = new ReservationCar();
-        car.setLocation(new Location(5, 0, 55));
+        Car car = new ReservationCar("", "");
         CarView view = new CarView();
         CarController controller = new CarController(car, view);
 

@@ -1,12 +1,10 @@
 import Car.*;
 import Generator.*;
-import Generator.LicensePlateGenerator;
 import ParkingGarage.ParkingGarage;
 import ParkingGarage.ParkingGarageView;
 import ParkingGarage.ParkingGarageSimulator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
