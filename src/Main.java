@@ -28,6 +28,7 @@ public class Main {
         frame.setSize(800, 800);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(parkingGarageView);
+        git c
         frame.setLocation(frame.getX() - frame.getWidth() / 2, frame.getY());
 
         ParkingGarageSimulator parkingGarageSimulator = new ParkingGarageSimulator(frame, parkingGarage, parkingGarageView);
