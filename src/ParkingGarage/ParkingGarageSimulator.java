@@ -66,9 +66,9 @@ public class ParkingGarageSimulator {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i=0; entryQueue.carsInQueue() > 0; ++i) {
+                for (int i=0; entryQueue.carsInQueue() > 0 && i<entryQueue.getEntrySpeed(); ++i) {
                     Car car = entryQueue.getCar();
-                    if (car.getPatience() <= 0) { entryQueue.removeCar(); }
+                    if (car.getPatience() <= 0 && parkingGarage.getCarCount()<384) { entryQueue.removeCar(); }
                     car.tickPatience();
                 }
             }

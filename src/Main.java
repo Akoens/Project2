@@ -19,7 +19,7 @@ public class Main {
 
         ArrayList<CarQueue> queues = parkingGarage.getCarQueues();
         CarEntryQueue entryQueue = new CarEntryQueue(3);
-
+        /*
         entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
         entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
         entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
@@ -30,6 +30,10 @@ public class Main {
         entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
         entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
         entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
+        */
+        for (int i=0; i<1000; ++i){
+            entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
+        }
         queues.add(entryQueue);
         queues.add(new CarPaymentQueue(1));
         queues.add(new CarExitQueue(5));
