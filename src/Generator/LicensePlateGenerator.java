@@ -26,68 +26,68 @@ public class LicensePlateGenerator {
 
     public String generatePlate() {
         int decideCountry = rd.nextInt(total);
-        String licenseplate;
+        String licensePlate;
         if (decideCountry < dutchRatio) {
             int decidePlate = rd.nextInt(7) + 1;
-            licenseplate = "NL: ";
+            licensePlate = "NL: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(1, CharType.CHARACTER);
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(1, CharType.CHARACTER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
+                    licensePlate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 4:
-                    licenseplate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.NUMBER);
+                    licensePlate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.NUMBER);
                     break;
                 case 5:
-                    licenseplate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER);
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER);
                     break;
                 case 6:
-                    licenseplate += generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER);
+                    licensePlate += generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER);
                     break;
                 case 7:
-                    licenseplate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.NUMBER);
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.NUMBER);
                     break;
             }
-            return licenseplate;
+            return licensePlate;
         } else if (decideCountry < germanRatio + dutchRatio) {
             int decidePlate = rd.nextInt(4) + 1;
-            licenseplate = "D: ";
+            licensePlate = "D: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
+                    licensePlate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
                     break;
                 case 4:
-                    licenseplate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
             }
-            return licenseplate;
+            return licensePlate;
         } else {
             int decidePlate = rd.nextInt(3) + 1;
-            licenseplate = "B: ";
+            licensePlate = "B: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
+                    licensePlate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
             }
         }
-        return licenseplate;
+        return licensePlate;
     }
 
     private char randomCharacter(){
