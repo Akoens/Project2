@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         LicensePlateGenerator lpg = new LicensePlateGenerator(200, 10, 5);
         CarBrandGenerator cbg = new CarBrandGenerator();
+        CarSpawnGenerator csg = new CarSpawnGenerator();
 
         ParkingGarage parkingGarage = new ParkingGarage(3, 2, 64);
         ParkingGarageView parkingGarageView = new ParkingGarageView();
@@ -18,16 +19,6 @@ public class Main {
         ArrayList<CarQueue> queues = parkingGarage.getCarQueues();
         CarEntryQueue entryQueue = new CarEntryQueue(3);
 
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
         queues.add(entryQueue);
         queues.add(new CarPaymentQueue(1));
         queues.add(new CarExitQueue(5));

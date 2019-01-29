@@ -33,14 +33,14 @@ public class GraphViewTest {
             try {
                 dataSetList.clear();
                 double[] dataSet = new double[100];
-                for (int i=0; i<dataSet.length; i++) {
-                    dataSet[i] = Math.sin((double)(i+x)/2) * 3 + 5;
+                for (int i = 0; i < dataSet.length; i++) {
+                    dataSet[i] = Math.sin((double) (i + x) / 2) * 3 + 5;
                 }
                 dataSetList.add(new DataSet(dataSet, Color.GREEN));
 
                 dataSet = new double[100];
-                for (int i=0; i<dataSet.length; i++) {
-                    dataSet[i] = Math.sin((double)(i+x)/5) * 10 + 20;
+                for (int i = 0; i < dataSet.length; i++) {
+                    dataSet[i] = Math.sin((double) (i + x) / 5) * 10 + 20;
                 }
                 dataSetList.add(new DataSet(dataSet, Color.BLUE));
                 graphView.updateView(dataSetList);

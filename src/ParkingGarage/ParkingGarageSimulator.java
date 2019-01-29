@@ -1,6 +1,7 @@
 package ParkingGarage;
 
 import Car.*;
+import Generator.CarSpawnGenerator;
 import Statistic.DataSet;
 import Statistic.GraphView;
 import Statistic.StatisticManager;
@@ -11,6 +12,8 @@ import java.awt.*;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
+
+    private CarSpawnGenerator csg;
 
     public static final int TAG_THROUGHPUT = 0;
 
@@ -43,6 +46,7 @@ public class ParkingGarageSimulator {
         statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
 
         thread = new Thread(this::run);
+        csg = new CarSpawnGenerator();
     }
 
     public void start() {
@@ -98,6 +102,13 @@ public class ParkingGarageSimulator {
         }
     }
 
+    private void performCarGeneration() {
+        for (CarQueue queue : parkingGarage.getCarQueues())
+            if (queue instanceof CarEntryQueue)
+                for (Car car : csg.carGeneration(calendar))
+                    queue.addCar(car);
+    }
+
     public void performCarPayment() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarPaymentQueue) {
@@ -121,7 +132,7 @@ public class ParkingGarageSimulator {
                         amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
                     if (car instanceof ReservationCar) {
-                        amountPaid += (double)car.getInitialMinutesLeft() / 60 * PRICE * 2;
+                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
                     }
                     i++;
                     car.setHasToPay(false);
@@ -131,22 +142,22 @@ public class ParkingGarageSimulator {
         }
     }
 
+    private void tick() {
+        performCarTick();
+        performCarGeneration();
+        performCarPayment();
+        performCarExit();
+        performCarEntry();
+        performStatisticTick();
+    }
+
     private void performStatisticTick() {
         if (lastHour == calendar.get(Calendar.HOUR_OF_DAY)) {
             return;
         }
 
         statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
-
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
-    }
-
-    private void tick() {
-        performCarTick();
-        performCarPayment();
-        performCarExit();
-        performCarEntry();
-        performStatisticTick();
     }
 
     private void run() {

@@ -44,8 +44,8 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         g2d.translate(getX() + shift.x, getY() + shift.y);
 
         //Draw sidelines
-        g2d.drawLine(axisLabelPadding+ xMargin, -shift.y, axisLabelPadding+22, getHeight()-axisLabelPadding- yMargin);
-        g2d.drawLine(axisLabelPadding+ xMargin, getHeight()-axisLabelPadding-24, getWidth() - shift.x, getHeight()-axisLabelPadding- yMargin);
+        g2d.drawLine(axisLabelPadding + xMargin, -shift.y, axisLabelPadding + 22, getHeight() - axisLabelPadding - yMargin);
+        g2d.drawLine(axisLabelPadding + xMargin, getHeight() - axisLabelPadding - 24, getWidth() - shift.x, getHeight() - axisLabelPadding - yMargin);
 
         if (xAxisStepSize > 10) {
             int i = 0;
@@ -78,7 +78,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
                     int lastDataX = 0;
                     int lastDataY = 0;
                     g2d.setColor(dataSet.color);
-                    for (int i=0; i<dataSet.data.length; i++) {
+                    for (int i = 0; i < dataSet.data.length; i++) {
                         dataX = i * xAxisStepSize + axisLabelPadding + xMargin - 2;
                         dataY = (int) (((getHeight() - axisLabelPadding - yMargin) - dataSet.data[i] * yAxisStepSize) - 2);
                         g.drawOval(dataX, dataY, 4, 4);
@@ -94,8 +94,8 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
 
         //Draw labels
         g2d.setColor(graphColor);
-        g2d.drawString(yAxisLabel, axisLabelOffset, getHeight()-axisLabelPadding+7);
-        g2d.translate(axisLabelPadding, getHeight()-axisLabelOffset);
+        g2d.drawString(yAxisLabel, axisLabelOffset, getHeight() - axisLabelPadding + 7);
+        g2d.translate(axisLabelPadding, getHeight() - axisLabelOffset);
         g2d.rotate((3 * Math.PI) / 2);
         g2d.drawString(xAxisLabel, 0, 0);
 
@@ -117,10 +117,12 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {
+    }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -128,11 +130,14 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 }

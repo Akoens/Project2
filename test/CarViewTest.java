@@ -9,7 +9,8 @@ public class CarViewTest {
 
     @Test
     public void testView() {
-        Car car = new ReservationCar("", "");
+
+        Car car = new ReservationCar("", "", 100);
         CarView view = new CarView();
         CarController controller = new CarController(car, view);
 
