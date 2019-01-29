@@ -10,6 +10,7 @@ public abstract class Car {
     private String licensePlate;
     private Location location;
     private int minutesLeft;
+    private int initialMinutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
 
@@ -24,10 +25,11 @@ public abstract class Car {
      * @param brand        a string containing a brand-type.
      * @param minutesLeft  an integer determining how long a car should stay inside the garage.
      */
-    public Car(String licensePlate, String brand, int minutesLeft) {
+    public Car(String licensePlate, String brand, int minutesLeft, boolean hasToPay) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.minutesLeft = minutesLeft;
+        this.hasToPay = hasToPay;
     }
 
     /**
@@ -108,6 +110,14 @@ public abstract class Car {
      */
     public String getBrand() {
         return brand;
+    }
+
+    /**
+     *
+     * @return the initial minitesLeft
+     */
+    public int getInitialMinutesLeft() {
+        return initialMinutesLeft;
     }
 
     /**

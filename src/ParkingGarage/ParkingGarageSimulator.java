@@ -24,6 +24,9 @@ public class ParkingGarageSimulator {
     private Thread thread;
     private Calendar calendar;
 
+    private double amountPaid = 0;
+    private static final double PRICE = 2.00;
+
     private int lastHour;
     private StatisticManager statisticManager;
 
@@ -72,13 +75,12 @@ public class ParkingGarageSimulator {
                 for (Car[][] carFloor : parkingGarage.getCars())
                     for (Car[] carRow : carFloor)
                         for (Car car : carRow)
-                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !car.getHasToPay()) {
                                 exitQueue.addCar(car);
                                 parkingGarage.carLeavesSpot(car);
                             }
 
-
-                for (int i = 0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
+                for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
                     exitQueue.removeCar();
                 }
             }
@@ -89,7 +91,7 @@ public class ParkingGarageSimulator {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i = 0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
+                for (int i=0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
                     Car car = entryQueue.removeCar();
                     Location freeLocation = parkingGarage.getFirstFreeLocation();
                     parkingGarage.setCarAt(freeLocation, car);
@@ -99,17 +101,46 @@ public class ParkingGarageSimulator {
     }
 
     private void performCarGeneration() {
-        for (CarQueue queue : parkingGarage.getCarQueues()) {
-            if (queue instanceof CarEntryQueue) {
-                for (Car car : csg.carGeneration(calendar)) {
+        for (CarQueue queue : parkingGarage.getCarQueues())
+            if (queue instanceof CarEntryQueue)
+                for (Car car : csg.carGeneration(calendar))
                     queue.addCar(car);
+    }
+
+    public void performCarPayment() {
+        for (CarQueue queue : parkingGarage.getCarQueues()) {
+            if (queue instanceof CarPaymentQueue) {
+                CarPaymentQueue paymentQueue = (CarPaymentQueue) queue;
+
+                for (Car[][] carFloor : parkingGarage.getCars())
+                    for (Car[] carRow : carFloor)
+                        for (Car car : carRow)
+                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && car.getHasToPay()) {
+                                paymentQueue.addCar(car);
+                                car.setIsPaying(true);
+                            }
+
+                int i = 0;
+                while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
+                    Car car = paymentQueue.removeCar();
+                    if (car instanceof AdHocCar) {
+                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
+                    }
+                    if (car instanceof ReservationCar) {
+                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
+                    }
+                    i++;
+                    car.setHasToPay(false);
+                    car.setIsPaying(false);
                 }
             }
         }
     }
+
     private void tick() {
         performCarTick();
         performCarGeneration();
+        performCarPayment();
         performCarExit();
         performCarEntry();
         performStatisticTick();
@@ -125,8 +156,6 @@ public class ParkingGarageSimulator {
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 
-
-
     private void run() {
         while (true) {
             try {
@@ -141,7 +170,7 @@ public class ParkingGarageSimulator {
     }
 
     public void updateView() {
-        parkingGarageView.updateView(calendar.getTime(), parkingGarage);
+        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaid);
         parkingGarageView.repaint();
         parkingGarageView.revalidate();
     }

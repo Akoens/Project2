@@ -22,7 +22,8 @@ public class Main {
         CarEntryQueue entryQueue = new CarEntryQueue(3);
 
         queues.add(entryQueue);
-        queues.add(new CarExitQueue(7, 5));
+        queues.add(new CarPaymentQueue(1));
+        queues.add(new CarExitQueue(5));
 
         JFrame frame = new JFrame("Parkeer Beheer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
