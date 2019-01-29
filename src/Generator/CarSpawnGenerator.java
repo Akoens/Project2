@@ -53,10 +53,10 @@ public class CarSpawnGenerator {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
         boolean isWeekend = false;
+
         if (dayNumber == 1 || dayNumber == 7) {
             isWeekend = true;
         }
-
 
         if (hour < 3 && spawnRate < 0.02) {
             cars.add(randomCar(360));
@@ -94,7 +94,6 @@ public class CarSpawnGenerator {
                 }
                 return cars;
             }
-
         } else if ((hour >= 3 && hour <= 5) && spawnRate < 0.05) {
             cars.add(randomCar(300));
             return cars;

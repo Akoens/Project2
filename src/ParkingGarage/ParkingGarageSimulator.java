@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 public class ParkingGarageSimulator {
 
-
     private CarSpawnGenerator csg;
 
     public static final int TAG_THROUGHPUT = 0;
@@ -152,7 +151,6 @@ public class ParkingGarageSimulator {
         }
 
         statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
-
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 

@@ -47,7 +47,6 @@ public class ParkingGarageView extends JPanel {
         }
 
         Graphics graphics = carParkImage.getGraphics();
-
         graphics.setColor(getBackground());
         graphics.fillRect(0, 0, (int) size.getWidth(), (int) size.getHeight());
 
