@@ -75,5 +75,4 @@ public class ParkingGarageView extends JPanel {
                 20 - 1,
                 10 - 1); // TODO use dynamic size or constants
     }
-
 }

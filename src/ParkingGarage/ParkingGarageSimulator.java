@@ -161,5 +161,4 @@ public class ParkingGarageSimulator {
         parkingGarageView.repaint();
         parkingGarageView.revalidate();
     }
-
 }
