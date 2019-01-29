@@ -58,11 +58,11 @@ public class ParkingGarageSimulator {
     }
 
     private void performCarTick() {
-        for (Car[][] carFloor : parkingGarage.getCars())
-            for (Car[] carRow : carFloor)
-                for (Car car : carRow)
-                    if (car != null) {
-                        car.tick();
+        for (Location[][] locationFloor : parkingGarage.getLocations())
+            for (Location[] LocationRow : locationFloor)
+                for (Location location : LocationRow)
+                    if (location != null && location.hasCar()) {
+                        location.getCar().tick();
                     }
     }
 
@@ -71,12 +71,15 @@ public class ParkingGarageSimulator {
             if (queue instanceof CarExitQueue) {
                 CarExitQueue exitQueue = (CarExitQueue) queue;
 
-                for (Car[][] carFloor : parkingGarage.getCars())
-                    for (Car[] carRow : carFloor)
-                        for (Car car : carRow)
-                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !car.getHasToPay()) {
-                                exitQueue.addCar(car);
-                                parkingGarage.carLeavesSpot(car);
+                for (Location[][] locationFloor : parkingGarage.getLocations())
+                    for (Location[] LocationRow : locationFloor)
+                        for (Location location : LocationRow)
+                            if (location != null && location.hasCar()) {
+                                Car car = location.getCar();
+                                if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !car.getHasToPay()) {
+                                    exitQueue.addCar(car);
+                                    parkingGarage.carLeavesSpot(car);
+                                }
                             }
 
                 for (int i=0; exitQueue.carsInQueue() > 0 && i < exitQueue.getExitSpeed(); ++i) {
@@ -111,12 +114,15 @@ public class ParkingGarageSimulator {
             if (queue instanceof CarPaymentQueue) {
                 CarPaymentQueue paymentQueue = (CarPaymentQueue) queue;
 
-                for (Car[][] carFloor : parkingGarage.getCars())
-                    for (Car[] carRow : carFloor)
-                        for (Car car : carRow)
-                            if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && car.getHasToPay()) {
-                                paymentQueue.addCar(car);
-                                car.setIsPaying(true);
+                for (Location[][] locationFloor : parkingGarage.getLocations())
+                    for (Location[] LocationRow : locationFloor)
+                        for (Location location : LocationRow)
+                            if (location != null && location.hasCar()) {
+                                Car car = location.getCar();
+                                if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && car.getHasToPay()) {
+                                    paymentQueue.addCar(car);
+                                    car.setIsPaying(true);
+                                }
                             }
 
                 int i = 0;

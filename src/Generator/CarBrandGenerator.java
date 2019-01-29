@@ -29,7 +29,7 @@ public class CarBrandGenerator {
         String result;
         if (x <= 10) {
             result = exotic.get(rd.nextInt(exotic.size() - 1));
-        } else if (x > 10 && x <= 150) {
+        } else if (x <= 150) {
             result = expensive.get(rd.nextInt(expensive.size() - 1));
         } else {
             result = average.get(rd.nextInt(average.size() - 1));

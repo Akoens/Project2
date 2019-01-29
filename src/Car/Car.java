@@ -1,51 +1,28 @@
 package Car;
 
-import ParkingGarage.Location;
-
 import java.awt.*;
 
 public abstract class Car {
 
     private String brand;
     private String licensePlate;
-    private Location location;
     private int minutesLeft;
     private int initialMinutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
 
     /**
-     * Constructor for objects of class Car.Car
-     */
-    public Car() {
-    }
-
-    /**
      * @param licensePlate a string containing a license plate-type.
      * @param brand        a string containing a brand-type.
      * @param minutesLeft  an integer determining how long a car should stay inside the garage.
+     * @param hasToPay set the boolean whether the car needs to pay or not.
      */
     public Car(String licensePlate, String brand, int minutesLeft, boolean hasToPay) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.minutesLeft = minutesLeft;
+        this.initialMinutesLeft = minutesLeft;
         this.hasToPay = hasToPay;
-    }
-
-    /**
-     *
-     * @return a location object which contains the current location of the car.
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     *
-     * @param location set a car his location to a specific one.
-     */
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     /**

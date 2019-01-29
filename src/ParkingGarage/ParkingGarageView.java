@@ -1,7 +1,5 @@
 package ParkingGarage;
 
-import Car.Car;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
@@ -50,27 +48,29 @@ public class ParkingGarageView extends JPanel {
         graphics.setColor(getBackground());
         graphics.fillRect(0, 0, (int) size.getWidth(), (int) size.getHeight());
 
-        for (int floor = 0; floor < parkingGarage.getFloors(); floor++) {
-            for (int row = 0; row < parkingGarage.getRows(); row++) {
-                for (int place = 0; place < parkingGarage.getPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = parkingGarage.getCarAt(location);
-                    Color color = car == null ? Color.white : car.getColor();
-                    drawPlace(graphics, location, color);
-                }
-            }
-        }
+        for (int floor = 0; floor < parkingGarage.getFloors(); floor++)
+            for (int row = 0; row < parkingGarage.getRows(); row++)
+                for (int place = 0; place < parkingGarage.getPlaces(); place++)
+                    drawPlace(graphics, parkingGarage.getLocation(floor, row, place), floor, row, place);
 
         graphics.setColor(Color.WHITE);
         graphics.drawString(dateFormat.format(time), 4, (int) size.getHeight() - 8);
         graphics.drawString("$"+ String.format("%1.2f",moneyPaid), 4, (int) size.getHeight() - 20);
     }
 
-    private void drawPlace(Graphics graphics, Location location, Color color) {
-        graphics.setColor(color);
+    private void drawPlace(Graphics graphics, Location location, int floor, int row, int place) {
+        if (location == null) {
+            return;
+        }
+
+        if (location.hasCar()) {
+            graphics.setColor(location.getCar().getColor());
+        } else {
+            graphics.setColor(location.getColor());
+        }
         graphics.fillRect(
-                location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
-                60 + location.getPlace() * 10,
+                floor * 260 + (1 + (int) Math.floor(row * 0.5)) * 75 + (row % 2) * 20,
+                60 + place * 10,
                 20 - 1,
                 10 - 1); // TODO use dynamic size or constants
     }

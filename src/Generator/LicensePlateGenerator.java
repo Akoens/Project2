@@ -1,146 +1,136 @@
 package Generator;
 
-import java.math.BigDecimal;
 import java.util.Random;
 
 public class LicensePlateGenerator {
-    Random rd;
-    int nlRatio;
-    int dRatio;
-    int bRatio;
-    int total;
 
-    public LicensePlateGenerator(int nlRatio, int dRatio, int bRatio) {
+    private enum CharType {
+        CHARACTER,
+        NUMBER
+    }
+
+    private Random rd;
+    private int dutchRatio;
+    private int germanRatio;
+    private int belgianRatio;
+    private int total;
+
+    public LicensePlateGenerator(int dutchRatio, int germanRatio, int belgianRatio) {
+        this.dutchRatio = dutchRatio;
+        this.germanRatio = germanRatio;
+        this.belgianRatio = belgianRatio;
+
         rd = new Random();
-        this.nlRatio = nlRatio;
-        this.dRatio = dRatio;
-        this.bRatio = bRatio;
-        total = nlRatio + dRatio + bRatio;
+        total = dutchRatio + germanRatio + belgianRatio;
     }
 
     public String generatePlate() {
         int decideCountry = rd.nextInt(total);
-        String licenseplate;
-        if (decideCountry < nlRatio) {
+        String licensePlate;
+        if (decideCountry < dutchRatio) {
             int decidePlate = rd.nextInt(7) + 1;
-            licenseplate = "NL: ";
+            licensePlate = "NL: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, "char") + "-" + generateCharacters(2, "number") + "-" + generateCharacters(1, "char");
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(1, CharType.CHARACTER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(1, "char") + "-" + generateCharacters(2, "number") + "-" + generateCharacters(3, "char");
+                    licensePlate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(1, "number") + "-" + generateCharacters(2, "char") + "-" + generateCharacters(3, "number");
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 4:
-                    licenseplate += generateCharacters(3, "number") + "-" + generateCharacters(2, "char") + "-" + generateCharacters(1, "number");
+                    licensePlate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.NUMBER);
                     break;
                 case 5:
-                    licenseplate += generateCharacters(1, "number") + "-" + generateCharacters(3, "char") + "-" + generateCharacters(2, "number");
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER);
                     break;
                 case 6:
-                    licenseplate += generateCharacters(2, "number") + "-" + generateCharacters(2, "char") + "-" + generateCharacters(2, "char");
+                    licensePlate += generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER);
                     break;
                 case 7:
-                    licenseplate += generateCharacters(2, "char") + "-" + generateCharacters(2, "number") + "-" + generateCharacters(2, "number");
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.NUMBER) + "-" + generateCharacters(2, CharType.NUMBER);
                     break;
             }
-            return licenseplate;
-        } else if (decideCountry < dRatio + nlRatio) {
+            return licensePlate;
+        } else if (decideCountry < germanRatio + dutchRatio) {
             int decidePlate = rd.nextInt(4) + 1;
-            licenseplate = "D: ";
+            licensePlate = "D: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, "char") + "-" + generateCharacters(2, "char") + "-" + generateCharacters(3, "number");
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(1, "char") + "-" + generateCharacters(2, "char") + "-" + generateCharacters(4, "number");
+                    licensePlate += generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(2, "char") + "-" + generateCharacters(1, "char") + "-" + generateCharacters(4, "number");
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(4, CharType.NUMBER);
                     break;
                 case 4:
-                    licenseplate += generateCharacters(2, "char") + "-" + generateCharacters(1, "char") + "-" + generateCharacters(3, "number");
+                    licensePlate += generateCharacters(2, CharType.CHARACTER) + "-" + generateCharacters(1, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
             }
-            return licenseplate;
+            return licensePlate;
         } else {
             int decidePlate = rd.nextInt(3) + 1;
-            licenseplate = "B: ";
+            licensePlate = "B: ";
             switch (decidePlate) {
                 case 1:
-                    licenseplate += generateCharacters(3, "number") + "-" + generateCharacters(3, "char");
+                    licensePlate += generateCharacters(3, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER);
                     break;
                 case 2:
-                    licenseplate += generateCharacters(3, "char") + "-" + generateCharacters(3, "number");
+                    licensePlate += generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
                 case 3:
-                    licenseplate += generateCharacters(1, "number") + "-" + generateCharacters(3, "char") + "-" + generateCharacters(3, "number");
+                    licensePlate += generateCharacters(1, CharType.NUMBER) + "-" + generateCharacters(3, CharType.CHARACTER) + "-" + generateCharacters(3, CharType.NUMBER);
                     break;
             }
         }
-        return licenseplate;
+        return licensePlate;
     }
 
-    public int randomValueCharacter(){
-        return rd.nextInt(26) + 65;
+    private char randomCharacter(){
+        return (char) (rd.nextInt(26) + 65);
     }
 
-    public int randomValueNumber(){
-        return rd.nextInt(10) + 48;
+    private int randomNumber(){
+        return rd.nextInt(10);
     }
 
-    public String generateCharacters(int x, String charOrNumber){
-        String result = "";
-        if ((x > 0 && x <= 3) && charOrNumber.equals("char")){
-            if (x == 1){
-                result = Character.toString ((char) randomValueCharacter());
-            } else if (x == 2){
-                result = Character.toString ((char) randomValueCharacter())+((char) randomValueCharacter());
-            } else if (x == 3){
-                result = Character.toString ((char) randomValueCharacter())+((char) randomValueCharacter())+((char) randomValueCharacter());
-            }
-        } else if ((x > 0 && x <= 4) && charOrNumber.equals("number")) {
-            if (x == 1){
-                result = Character.toString ((char) randomValueNumber());
-            } else if (x == 2){
-                result = Character.toString ((char) randomValueNumber())+((char) randomValueNumber());
-            } else if (x == 3){
-                result = Character.toString ((char) randomValueNumber())+((char) randomValueNumber())+((char) randomValueNumber());
-            } else if (x == 4) {
-                result = Character.toString((char) randomValueNumber()) + ((char) randomValueNumber()) + ((char) randomValueNumber());
-            }
+    private String generateCharacters(int x, CharType type){
+        StringBuilder result = new StringBuilder();
+
+        if (x < 1) {
+            return result.toString();
         }
-        return result;
+
+        switch (type) {
+            case CHARACTER:
+                if (x <= 3) {
+                    for (int i = 0; i<x; i++)
+                        result.append(randomCharacter());
+                    break;
+                }
+            case NUMBER:
+                if (x <= 4) {
+                    for (int i=0; i<x; i++)
+                        result.append(randomNumber());
+                }
+        }
+        
+        return result.toString();
     }
 
-    public int getNlRatio() {
-        return nlRatio;
+    public int getDutchRatio() {
+        return dutchRatio;
     }
 
-    public void setNlRatio(int nlRatio) {
-        this.nlRatio = nlRatio;
+    public int getGermanRatio() {
+        return germanRatio;
     }
 
-    public int getdRatio() {
-        return dRatio;
-    }
-
-    public void setdRatio(int dRatio) {
-        this.dRatio = dRatio;
-    }
-
-    public int getbRatio() {
-        return bRatio;
-    }
-
-    public void setbRatio(int bRatio) {
-        this.bRatio = bRatio;
-    }
-
-    public int getTotal() {
-        return total;
+    public int getBelgianRatio() {
+        return belgianRatio;
     }
 }
