@@ -61,27 +61,45 @@ public class CarSpawnGenerator {
         if (hour < 3 && spawnRate < 0.02) {
             cars.add(randomCar(360));
             return cars;
-        } else if ((hour == 6 || hour == 7 || hour == 8) && spawnRate < 1.00 && isWeekend) {
-            cars.add(randomCar(80));
-            return cars;
-        } else if ((hour >= 18 && hour <= 20) && spawnRate < 0.30 && dayNumber == 5) { //koopavond
-            cars.add(randomCar(120));
-            return cars;
-        } else if ((hour >= 19 && hour <= 23) && spawnRate < 0.75 && dayNumber == 6) { //theater avond, altijd uitverkocht
-            cars.add(randomCar(180));
-            return cars;
-        } else if ((hour >= 19 && hour <= 23) && spawnRate < 0.65 && dayNumber == 7) { //theater avond, altijd uitverkocht
-            cars.add(randomCar(180));
-            return cars;
-        } else if ((hour >= 13 && hour <= 15) && spawnRate < 0.60 && dayNumber == 1) {  //theater middag, altijd uitverkocht
-            cars.add(randomCar(180));
-            return cars;
+        } else if ((hour == 6 || hour == 7 || hour == 8) && isWeekend) {
+            if (rd.nextDouble() < 0.20) {
+                cars.add(randomCar(80));
+                return cars;
+            }
+        } else if ((hour >= 18 && hour <= 20) && dayNumber == 5) { //koopavond
+            if (rd.nextDouble() < 0.75) {
+                for (int x = 0; x <= rd.nextInt(3); x++) {
+                    cars.add(randomCar(150));
+                }
+                return cars;
+            }
+        } else if ((hour >= 19 && hour <= 23) && dayNumber == 6) { //theater avond, altijd uitverkocht
+            if (rd.nextDouble() < 0.85) {
+                for (int x = 0; x <= rd.nextInt(3); x++) {
+                    cars.add(randomCar(160));
+                }
+                return cars;
+            }
+        } else if ((hour >= 19 && hour <= 23) && dayNumber == 7) { //theater avond, altijd uitverkocht
+            if (rd.nextDouble() < 0.85) {
+                for (int x = 0; x <= rd.nextInt(3); x++) {
+                    cars.add(randomCar(160));
+                }
+                return cars;
+            }
+        } else if ((hour >= 13 && hour <= 15) && dayNumber == 1) {  //theater middag, altijd uitverkocht
+            if (rd.nextDouble() < 0.85) {
+                for (int x = 0; x <= rd.nextInt(3); x++) {
+                    cars.add(randomCar(160));
+                }
+                return cars;
+            }
 
         } else if ((hour >= 3 && hour <= 5) && spawnRate < 0.05) {
             cars.add(randomCar(300));
             return cars;
         } else if ((hour == 6 || hour == 7) && spawnRate < 1.00) {
-            for (int x = 0; x <= rd.nextInt(2); x++) {
+            for (int x = 0; x <= rd.nextInt(3); x++) {
                 cars.add(randomCar(700));
             }
             return cars;

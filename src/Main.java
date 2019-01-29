@@ -21,16 +21,6 @@ public class Main {
         ArrayList<CarQueue> queues = parkingGarage.getCarQueues();
         CarEntryQueue entryQueue = new CarEntryQueue(3);
 
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
-        entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), csg.randomStayMinutes(360)));
         queues.add(entryQueue);
         queues.add(new CarExitQueue(7, 5));
 
