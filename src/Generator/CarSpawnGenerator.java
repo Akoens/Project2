@@ -39,11 +39,9 @@ public class CarSpawnGenerator {
     }
 
     public int randomStayMinutes(int minimumMinutes) {
-        if (rd.nextInt(100) < 50) {
-            return minimumMinutes - rd.nextInt(minimumMinutes / 10);
-        } else {
-            return minimumMinutes + rd.nextInt(minimumMinutes / 10);
-        }
+        return rd.nextInt(100) < 50
+                ? minimumMinutes - rd.nextInt(minimumMinutes / 15)
+                : minimumMinutes + rd.nextInt(minimumMinutes / 15);
     }
 
 

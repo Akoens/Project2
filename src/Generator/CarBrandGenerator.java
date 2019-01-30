@@ -23,7 +23,8 @@ public class CarBrandGenerator {
                 "Mitsubishi", "Suzuki", "Volkswagen", "Renault", "Saab", "Subaru", "Volvo");
     }
 
-    public String getRandomBrand() {
+    public String getRandomBrand() { //TODO Use variables to determine spawn % of brands.
+
         rd = new Random();
         int x = rd.nextInt(1000);
         String result;

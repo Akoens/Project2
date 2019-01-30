@@ -24,7 +24,9 @@ public class ParkingGarageSimulator {
     private Calendar calendar;
 
     private double amountPaidWeek = 0;
+    private double amountPaidLastWeek = 0;
     private double amountPaidWeekend = 0;
+    private double amountPaidLastWeekend = 0;
     private double amountPaidTotal = 0;
     private static final double PRICE = 2.00;
 
@@ -33,7 +35,7 @@ public class ParkingGarageSimulator {
 
     //private double timeScale = 1d;  //Every real life second a simulated second passes
     //private double timeScale = 60d; //Every real life second a simulated minute passes
-    private double timeScale = 3750d; //Every real life second a simulated hour passes
+    private double timeScale = 15000d; //Every real life second a simulated hour passes
 
     public ParkingGarageSimulator(JFrame frame, ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
         this.parkingGarage = parkingGarage;
@@ -112,7 +114,7 @@ public class ParkingGarageSimulator {
     }
 
     public void performCarPayment() {
-        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
+
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarPaymentQueue) {
                 CarPaymentQueue paymentQueue = (CarPaymentQueue) queue;
@@ -131,23 +133,12 @@ public class ParkingGarageSimulator {
                 int i = 0;
                 while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
                     Car car = paymentQueue.removeCar();
+                    double x = (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     if (car instanceof AdHocCar) {
-                        if (dayNumber > 1 && dayNumber < 7) {
-                            amountPaidWeek += (double) car.getInitialMinutesLeft() / 60 * PRICE;
-                            amountPaidTotal += (double) car.getInitialMinutesLeft() / 60 * PRICE;
-                        } else {
-                            amountPaidWeekend += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                            amountPaidTotal += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                        }
+                        calculateCarParkingPrice(x, 1);
                     }
                     if (car instanceof ReservationCar) {
-                        if (dayNumber > 1 && dayNumber < 7) {
-                            amountPaidWeek += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                            amountPaidTotal += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                        } else {
-                            amountPaidWeekend += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                            amountPaidTotal += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
-                        }
+                        calculateCarParkingPrice(x, 2);
                     }
                     i++;
                     car.setHasToPay(false);
@@ -156,6 +147,30 @@ public class ParkingGarageSimulator {
             }
         }
     }
+
+    private void calculateCarParkingPrice(double price, int multiplier) {
+        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
+
+
+        if (dayNumber > 1 && dayNumber < 7) {
+            if (dayNumber == 2 && amountPaidWeekend != 0) {
+                amountPaidLastWeekend = amountPaidWeekend;
+                amountPaidWeekend = 0;
+            }
+            amountPaidWeek += price * multiplier;
+
+        } else if (dayNumber == 7 || dayNumber == 1) {
+            if (dayNumber == 7 && amountPaidWeek != 0) {
+                amountPaidLastWeek = amountPaidWeek;
+                amountPaidWeek = 0;
+            }
+
+            amountPaidWeekend += price * multiplier;
+
+        }
+        amountPaidTotal += price * multiplier;
+    }
+
 
     private void tick() {
         performCarTick();
@@ -189,7 +204,7 @@ public class ParkingGarageSimulator {
     }
 
     public void updateView() {
-        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaidWeek, amountPaidWeekend, amountPaidTotal);
+        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaidWeek, amountPaidWeekend, amountPaidTotal, amountPaidLastWeek, amountPaidLastWeekend);
         parkingGarageView.repaint();
         parkingGarageView.revalidate();
     }
