@@ -54,7 +54,7 @@ public class ParkingGarageView extends JPanel {
                     drawPlace(graphics, parkingGarage.getLocation(floor, row, place), floor, row, place);
 
         graphics.setColor(Color.WHITE);
-        graphics.drawString(dateFormat.format(time), 4, (int) size.getHeight() - 8);
+        graphics.drawString(dateFormat.format(time), 4, (int) size.getHeight() - 735);
         graphics.drawString("Total income: $" + String.format("%1.2f", moneyPaidTotal), 4, (int) size.getHeight() - 20);
         graphics.drawString("Weekday income: $" + String.format("%1.2f", moneyPaidWeek), 4, (int) size.getHeight() - 32);
         graphics.drawString("Weekend income: $" + String.format("%1.2f", moneyPaidWeekend), 4, (int) size.getHeight() - 44);
