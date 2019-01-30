@@ -34,7 +34,7 @@ public class ParkingGarageView extends JPanel {
         }
     }
 
-    public void updateView(Date time, ParkingGarage parkingGarage, double moneyPaid) {
+    public void updateView(Date time, ParkingGarage parkingGarage, double moneyPaidWeek, double moneyPaidWeekend, double moneyPaidTotal) {
         if (!size.equals(getSize())) {
             size = getSize();
             carParkImage = createImage(size.width, size.height);
@@ -55,7 +55,9 @@ public class ParkingGarageView extends JPanel {
 
         graphics.setColor(Color.WHITE);
         graphics.drawString(dateFormat.format(time), 4, (int) size.getHeight() - 8);
-        graphics.drawString("$"+ String.format("%1.2f",moneyPaid), 4, (int) size.getHeight() - 20);
+        graphics.drawString("Total income: $" + String.format("%1.2f", moneyPaidTotal), 4, (int) size.getHeight() - 20);
+        graphics.drawString("Weekday income: $" + String.format("%1.2f", moneyPaidWeek), 4, (int) size.getHeight() - 32);
+        graphics.drawString("Weekend income: $" + String.format("%1.2f", moneyPaidWeekend), 4, (int) size.getHeight() - 44);
     }
 
     private void drawPlace(Graphics graphics, Location location, int floor, int row, int place) {
