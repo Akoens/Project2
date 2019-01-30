@@ -4,8 +4,6 @@ import Car.Car;
 import Car.AdHocCar;
 import Car.ParkingPassCar;
 import Car.ReservationCar;
-import Generator.CarBrandGenerator;
-import Generator.LicensePlateGenerator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,18 +17,32 @@ public class CarSpawnGenerator {
     private Random rd;
     private double spawnRate;
 
-    public CarSpawnGenerator() {
+    /**
+     * Constructor for the CarSpawnGenerator taking three parameters.
+     * This class decides how many cars arrive, when they arrive and when they leave.
+     * explanation: int x, int y, int z this will mean that for every x Dutch cars, there will be y german and z cars from Belgium.
+     *
+     * @param dr the dutch nationality ratio of appearing cars.
+     * @param gr the german nationality ratio of appearing cars.
+     * @param br the belgium nationality ratio of appearing cars.
+     */
+    public CarSpawnGenerator(int dr, int gr, int br) {
         rd = new Random();
         cbg = new CarBrandGenerator();
-        lpg = new LicensePlateGenerator(200, 10, 5);
+        lpg = new LicensePlateGenerator(dr, gr, br);
 
     }
 
+    /**
+     * Method to receive a new generated car object, randomly chosen between available.
+     * @param minutesLeft how long the car will stay inside the parking garage in minutes as type integer.
+     * @return the new randomly generated car object.
+     */
     public Car randomCar(int minutesLeft) {
         int decide = rd.nextInt(99) + 1;
         if (decide <= 33) {
             return new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else if (decide > 33 && decide < 66) {
+        } else if (decide < 66) {
             return new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         } else {
             return new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
@@ -38,6 +50,11 @@ public class CarSpawnGenerator {
 
     }
 
+    /**
+     * Method to randomise the minutesleft to help make the simulation feel more natural.
+     * @param minimumMinutes how long the car will stay inside the parking garage in minutes as type integer.
+     * @return an integer which is either a little bit bigger or smaller than passed to it.
+     */
     public int randomStayMinutes(int minimumMinutes) {
         if (rd.nextInt(100) < 50) {
             return minimumMinutes - rd.nextInt(minimumMinutes / 10);
@@ -46,7 +63,11 @@ public class CarSpawnGenerator {
         }
     }
 
-
+    /**
+     * Method to decide which cars, how many cars and how long the cars will stay inside the garage at that time.
+     * @param calendar a calendar object which is used to provide real-time time to the simulation.
+     * @return an ArrayList of cars ready to enter the garage.
+     */
     public ArrayList<Car> carGeneration(Calendar calendar) {
         ArrayList<Car> cars = new ArrayList<Car>();
         spawnRate = rd.nextDouble();

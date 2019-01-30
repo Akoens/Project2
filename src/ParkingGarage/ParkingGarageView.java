@@ -11,6 +11,9 @@ public class ParkingGarageView extends JPanel {
     private Image carParkImage;
     private Dimension size;
 
+    /**
+     * Constructor for the ParkingGarageView object with zero parameters.
+     */
     public ParkingGarageView() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -21,6 +24,11 @@ public class ParkingGarageView extends JPanel {
         setBackground(Color.GRAY);
     }
 
+    /**
+     * Method to paint
+     *
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         if (carParkImage == null) {
             return;

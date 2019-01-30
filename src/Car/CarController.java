@@ -6,6 +6,7 @@ public class CarController {
     private CarView view;
 
     /**
+     * Constructor for the CarController with two parameters.
      * @param car  a car object.
      * @param view a CarView object.
      */

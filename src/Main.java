@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         LicensePlateGenerator lpg = new LicensePlateGenerator(200, 10, 5);
         CarBrandGenerator cbg = new CarBrandGenerator();
-        CarSpawnGenerator csg = new CarSpawnGenerator();
+        CarSpawnGenerator csg = new CarSpawnGenerator(200, 10, 5);
 
         ParkingGarage parkingGarage = new ParkingGarage(3, 2, 64);
         ParkingGarageView parkingGarageView = new ParkingGarageView();
