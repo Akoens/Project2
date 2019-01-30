@@ -25,9 +25,8 @@ public class ParkingGarageView extends JPanel {
     }
 
     /**
-     * Method to paint
-     *
-     * @param g
+     * Method to paint the graphical component of the parking garage.
+     * @param g a Graphics object.
      */
     public void paintComponent(Graphics g) {
         if (carParkImage == null) {
@@ -42,6 +41,13 @@ public class ParkingGarageView extends JPanel {
         }
     }
 
+    /**
+     * Method to update the view when changes occur.
+     *
+     * @param time          a Date object.
+     * @param parkingGarage a ParkingGarage object.
+     * @param moneyPaid     a double which holds the amount of money paid.
+     */
     public void updateView(Date time, ParkingGarage parkingGarage, double moneyPaid) {
         if (!size.equals(getSize())) {
             size = getSize();
@@ -66,6 +72,14 @@ public class ParkingGarageView extends JPanel {
         graphics.drawString("$"+ String.format("%1.2f",moneyPaid), 4, (int) size.getHeight() - 20);
     }
 
+    /**
+     * Method to draw the corresponding color of car onto the location where it's supposed to be.
+     * @param graphics a graphics object.
+     * @param location a location object.
+     * @param floor a floor's number as an integer.
+     * @param row a row's number as an integer.
+     * @param place a place's number as an integer.
+     */
     private void drawPlace(Graphics graphics, Location location, int floor, int row, int place) {
         if (location == null) {
             return;
