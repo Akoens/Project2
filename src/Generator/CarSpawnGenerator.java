@@ -27,14 +27,14 @@ public class CarSpawnGenerator {
     }
 
     public Car randomCar(int minutesLeft) {
-        int decide = rd.nextInt(99) + 1;
+        int decide = rd.nextInt(100) + 1;
         if (decide <= 70) {
             return new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         } else if (decide <= 85) {
             return new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         } else if (decide <= 93) {
             return new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else if (decide <= 98) {
+        } else if (decide <= 99) {
             return new ElectricCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         } else {
             return new DisabledCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));

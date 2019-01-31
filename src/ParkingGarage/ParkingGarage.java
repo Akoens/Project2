@@ -23,10 +23,16 @@ public class ParkingGarage {
             for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++)
                     locations[floor][row][place] = new Location();
-
-        for (int i=0; i<64; i++) {
+        for (int i = 0; i < 8; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.DISABLED);
+        }
+        for (int i = 8; i < 28; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.RECHARGE);
+        }
+        for (int i = 28; i < 60; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
         }
+
     }
 
     public int getFloors() {
@@ -68,6 +74,14 @@ public class ParkingGarage {
 
         if (car instanceof ReservationCar) {
             location = getFirstFreeLocation(Location.LocationType.RESERVED);
+        }
+
+        if (car instanceof ElectricCar) {
+            location = getFirstFreeLocation(Location.LocationType.RECHARGE);
+        }
+
+        if (car instanceof DisabledCar) {
+            location = getFirstFreeLocation(Location.LocationType.DISABLED);
         }
 
         if (location == null) {

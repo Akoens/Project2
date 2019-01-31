@@ -1,6 +1,8 @@
 package ParkingGarage;
 
 import Car.CarView;
+import Car.DisabledCar;
+import Car.ElectricCar;
 import Car.ReservationCar;
 import mdlaf.utils.MaterialColors;
 
@@ -26,9 +28,10 @@ public class LocationView extends JPanel {
                 barColor = MaterialColors.GRAY_700;
                 break;
             case DISABLED:
-                barColor = MaterialColors.GRAY_700;
+                barColor = DisabledCar.COLOR;
                 break;
             case RECHARGE:
+                barColor = ElectricCar.COLOR;
                 break;
             case RESERVED:
                 barColor = ReservationCar.COLOR;
