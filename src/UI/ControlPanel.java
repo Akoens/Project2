@@ -86,7 +86,6 @@ public class ControlPanel extends JPanel implements ChangeListener, ActionListen
                 updatePauseButtonText();
                 break;
             case ACTION_RESET:
-                applicationState.reset();
                 break;
         }
 

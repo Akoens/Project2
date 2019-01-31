@@ -3,7 +3,7 @@ package Car;
 import java.awt.*;
 
 public class AdHocCar extends Car {
-    private static final Color COLOR = Color.red;
+    public static final Color COLOR = Color.red;
 
     /**
      * @param licensePlate a string containing a license plate-type.
