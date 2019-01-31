@@ -11,23 +11,28 @@ public class WorkerGenerator {
     private Random rd;
     private double spawnRate;
     private ArrayList workers;
+    private int sg;
+    private int w;
 
-    public WorkerGenerator(int sg, int w) {
+    public WorkerGenerator() {
         rd = new Random();
         workers = new ArrayList<>();
+
+    }
+
+    public ArrayList<Worker> generateWorkers(int sg, int w) {
+        this.sg = sg;
+        this.w = w;
+        int decideAge = rd.nextInt(78) + 18;
         for (int x = 0; x <= sg; x++) {
-            workers.add(randomWorker("Security Guard: " + x));
+            workers.add(new Worker("Security Guard: " + x, decideAge, 10000000));
         }
         for (int x = 0; x <= w; x++) {
-            workers.add(randomWorker("Worker: " + x));
+            workers.add(new Worker("Worker " + x, decideAge, randomStayMinutes(550)));
         }
+        return workers;
     }
 
-    public Worker randomWorker(String job) {
-        int decideAge = rd.nextInt(78) + 18;
-        return new Worker(job, decideAge, randomStayMinutes(550));
-
-    }
 
     public int randomStayMinutes(int minimumMinutes) {
         if (rd.nextInt(100) < 50) {
@@ -37,23 +42,12 @@ public class WorkerGenerator {
         }
     }
 
-    public ArrayList<Worker> workerGeneration(Calendar calendar) {
-        ArrayList<>
-                spawnRate = rd.nextDouble();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
-        boolean isWeekend;
+    public int getSg() {
+        return sg;
+    }
 
-        if (dayNumber == 1 || dayNumber == 7) {
-            isWeekend = true;
-        } else {
-            isWeekend = false;
-        }
-
-        if (hour == 7 && !isWeekend) {
-
-        }
-
+    public int getW() {
+        return w;
     }
 }
 

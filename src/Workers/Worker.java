@@ -9,7 +9,7 @@ public class Worker {
 
     public Worker(String jobName, int age, int stayMinutes) {
         this.stayMinutes = stayMinutes;
-        this.perHour = age * 0.65;
+        this.perHour = age * 0.23;
         this.age = age;
         this.workDesc = jobName;
         this.workExperience = 0;
@@ -46,5 +46,13 @@ public class Worker {
 
     public void setWorkExperience(int workExperience) {
         this.workExperience = workExperience;
+    }
+
+    public int getStayMinutes() {
+        return stayMinutes;
+    }
+
+    public void setStayMinutes(int stayMinutes) {
+        this.stayMinutes = stayMinutes;
     }
 }
