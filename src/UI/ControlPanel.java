@@ -18,7 +18,6 @@ public class ControlPanel extends JPanel implements ChangeListener, ActionListen
     private static final String ACTION_RESET = "ACTION_RESET";
 
     private ApplicationState applicationState;
-
     private JButton pauseButton;
     private JButton resetButton;
     private JSlider timescaleSlider;
@@ -31,20 +30,17 @@ public class ControlPanel extends JPanel implements ChangeListener, ActionListen
 
         setLayout (new BorderLayout());
 
-
         timescaleSlider = new JSlider();
         timescaleSlider.setBorder(null);
         timescaleSlider.setMinimum(ParkingGarageSimulator.TIMESCALE_MIN);
         timescaleSlider.setMaximum(ParkingGarageSimulator.TIMESCALE_MAX);
         timescaleSlider.setValue(applicationState.getParkingGarageSimulator().getTimescale());
         timescaleSlider.addChangeListener(this);
-
         timescaleLabel = new JLabel(timescaleSlider.getValue() + "x");
 
         JPanel timescalePanel = new JPanel(new BorderLayout());
         timescalePanel.add(timescaleSlider, BorderLayout.CENTER);
         timescalePanel.add(timescaleLabel, BorderLayout.EAST);
-
 
         JButton[] buttons = new JButton[2];
         buttons[0] = new JButton("Start");
