@@ -15,7 +15,9 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
     private JPanel scrollContent;
     private JScrollPane scrollPane;
     private Queue<JLabel> brandLabelQue;
+    private Queue<JLabel> minutesLeftLabelQue;
     private Queue<JLabel> licenseLabelQue;
+    private Queue<JLabel> typeCarLabelQue;
     private ApplicationState applicationState;
 
     public CarFeedPanel() {
@@ -27,10 +29,12 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
         setLayout (new BorderLayout());
         licenseLabelQue = new LinkedList<>();
         brandLabelQue = new LinkedList<>();
+        minutesLeftLabelQue = new LinkedList<>();
+        typeCarLabelQue = new LinkedList<>();
 
-        scrollContent = new JPanel(new GridLayout(0, 2));
+        scrollContent = new JPanel(new GridLayout(0, 4));
         scrollPane = new JScrollPane(scrollContent);
-        add(new JLabel("New arrivals"), BorderLayout.PAGE_START);
+        add(new JLabel("New arrivals                         brand                                    type                            minutes left"), BorderLayout.PAGE_START);
         add(scrollPane, BorderLayout.CENTER);
 
         setVisible(true);
@@ -42,17 +46,26 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
 
     @Override
     public void onCarEnter(Car car) {
-        if (scrollContent.getComponentCount() > MAX_SIZE && licenseLabelQue.peek() != null && brandLabelQue.peek() != null) {
+        if (scrollContent.getComponentCount() > MAX_SIZE && licenseLabelQue.peek() != null && brandLabelQue.peek() != null && minutesLeftLabelQue.peek() != null && typeCarLabelQue.peek() != null) {
             scrollContent.remove(brandLabelQue.poll());
             scrollContent.remove(licenseLabelQue.poll());
+            scrollContent.remove(minutesLeftLabelQue.poll());
+            scrollContent.remove(typeCarLabelQue.poll());
         }
         JLabel licenseLabel = new JLabel(car.getLicensePlate());
         JLabel brandLabel = new JLabel(car.getBrand());
+        JLabel minutesLeftLabel = new JLabel(String.valueOf(car.getInitialMinutesLeft()));
+        JLabel typeCarLabel = new JLabel(car.getTypeCarByColor());
+
 
         licenseLabelQue.add(licenseLabel);
         brandLabelQue.add(brandLabel);
+        typeCarLabelQue.add(typeCarLabel);
+        minutesLeftLabelQue.add(minutesLeftLabel);
         scrollContent.add(licenseLabel, 0, 0);
         scrollContent.add(brandLabel, 0, 1);
+        scrollContent.add(typeCarLabel, 0, 2);
+        scrollContent.add(minutesLeftLabel, 0, 3);
     }
 
     @Override

@@ -25,6 +25,29 @@ public abstract class Car {
         this.hasToPay = hasToPay;
     }
 
+    public String getTypeCarByColor() {
+        if (this.getColor() == Color.GREEN) {
+            return "Electric";
+        }
+
+        if (this.getColor() == Color.BLUE) {
+            return "Disabled";
+        }
+
+        if (this.getColor() == Color.ORANGE) {
+            return "Parking Pass";
+        }
+
+        if (this.getColor() == Color.YELLOW) {
+            return "Reservation";
+        }
+
+        if (this.getColor() == Color.RED) {
+            return "Normal";
+        }
+        return "Error";
+    }
+
     /**
      *
      * @return an integer with how many minutes the car has left inside the garage.
