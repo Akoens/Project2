@@ -24,6 +24,12 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private JLabel daysPassedLabel;
     private JLabel avgIncomeLabel;
     private JLabel avgIncomeDayLabel;
+    private JLabel adHocCarLabel;
+    private JLabel parkingPassCarLabel;
+    private JLabel reservationCarLabel;
+    private JLabel electricCarLabel;
+    private JLabel disabledCarLabel;
+
 
     private int dutch;
     private int germans;
@@ -31,6 +37,11 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private int totalCars;
     private int daysPassed;
     private int dayOfWeek;
+    private int adHocCar;
+    private int parkingPassCar;
+    private int reservationCar;
+    private int electricCar;
+    private int disabledCar;
 
     private double totalRevenue;
 
@@ -56,6 +67,11 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         daysPassedLabel = new JLabel();
         avgIncomeLabel = new JLabel();
         avgIncomeDayLabel = new JLabel();
+        adHocCarLabel = new JLabel();
+        parkingPassCarLabel = new JLabel();
+        reservationCarLabel = new JLabel();
+        electricCarLabel = new JLabel();
+        disabledCarLabel = new JLabel();
 
         revenueLabel.setForeground(MaterialColors.GREEN_500);
         avgIncomeLabel.setForeground(MaterialColors.GREEN_500);
@@ -69,12 +85,26 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         content.add(new JLabel(), 0, 1);
         content.add(new JLabel("Total days passed"), 0, 0);
         content.add(daysPassedLabel, 0, 1);
-        content.add(new JLabel("Total belgians"), 0, 0);
+        content.add(new JLabel("Total Belgians"), 0, 0);
         content.add(belgianLabel, 0, 1);
-        content.add(new JLabel("Total germans"), 0, 0);
+        content.add(new JLabel("Total Germans"), 0, 0);
         content.add(germanLabel, 0, 1);
-        content.add(new JLabel("Total dutch"), 0, 0);
+        content.add(new JLabel("Total Dutch"), 0, 0);
         content.add(dutchLabel, 0, 1);
+        content.add(new JLabel(), 0, 0);
+        content.add(new JLabel(), 0, 1);
+        content.add(new JLabel("Total disabled"), 0, 0);
+        content.add(disabledCarLabel, 0, 1);
+        content.add(new JLabel("Total electric"), 0, 0);
+        content.add(electricCarLabel, 0, 1);
+        content.add(new JLabel("Total reservation"), 0, 0);
+        content.add(reservationCarLabel, 0, 1);
+        content.add(new JLabel("Total parking pass"), 0, 0);
+        content.add(parkingPassCarLabel, 0, 1);
+        content.add(new JLabel("Total normal"), 0, 0);
+        content.add(adHocCarLabel, 0, 1);
+        content.add(new JLabel(), 0, 0);
+        content.add(new JLabel(), 0, 1);
         content.add(new JLabel("Total cars seen"), 0, 0);
         content.add(carsLabel, 0, 1);
         content.add(new JLabel("Total revenue"), 0, 0);
@@ -111,6 +141,26 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
 
         if (car.getLicensePlate().startsWith("B")) {
             belgianLabel.setText(String.valueOf(++belgians));
+        }
+
+        if (car.getColor() == Color.red) {
+            adHocCarLabel.setText(String.valueOf(++adHocCar));
+        }
+
+        if (car.getColor() == Color.blue) {
+            disabledCarLabel.setText(String.valueOf(++disabledCar));
+        }
+
+        if (car.getColor() == Color.green) {
+            electricCarLabel.setText(String.valueOf(++electricCar));
+        }
+
+        if (car.getColor() == Color.orange) {
+            parkingPassCarLabel.setText(String.valueOf(++parkingPassCar));
+        }
+
+        if (car.getColor() == Color.yellow) {
+            reservationCarLabel.setText(String.valueOf(++reservationCar));
         }
 
         totalCars = dutch + germans + belgians;
