@@ -1,8 +1,6 @@
 package ParkingGarage;
 
-import Car.Car;
-import Car.CarQueue;
-
+import Car.*;
 import java.util.ArrayList;
 
 public class ParkingGarage {
@@ -21,10 +19,15 @@ public class ParkingGarage {
         locations = new Location[floors][rows][places];
         queues = new ArrayList<CarQueue>();
 
-        for (int floor = 0; floor < floors; floor++)
+        for (int floor=0; floor<floors; floor++)
             for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++)
                     locations[floor][row][place] = new Location();
+
+
+        for (int i=0; i<64; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
+        }
     }
 
     public int getFloors() {
@@ -58,11 +61,29 @@ public class ParkingGarage {
     }
 
     public Location getFirstFreeLocation() {
+        return getFirstFreeLocation(Location.LocationType.DEFAULT);
+    }
+
+    public Location getFirstFreeLocation(Car car) {
+        Location location = null;
+
+        if (car instanceof ReservationCar) {
+            location = getFirstFreeLocation(Location.LocationType.RESERVED);
+        }
+
+        if (location == null) {
+            location = getFirstFreeLocation();
+        }
+
+        return location;
+    }
+
+    public Location getFirstFreeLocation(Location.LocationType locationType) {
         for (int floor = 0; floor < floors; floor++)
             for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++) {
                     Location location = getLocation(floor, row, place);
-                    if (location != null && !location.hasCar()) {
+                    if (location != null && !location.hasCar() && location.getLocationType() == locationType) {
                         return location;
                     }
                 }
