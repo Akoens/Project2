@@ -1,21 +1,20 @@
 package Statistic;
 
+import UI.InterfaceContext;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StatisticManager {
 
-    private StatisticWindow window;
+    private HashMap<Integer, DataSet> dataSetMap;
 
-    private HashMap<Integer, DataSetCursor> dataSetMap;
-
-    public StatisticManager(StatisticWindow window) {
-        this.window = window;
+    public StatisticManager() {
         dataSetMap = new HashMap<>();
     }
 
     public void putDataSet(Integer key, DataSet dataSet) {
-        dataSetMap.put(key, new DataSetCursor(dataSet));
+        dataSetMap.put(key, dataSet);
     }
 
     public DataSet getDataSet(Integer key) {
@@ -23,7 +22,7 @@ public class StatisticManager {
             return null;
         }
 
-        return dataSetMap.get(key).dataSet;
+        return dataSetMap.get(key);
     }
 
     public void updateDataSet(Integer key, double value) {
@@ -31,18 +30,17 @@ public class StatisticManager {
             return;
         }
 
-        DataSetCursor data = dataSetMap.get(key);
+        DataSet dataSet = dataSetMap.get(key);
 
-        if (data == null || data.dataSet == null || data.dataSet.data == null) {
+        if (dataSet == null || dataSet.data == null) {
             return;
         }
 
-        if (data.cursor > data.dataSet.data.length - 1) {
-            data.cursor = 0;
+        for (int i=1; i<dataSet.data.length; i++) {
+            dataSet.data[i-1] = dataSet.data[i];
         }
 
-        data.dataSet.data[data.cursor] = value;
-        data.cursor++;
+        dataSet.data[dataSet.data.length-1] = value;
 
         updateView();
     }
@@ -50,26 +48,11 @@ public class StatisticManager {
     public void updateView() {
         ArrayList<DataSet> dataSetList = new ArrayList<>();
 
-        for (DataSetCursor data : dataSetMap.values()) {
-            dataSetList.add(data.dataSet);
+        for (DataSet dataSet : dataSetMap.values()) {
+            dataSetList.add(dataSet);
         }
 
-        if (window.getStatisticView() instanceof GraphView) {
-            GraphView graphView = (GraphView) window.getStatisticView();
-            graphView.updateView(dataSetList);
-        }
-    }
-
-    private class DataSetCursor {
-
-        public int cursor;
-        public DataSet dataSet;
-
-        public DataSetCursor(DataSet dataSet) {
-            this.cursor = 0;
-            this.dataSet = dataSet;
-        }
-
+        InterfaceContext.getInstance().getGraphPanel().getGraphView().updateView(dataSetList);
     }
 
 }

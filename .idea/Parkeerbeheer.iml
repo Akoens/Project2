@@ -21,5 +21,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="apiguardian-api-1.0.0" level="project" />
+    <orderEntry type="library" name="material-ui-swing-0.9.6" level="project" />
   </component>
 </module>

@@ -14,9 +14,10 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     private int axisLabelPadding = 10; //Distance from side
     private int axisLabelOffset = 40; //Distance from corner
     private int xAxisStep = 1;
-    private int yAxisStep = 1;
-    private int xAxisStepSize = 40;
-    private int yAxisStepSize = 40;
+    private int yAxisStep = 20;
+    private int xAxisStepSize = 23;
+    private int yAxisStepSize = 23;
+    private int ovalSize = 0;
 
     private Point shift;
     private Point lastShift;
@@ -41,7 +42,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         }
 
         g2d.setColor(graphColor);
-        g2d.translate(getX() + shift.x, getY() + shift.y);
+        g2d.translate(getX() + shift.x + 15, getY() + shift.y - 15);
 
         //Draw sidelines
         g2d.drawLine(axisLabelPadding + xMargin, -shift.y, axisLabelPadding + 22, getHeight() - axisLabelPadding - yMargin);
@@ -50,10 +51,10 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         if (xAxisStepSize > 10) {
             int i = 0;
             for (int step = 0; step < getWidth() - shift.x; step += xAxisStepSize) {
-                int x = step + axisLabelPadding + xMargin - 2;
-                int y = getHeight() - axisLabelPadding - 24 - 2;
-                g2d.fillOval(x, y, 4, 4);
-                g2d.drawString("" + i * xAxisStep % 24, x, y + 15);//TODO non-static step %
+                int x = step + axisLabelPadding + xMargin - ovalSize/2;
+                int y = getHeight() - axisLabelPadding - 24 - ovalSize/2;
+                g2d.fillOval(x, y, ovalSize, ovalSize);
+                //g2d.drawString("" + i * xAxisStep % 24, x - 3, y + 15);//TODO non-static step %
                 i++;
             }
         }
@@ -61,10 +62,10 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         if (yAxisStepSize > 10) {
             int i = 0;
             for (int step = getHeight(); step > -shift.y; step -= yAxisStepSize) {
-                int x = axisLabelPadding + xMargin - 2;
-                int y = step - axisLabelPadding - yMargin - 2;
-                g2d.fillOval(x, y, 4, 4);
-                g2d.drawString("" + i * yAxisStep, x - 15, y);
+                int x = axisLabelPadding + xMargin - ovalSize/2;
+                int y = step - axisLabelPadding - yMargin - ovalSize/2;
+                g2d.fillOval(x, y, ovalSize, ovalSize);
+                g2d.drawString("" + i * yAxisStep, x - 32, y);
                 i++;
             }
         }
@@ -79,11 +80,11 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
                     int lastDataY = 0;
                     g2d.setColor(dataSet.color);
                     for (int i = 0; i < dataSet.data.length; i++) {
-                        dataX = i * xAxisStepSize + axisLabelPadding + xMargin - 2;
-                        dataY = (int) (((getHeight() - axisLabelPadding - yMargin) - dataSet.data[i] * yAxisStepSize) - 2);
-                        g.drawOval(dataX, dataY, 4, 4);
+                        dataX = i *xAxisStepSize + axisLabelPadding + xMargin - ovalSize/2;
+                        dataY = (int) ((getHeight() - axisLabelPadding - yMargin) - (dataSet.data[i] * ((double)yAxisStepSize / yAxisStep)) - (double)ovalSize/2);
+                        g.drawOval(dataX, dataY, ovalSize, ovalSize);
                         if (lastDataX != 0 && lastDataY != 0) {
-                            g.drawLine(lastDataX + 2, lastDataY + 2, dataX + 2, dataY + 2);
+                            g.drawLine(lastDataX + ovalSize/2, lastDataY + ovalSize/2, dataX + ovalSize/2, dataY + ovalSize/2);
                         }
                         lastDataX = dataX;
                         lastDataY = dataY;
@@ -97,7 +98,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
         g2d.drawString(yAxisLabel, axisLabelOffset, getHeight() - axisLabelPadding + 7);
         g2d.translate(axisLabelPadding, getHeight() - axisLabelOffset);
         g2d.rotate((3 * Math.PI) / 2);
-        g2d.drawString(xAxisLabel, 0, 0);
+        g2d.drawString(xAxisLabel, 0, -22);
 
     }
 
