@@ -47,8 +47,9 @@ public class ParkingGarageView extends JPanel implements ActionListener {
 
         JPanel content = new JPanel(new GridBagLayout());
         grid = new JPanel(new GridLayout(0, 4, 8, 2));
-        grid.setMaximumSize(new Dimension(200, 850));
-        grid.setPreferredSize(new Dimension(200, 850));
+        grid.setMaximumSize(new Dimension(200, 800));
+        grid.setPreferredSize(new Dimension(200, 800));
+        grid.setMinimumSize(new Dimension(200, 800));
         content.add(grid);
         add(header, BorderLayout.PAGE_START);
         add(content, BorderLayout.CENTER);
