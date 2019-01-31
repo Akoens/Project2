@@ -1,37 +1,20 @@
 package Workers;
 
 public class Worker {
-    private String firstName;
-    private String lastName;
     private double perHour;
     private String workDesc;
+    private int stayMinutes;
     private int age;
     private int workExperience;
 
-    public Worker(String firstName, String lastName, double perHour, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.perHour = perHour;
+    public Worker(String jobName, int age, int stayMinutes) {
+        this.stayMinutes = stayMinutes;
+        this.perHour = age * 0.65;
         this.age = age;
-        this.workDesc = "A parking garage worker";
+        this.workDesc = jobName;
         this.workExperience = 0;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public double getPerHour() {
         return perHour;
