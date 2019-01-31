@@ -35,6 +35,10 @@ public class Location {
         return car != null;
     }
 
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
+    }
+
     public LocationType getLocationType() {
         return locationType;
     }

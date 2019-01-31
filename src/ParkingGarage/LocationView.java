@@ -1,6 +1,7 @@
 package ParkingGarage;
 
 import Car.CarView;
+import Car.ReservationCar;
 import mdlaf.utils.MaterialColors;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import java.awt.*;
 
 public class LocationView extends JPanel {
 
+    private Color barColor;
     private CarView carView;
 
     public LocationView() {
@@ -19,6 +21,19 @@ public class LocationView extends JPanel {
     }
 
     public void updateView(Location location) {
+        switch (location.getLocationType()) {
+            case DEFAULT:
+                barColor = MaterialColors.GRAY_700;
+                break;
+            case DISABLED:
+                barColor = MaterialColors.GRAY_700;
+                break;
+            case RECHARGE:
+                break;
+            case RESERVED:
+                barColor = ReservationCar.COLOR;
+                break;
+        }
         carView.updateView(location.getCar());
     }
 
@@ -27,7 +42,7 @@ public class LocationView extends JPanel {
         super.paintComponent(g);
         g.setColor(MaterialColors.GRAY_500);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(MaterialColors.GRAY_700);
+        g.setColor(barColor);
         g.fillRect(0, 0, 10, getHeight());
     }
 }
