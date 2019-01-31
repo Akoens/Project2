@@ -24,6 +24,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private JLabel daysPassedLabel;
     private JLabel avgIncomeLabel;
     private JLabel avgIncomeDayLabel;
+    private JLabel totalWorkersLabel;
+    private JLabel garageWorkerLabel;
+    private JLabel securityGuardWorkerLabel;
 
     private int dutch;
     private int germans;
@@ -31,6 +34,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private int totalCars;
     private int daysPassed;
     private int dayOfWeek;
+    private int totalWorkers;
+    private int garageWorkers;
+    private int securityGuardWorkers;
 
     private double totalRevenue;
 
@@ -54,6 +60,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         germanLabel = new JLabel();
         belgianLabel = new JLabel();
         daysPassedLabel = new JLabel();
+        totalWorkersLabel = new JLabel();
+        garageWorkerLabel = new JLabel();
+        securityGuardWorkerLabel = new JLabel();
         avgIncomeLabel = new JLabel();
         avgIncomeDayLabel = new JLabel();
 
