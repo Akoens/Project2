@@ -8,6 +8,7 @@ import Statistic.StatisticWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ParkingGarageSimulator {
@@ -22,6 +23,8 @@ public class ParkingGarageSimulator {
 
     private double amountPaid = 0;
     private static final double PRICE = 2.00;
+
+    private ArrayList<Car> carsLeft = new ArrayList();
 
     private int lastHour;
     private StatisticManager statisticManager;
@@ -62,13 +65,17 @@ public class ParkingGarageSimulator {
                     }
     }
 
-    private void performCarTickPatience() {
+    private void performCarPatienceTick() {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i=0; entryQueue.carsInQueue() > 0 && i<entryQueue.getEntrySpeed(); ++i) {
+                if (entryQueue.carsInQueue() > 0) {
                     Car car = entryQueue.getCar();
-                    if (car.getPatience() <= 0 && parkingGarage.getCarCount()<384) { entryQueue.removeCar(); }
+                    if (car.getPatience() <= 0 ) {
+                        carsLeft.add(car);
+                        System.out.println("hallo");
+                        entryQueue.removeCar(car);
+                    }
                     car.tickPatience();
                 }
             }
@@ -144,13 +151,12 @@ public class ParkingGarageSimulator {
         }
 
         statisticManager.updateDataSet(TAG_THROUGHPUT, parkingGarage.getCarCount());
-
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     private void tick() {
         performCarTick();
-        performCarTickPatience();
+        //performCarPatienceTick();
         performCarPayment();
         performCarExit();
         performCarEntry();

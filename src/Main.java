@@ -32,7 +32,7 @@ public class Main {
         entryQueue.addCar(new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand()));
         */
         for (int i=0; i<1000; ++i){
-            entryQueue.addCar(new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand()));
+            entryQueue.addCar(new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand()));
         }
         queues.add(entryQueue);
         queues.add(new CarPaymentQueue(1));
