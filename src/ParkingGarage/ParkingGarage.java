@@ -24,7 +24,6 @@ public class ParkingGarage {
                 for (int place = 0; place < places; place++)
                     locations[floor][row][place] = new Location();
 
-
         for (int i=0; i<64; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
         }
