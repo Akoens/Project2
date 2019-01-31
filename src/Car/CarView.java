@@ -30,6 +30,10 @@ public class CarView extends JPanel {
             carImage = interfaceContext.getParkingPassCarImage();
         } else if (car instanceof ReservationCar) {
             carImage = interfaceContext.getReservationCarImage();
+        } else if (car instanceof DisabledCar) {
+            carImage = interfaceContext.getDisabledCarImage();
+        } else if (car instanceof ElectricCar) {
+            carImage = interfaceContext.getElectricCarImage();
         }
     }
 

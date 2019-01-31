@@ -4,8 +4,8 @@ import Car.Car;
 import Car.AdHocCar;
 import Car.ParkingPassCar;
 import Car.ReservationCar;
-import Generator.CarBrandGenerator;
-import Generator.LicensePlateGenerator;
+import Car.ElectricCar;
+import Car.DisabledCar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,12 +28,16 @@ public class CarSpawnGenerator {
 
     public Car randomCar(int minutesLeft) {
         int decide = rd.nextInt(99) + 1;
-        if (decide <= 33) {
+        if (decide <= 70) {
             return new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else if (decide > 33 && decide < 66) {
+        } else if (decide <= 85) {
             return new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else {
+        } else if (decide <= 93) {
             return new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
+        } else if (decide <= 98) {
+            return new ElectricCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
+        } else {
+            return new DisabledCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         }
 
     }

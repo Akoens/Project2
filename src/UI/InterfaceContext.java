@@ -19,6 +19,8 @@ public class InterfaceContext {
     private BufferedImage adHocCarImage;
     private BufferedImage parkingPassCarImage;
     private BufferedImage reservationCarImage;
+    private BufferedImage electricCarImage;
+    private BufferedImage disabledCarImage;
 
     private InterfaceContext() {}
 
@@ -34,6 +36,8 @@ public class InterfaceContext {
             adHocCarImage = ImageIO.read(new File("res/adHocCarImage.png"));
             parkingPassCarImage = ImageIO.read(new File("res/parkingPassCarImage.png"));
             reservationCarImage = ImageIO.read(new File("res/reservationCarImage.png"));
+            electricCarImage = ImageIO.read(new File("res/electricCarImage.png"));
+            disabledCarImage = ImageIO.read(new File("res/disabledCarImage.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,5 +86,13 @@ public class InterfaceContext {
 
     public BufferedImage getReservationCarImage() {
         return reservationCarImage;
+    }
+
+    public BufferedImage getElectricCarImage() {
+        return electricCarImage;
+    }
+
+    public BufferedImage getDisabledCarImage() {
+        return disabledCarImage;
     }
 }
