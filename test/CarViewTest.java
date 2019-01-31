@@ -1,4 +1,5 @@
 import Car.*;
+import UI.InterfaceContext;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -9,6 +10,9 @@ public class CarViewTest {
 
     @Test
     public void testView() {
+
+        InterfaceContext interfaceContext = InterfaceContext.getInstance();
+        interfaceContext.init();
 
         Car car = new ReservationCar("", "", 100);
         CarView view = new CarView();

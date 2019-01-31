@@ -80,6 +80,19 @@ public class ParkingGarage {
                 }
     }
 
+    public int getLocationCount() {
+        int count = 0;
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
+                for (int place = 0; place < places; place++) {
+                    Location location = getLocation(floor, row, place);
+                    if (location != null) {
+                        count++;
+                    }
+                }
+        return count;
+    }
+
     public int getCarCount() {
         int count = 0;
         for (int floor = 0; floor < floors; floor++)
