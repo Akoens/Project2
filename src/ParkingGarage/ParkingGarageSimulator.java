@@ -73,7 +73,6 @@ public class ParkingGarageSimulator {
                     Car car = entryQueue.getCar();
                     if (car.getPatience() <= 0 ) {
                         carsLeft.add(car);
-                        System.out.println("hallo");
                         entryQueue.removeCar(car);
                     }
                     car.tickPatience();
@@ -156,7 +155,7 @@ public class ParkingGarageSimulator {
 
     private void tick() {
         performCarTick();
-        //performCarPatienceTick();
+        performCarPatienceTick();
         performCarPayment();
         performCarExit();
         performCarEntry();
