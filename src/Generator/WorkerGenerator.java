@@ -13,6 +13,7 @@ public class WorkerGenerator {
     private ArrayList workers;
     private int sg;
     private int w;
+    private Calendar calendar;
 
     public WorkerGenerator() {
         rd = new Random();
@@ -40,6 +41,34 @@ public class WorkerGenerator {
         } else {
             return minimumMinutes + rd.nextInt(minimumMinutes / 30);
         }
+    }
+
+    public String getDayName(int x) {
+        String result = "";
+        switch (x) {
+            case (1):
+                result = "Sunday";
+                break;
+            case (2):
+                result = "Monday";
+                break;
+            case 3:
+                result = "Tuesday";
+                break;
+            case 4:
+                result = "Wednesday";
+                break;
+            case 5:
+                result = "Thursday";
+                break;
+            case 6:
+                result = "Friday";
+                break;
+            case 7:
+                result = "Saturday";
+                break;
+        }
+        return result;
     }
 
     public int getSg() {

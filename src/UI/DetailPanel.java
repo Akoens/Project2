@@ -33,6 +33,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private JLabel garageWorkerLabel;
     private JLabel securityGuardWorkerLabel;
     private JLabel dailyWorkerCostLabel;
+    private JLabel dayOfWeekLabel;
 
     private WorkerGenerator wg;
     private ArrayList<Worker> workers;
@@ -47,6 +48,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private int hourlyWorkerCosts;
     private int garageWorkers;
     private int securityGuardWorkers;
+
 
     private double totalRevenue;
 
@@ -83,6 +85,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         avgIncomeLabel = new JLabel();
         avgIncomeDayLabel = new JLabel();
         dailyWorkerCostLabel = new JLabel();
+        dayOfWeekLabel = new JLabel();
 
         dailyWorkerCostLabel.setForeground(MaterialColors.RED_500);
         hourlyWorkerCostLabel.setForeground(MaterialColors.RED_500);
@@ -91,9 +94,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         avgIncomeDayLabel.setForeground(MaterialColors.GREEN_500);
 
 
-        content.add(new JLabel("Current 24h staff cost"), 0, 0);
+        content.add(dayOfWeekLabel, 0, 0);
         content.add(dailyWorkerCostLabel, 0, 1);
-        content.add(new JLabel("Hourly staff cost"), 0, 0);
+        content.add(new JLabel("Current hourly staff cost"), 0, 0);
         content.add(hourlyWorkerCostLabel, 0, 1);
         content.add(new JLabel("Current security guards"), 0, 0);
         content.add(securityGuardWorkerLabel, 0, 1);
@@ -170,6 +173,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     }
 
     public void setWorkerAmount() {
+        dayOfWeekLabel.setText(wg.getDayName(calendar.get(Calendar.DAY_OF_WEEK)) + " 24h staff cost");
         double costsWorkers = 0;
         double costsSecurity = 0;
         double costsDaily;
