@@ -46,6 +46,6 @@ public class LocationView extends JPanel {
         g.setColor(MaterialColors.GRAY_500);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(barColor);
-        g.fillRect(0, 0, 10, getHeight());
+        g.fillRect(0, 0, 8, getHeight());
     }
 }
