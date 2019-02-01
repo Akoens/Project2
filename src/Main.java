@@ -1,6 +1,15 @@
+import UI.SimulatorFrame;
+import mdlaf.MaterialLookAndFeel;
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        Simulator parkingSimulator = new Simulator();
-        parkingSimulator.run();
+        try {
+            UIManager.setLookAndFeel(new MaterialLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace ();
+        }
+
+        SimulatorFrame simulatorFrame = new SimulatorFrame();
     }
 }
