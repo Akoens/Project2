@@ -56,13 +56,6 @@ public abstract class Car {
         return minutesLeft;
     }
 
-    /**
-     *
-     * @param minutesLeft set car his amount of minutes left inside the garage.
-     */
-    public void setMinutesLeft(int minutesLeft) {
-        this.minutesLeft = minutesLeft;
-    }
 
     /**
      *
@@ -120,13 +113,6 @@ public abstract class Car {
         return initialMinutesLeft;
     }
 
-    /**
-     *
-     * @param brand sets the car his brand using the given string object.
-     */
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     /**
      *
@@ -136,13 +122,6 @@ public abstract class Car {
         return licensePlate;
     }
 
-    /**
-     *
-     * @param licensePlate sets the car his license plate using the given string object.
-     */
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
 
     public abstract Color getColor();
 }

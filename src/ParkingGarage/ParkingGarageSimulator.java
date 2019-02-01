@@ -188,6 +188,7 @@ public class ParkingGarageSimulator {
         for (ParkingGarageSimulatorListener listener : listeners)
             if (listener != null)
                 listener.onCarEnter(car);
+
     }
 
     private void raiseCarExit(Car car) {

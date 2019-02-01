@@ -37,27 +37,4 @@ public class CarBrandGenerator {
         return result;
     }
 
-    public ArrayList<String> getExotic() {
-        return exotic;
-    }
-
-    public void addExotic(String brand) {
-        exotic.add(brand);
-    }
-
-    public ArrayList<String> getExpensive() {
-        return expensive;
-    }
-
-    public void addEpensive(String brand) {
-        expensive.add(brand);
-    }
-
-    public ArrayList<String> getAverage() {
-        return average;
-    }
-
-    public void addAverage(String brand) {
-        average.add(brand);
-    }
 }

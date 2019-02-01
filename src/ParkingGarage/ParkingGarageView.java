@@ -14,8 +14,6 @@ public class ParkingGarageView extends JPanel implements ActionListener {
     private static final String ACTION_PREVIOUS = "ACTION_PREVIOUS";
     private static final String ACTION_NEXT = "ACTION_NEXT";
 
-    private JButton nextFloorButton;
-    private JButton previousFloorButton;
     private JLabel floorLabel;
 
     private JPanel grid;
@@ -28,9 +26,9 @@ public class ParkingGarageView extends JPanel implements ActionListener {
         locationViews = new ArrayList<LocationView>();
 
         JPanel header = new JPanel(new BorderLayout());
-        nextFloorButton = new JButton("Next");
+        JButton nextFloorButton = new JButton("Next");
         nextFloorButton.setActionCommand(ACTION_NEXT);
-        previousFloorButton = new JButton("Previous");
+        JButton previousFloorButton = new JButton("Previous");
         previousFloorButton.setActionCommand(ACTION_PREVIOUS);
         floorLabel = new JLabel("Floor 1", SwingConstants.CENTER);
         header.add(nextFloorButton, BorderLayout.EAST);

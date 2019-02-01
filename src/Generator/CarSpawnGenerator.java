@@ -17,7 +17,6 @@ public class CarSpawnGenerator {
     private LicensePlateGenerator lpg;
 
     private Random rd;
-    private double spawnRate;
 
     public CarSpawnGenerator() {
         rd = new Random();
@@ -53,7 +52,7 @@ public class CarSpawnGenerator {
 
     public ArrayList<Car> carGeneration(Calendar calendar) {
         ArrayList<Car> cars = new ArrayList<Car>();
-        spawnRate = rd.nextDouble();
+        double spawnRate = rd.nextDouble();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
         boolean isWeekend = false;

@@ -14,7 +14,7 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     private int axisLabelPadding = 10; //Distance from side
     private int axisLabelOffset = 40; //Distance from corner
     private int xAxisStep = 1;
-    private int yAxisStep = 20;
+    private int yAxisStep = 40;
     private int xAxisStepSize = 23;
     private int yAxisStepSize = 23;
     private int ovalSize = 0;

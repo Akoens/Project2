@@ -10,7 +10,6 @@ public class CarView extends JPanel {
 
     private InterfaceContext interfaceContext;
 
-    private int padding = 10;
     private BufferedImage carImage;
 
     public CarView() {
@@ -40,6 +39,7 @@ public class CarView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(carImage, padding/2 + 4, padding/2, getWidth()-padding, getHeight()-padding, null);
+        int padding = 10;
+        g.drawImage(carImage, padding / 2 + 4, padding / 2, getWidth() - padding, getHeight() - padding, null);
     }
 }
