@@ -18,7 +18,7 @@ public class ApplicationState {
     }
 
     public void reset() {
-        parkingGarage = new ParkingGarage(3, 2, 84);
+        parkingGarage = new ParkingGarage(5, 2, 50);
         parkingGarageSimulator = new ParkingGarageSimulator(parkingGarage);
     }
 

@@ -26,11 +26,11 @@ public class ParkingGarage {
         for (int i = 0; i < 8; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.DISABLED);
         }
-        for (int i = 8; i < 28; i++) {
-            locations[0][0][i].setLocationType(Location.LocationType.RECHARGE);
-        }
-        for (int i = 28; i < 60; i++) {
+        for (int i = 8; i < 40; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
+        }
+        for (int i = 0; i < 20; i++) {
+            locations[1][0][i].setLocationType(Location.LocationType.RECHARGE);
         }
 
     }
