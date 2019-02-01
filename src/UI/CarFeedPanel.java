@@ -34,7 +34,7 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
 
         scrollContent = new JPanel(new GridLayout(0, 4));
         scrollPane = new JScrollPane(scrollContent);
-        add(new JLabel("New arrivals                         brand                                    type                            minutes left"), BorderLayout.PAGE_START);
+        add(new JLabel("License plate                      Brand                                   Type                              Minutes"), BorderLayout.PAGE_START);
         add(scrollPane, BorderLayout.CENTER);
 
         setVisible(true);

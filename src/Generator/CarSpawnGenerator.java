@@ -21,7 +21,7 @@ public class CarSpawnGenerator {
     public CarSpawnGenerator() {
         rd = new Random();
         cbg = new CarBrandGenerator();
-        lpg = new LicensePlateGenerator(200, 10, 5);
+        lpg = new LicensePlateGenerator(800, 30, 1);
 
     }
 

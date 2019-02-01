@@ -15,7 +15,7 @@ public class ParkingGarageSimulator {
 
     public static final int TIMESCALE_MIN = 1;
     public static final int TIMESCALE_MAX = 1000;
-    private static final double PRICE = 2.00;
+    private static final double PRICE = 3.00;
 
 
     public static final int TAG_THROUGHPUT = 0;
@@ -138,9 +138,10 @@ public class ParkingGarageSimulator {
                 while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
                     Car car = paymentQueue.removeCar();
                     double amount = 0;
-                    if (car instanceof AdHocCar) {
+                    if (car instanceof AdHocCar || car instanceof ElectricCar || car instanceof DisabledCar) {
                         amount += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
+
                     if (car instanceof ReservationCar) {
                         amount += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
                     }

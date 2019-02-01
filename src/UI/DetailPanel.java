@@ -6,6 +6,7 @@ import Generator.WorkerGenerator;
 import ParkingGarage.ParkingGarageSimulatorListener;
 import Workers.Worker;
 import mdlaf.utils.MaterialColors;
+import mdlaf.utils.MaterialImages;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +27,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private JLabel daysPassedLabel;
     private JLabel avgIncomeLabel;
     private JLabel avgIncomeDayLabel;
+    private JLabel dayOfWeekLabelProfit;
     private JLabel adHocCarLabel;
     private JLabel parkingPassCarLabel;
     private JLabel reservationCarLabel;
@@ -35,8 +37,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     private JLabel garageWorkerLabel;
     private JLabel securityGuardWorkerLabel;
     private JLabel dailyWorkerCostLabel;
+    private JLabel avgDailyStaffCost;
     private JLabel dayOfWeekLabel;
-
+    private JLabel avgProfitDayLabel;
     private WorkerGenerator wg;
     private ArrayList<Worker> workers;
 
@@ -54,6 +57,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
 
     private int garageWorkers;
     private int securityGuardWorkers;
+    private int totalWorkers;
+    private double avgDailyCosts;
+    private double costsDaily;
 
 
 
@@ -70,7 +76,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         workers = wg.generateWorkers(3, 7);
         garageWorkers = wg.getW();
         securityGuardWorkers = wg.getSg();
-
+        totalWorkers = garageWorkers + securityGuardWorkers;
 
         setMinimumSize(new Dimension(400, 400));
         setBorder(Theme.getDefaultBorder());
@@ -89,11 +95,17 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         securityGuardWorkerLabel = new JLabel();
         avgIncomeLabel = new JLabel();
         avgIncomeDayLabel = new JLabel();
+        avgProfitDayLabel = new JLabel();
         adHocCarLabel = new JLabel();
         parkingPassCarLabel = new JLabel();
         reservationCarLabel = new JLabel();
         electricCarLabel = new JLabel();
         disabledCarLabel = new JLabel();
+        avgDailyStaffCost = new JLabel();
+        dailyWorkerCostLabel = new JLabel();
+        dayOfWeekLabel = new JLabel();
+        dayOfWeekLabelProfit = new JLabel();
+
         JLabel adHocCarLegendLabel = new JLabel("<html><b>Normal car</b></html>");
         JLabel disabledLegendLabel = new JLabel("<html><b>Disabled passenger car</b></html>");
         JLabel electricLegendLabel = new JLabel("<html><b>Electric car</b></html>");
@@ -105,14 +117,14 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         electricLegendLabel.setForeground(MaterialColors.GREEN_500);
         parkingPassLegendLabel.setForeground(MaterialColors.TEAL_300);
         reservationLegendLabel.setForeground(MaterialColors.YELLOW_A700);
-        dailyWorkerCostLabel = new JLabel();
-        dayOfWeekLabel = new JLabel();
 
+        avgProfitDayLabel.setForeground(MaterialColors.GREEN_500);
         dailyWorkerCostLabel.setForeground(MaterialColors.RED_500);
         hourlyWorkerCostLabel.setForeground(MaterialColors.RED_500);
         revenueLabel.setForeground(MaterialColors.GREEN_500);
         avgIncomeLabel.setForeground(MaterialColors.GREEN_500);
         avgIncomeDayLabel.setForeground(MaterialColors.GREEN_500);
+        avgDailyStaffCost.setForeground(MaterialColors.RED_500);
 
         content.add(reservationLegendLabel, 0, 0);
         content.add(new JLabel(), 0, 0);
@@ -153,15 +165,20 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         content.add(new JLabel(), 0, 1);
         content.add(new JLabel(), 0, 0);
         content.add(new JLabel(), 0, 1);
+        content.add(avgProfitDayLabel, 0, 0);
+        content.add(dayOfWeekLabelProfit, 0, 0);
+        content.add(new JLabel(), 0, 0);
+        content.add(new JLabel(), 0, 1);
         content.add(dayOfWeekLabel, 0, 0);
         content.add(dailyWorkerCostLabel, 0, 1);
+        content.add(new JLabel("Average daily staff cost"), 0, 0);
+        content.add(avgDailyStaffCost, 0, 1);
         content.add(new JLabel("Current hourly staff cost"), 0, 0);
         content.add(hourlyWorkerCostLabel, 0, 1);
         content.add(new JLabel("Current security guards"), 0, 0);
         content.add(securityGuardWorkerLabel, 0, 1);
         content.add(new JLabel("Current garage workers"), 0, 0);
         content.add(garageWorkerLabel, 0, 1);
-        //content.add(new JLabel(), 0, 1);
         content.add(new JLabel(), 0, 0);
         content.add(new JLabel(), 0, 1);
         content.add(new JLabel("Average revenue per day"), 0, 0);
@@ -188,9 +205,39 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
             daysPassed++;
             if (totalRevenue > 0 && daysPassed > 0) {
                 avgIncomeDayLabel.setText(String.format("€%1.2f", totalRevenue / daysPassed));
+                avgProfitDayLabel.setText(String.format("€%1.2f", (totalRevenue / daysPassed) - costsDaily));
+            } else {
+                avgIncomeDayLabel.setText("Calculating...");
+                avgProfitDayLabel.setText("Calculating...");
             }
             dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             daysPassedLabel.setText(String.valueOf(daysPassed));
+
+        }
+
+        if (totalRevenue == 0.00) {
+            avgIncomeLabel.setText("Calculating...");
+            revenueLabel.setText("Calculating...");
+        }
+
+        if (adHocCar == 0) {
+            adHocCarLabel.setText("0");
+        }
+
+        if (parkingPassCar == 0) {
+            parkingPassCarLabel.setText("0");
+        }
+
+        if (reservationCar == 0) {
+            reservationCarLabel.setText("0");
+        }
+
+        if (electricCar == 0) {
+            electricCarLabel.setText("0");
+        }
+
+        if (disabledCar == 0) {
+            disabledCarLabel.setText("0");
         }
     }
 
@@ -198,15 +245,20 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     public void onCarEnter(Car car) {
         if (car.getLicensePlate().startsWith("NL")) {
             dutchLabel.setText(String.valueOf(++dutch));
+        } else if (dutch == 0) {
+            dutchLabel.setText("0");
         }
 
         if (car.getLicensePlate().startsWith("D")) {
             germanLabel.setText(String.valueOf(++germans));
-
+        } else if (germans == 0) {
+            germanLabel.setText("0");
         }
 
         if (car.getLicensePlate().startsWith("B")) {
             belgianLabel.setText(String.valueOf(++belgians));
+        } else if (belgians == 0) {
+            belgianLabel.setText("0");
         }
 
         if (car.getColor() == Color.red) {
@@ -246,10 +298,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
 
     public void setWorkerAmount() {
         dayOfWeekLabel.setText(wg.getDayName(calendar.get(Calendar.DAY_OF_WEEK)) + " staff cost");
-
+        dayOfWeekLabelProfit.setText(wg.getDayName(calendar.get(Calendar.DAY_OF_WEEK)) + " profit");
         double costsWorkers = 0;
         double costsSecurity = 0;
-        double costsDaily;
         double weekendDiff = 10.50;
         int weekendSg = (int) Math.ceil(securityGuardWorkers / 2) + 1;
         int weekendW = (int) Math.ceil(garageWorkers / 2) + 1;
@@ -260,11 +311,13 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
                 costsSecurity += i.getPerHour();
             }
         }
+        avgDailyCosts = ((((24 * costsSecurity) + (11 * costsWorkers)) * 5) + ((24 * (costsSecurity / 2)) + ((11 * (costsWorkers / 2)))) + ((24 * (((costsSecurity / 2)) + weekendDiff) * 1.2)) + ((11 * (((costsWorkers / 2)) * 1.2)))) / 7;
+        avgDailyStaffCost.setText(String.format("€%1.2f", avgDailyCosts));
 
         if (calendar.get(Calendar.DAY_OF_WEEK) > 1 && calendar.get(Calendar.DAY_OF_WEEK) < 7) {
             costsDaily = (24 * costsSecurity) + (11 * costsWorkers);
             dailyWorkerCostLabel.setText(String.format("€%1.2f", costsDaily));
-            securityGuardWorkerLabel.setText("" + securityGuardWorkers);
+            securityGuardWorkerLabel.setText(String.valueOf(securityGuardWorkers));
             if (calendar.get(Calendar.HOUR_OF_DAY) == 7) {
                 garageWorkerLabel.setText("" + garageWorkers);
             }
