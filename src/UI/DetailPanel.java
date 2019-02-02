@@ -306,7 +306,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
         int weekendW = (int) Math.ceil(garageWorkers / 2) + 1;
 
         for (Worker i : workers) {
-            costsWorkers += i.getPerHour();
+            if (i.getWorkDesc().toLowerCase().contains("worker")) {
+                costsWorkers += i.getPerHour();
+            }
             if (i.getWorkDesc().toLowerCase().contains("security")) {
                 costsSecurity += i.getPerHour();
             }
@@ -319,7 +321,7 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
             dailyWorkerCostLabel.setText(String.format("€%1.2f", costsDaily));
             securityGuardWorkerLabel.setText(String.valueOf(securityGuardWorkers));
             if (calendar.get(Calendar.HOUR_OF_DAY) == 7) {
-                garageWorkerLabel.setText("" + garageWorkers);
+                garageWorkerLabel.setText(String.valueOf(garageWorkers));
             }
 
             if (calendar.get(Calendar.HOUR_OF_DAY) > 17 || (calendar.get(Calendar.HOUR_OF_DAY) >= 0 && calendar.get(Calendar.HOUR_OF_DAY) <= 6)) {

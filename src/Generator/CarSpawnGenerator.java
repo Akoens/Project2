@@ -49,7 +49,6 @@ public class CarSpawnGenerator {
         }
     }
 
-
     public ArrayList<Car> carGeneration(Calendar calendar) {
         ArrayList<Car> cars = new ArrayList<Car>();
         double spawnRate = rd.nextDouble();
@@ -76,14 +75,14 @@ public class CarSpawnGenerator {
                 }
                 return cars;
             }
-        } else if ((hour >= 19 && hour <= 23) && dayNumber == 6) { //theater avond, altijd uitverkocht
+        } else if ((hour >= 19 && hour <= 21) && dayNumber == 6) { //theater avond, altijd uitverkocht
             if (rd.nextDouble() < 0.85) {
                 for (int x = 0; x <= rd.nextInt(3); x++) {
                     cars.add(randomCar(160));
                 }
                 return cars;
             }
-        } else if ((hour >= 19 && hour <= 23) && dayNumber == 7) { //theater avond, altijd uitverkocht
+        } else if ((hour >= 19 && hour <= 21) && dayNumber == 7) { //theater avond, altijd uitverkocht
             if (rd.nextDouble() < 0.85) {
                 for (int x = 0; x <= rd.nextInt(3); x++) {
                     cars.add(randomCar(160));
