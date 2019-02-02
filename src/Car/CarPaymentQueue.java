@@ -6,15 +6,13 @@ public class CarPaymentQueue extends CarQueue {
 
     /**
      * Constructor for the CarPaymentQueue with one parameter.
-     *
-     * @param paymentSpeed
+     * @param paymentSpeed an integer that decides the speed of cars paying.
      */
     public CarPaymentQueue(int paymentSpeed){
         this.paymentSpeed = paymentSpeed;
     }
 
     /**
-     *
      * @return the payment speed integer of the CarPaymentQueue.
      */
     public int getPaymentSpeed() {return paymentSpeed;}

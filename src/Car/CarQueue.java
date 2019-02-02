@@ -9,7 +9,6 @@ public abstract class CarQueue {
 
     /**
      * Method to add a car object into the corresponding queue ArrayList.
-     *
      * @param car a car object.
      */
     public void addCar(Car car) {

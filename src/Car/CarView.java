@@ -20,6 +20,10 @@ public class CarView extends JPanel {
         setOpaque(false);
     }
 
+    /**
+     * Method that displays an images depending on the instance of the car.
+     * @param car A car object
+     */
     public void updateView(Car car) {
         if (car == null) {
             carImage = null;
@@ -39,6 +43,10 @@ public class CarView extends JPanel {
         }
     }
 
+    /**
+     * method that draws the car image to the parking garage view.
+     * @param g details of the component that needs to be drawn.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

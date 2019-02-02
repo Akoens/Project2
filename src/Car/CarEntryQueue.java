@@ -6,15 +6,14 @@ public class CarEntryQueue extends CarQueue {
 
     /**
      * Constructor for the CarEntryQueue with one parameter.
-     * @param entrySpeed an integer deciding the speed of how fast cars enter the queue before entry.
+     * @param entrySpeed an integer deciding the speed of cars enter the garage.
      */
     public CarEntryQueue(int entrySpeed) {
         this.entrySpeed = entrySpeed;
     }
 
     /**
-     *
-     * @return the integer the entrySpeed is set to.
+     * @return the integer of the entry speed.
      */
     public int getEntrySpeed() {
         return entrySpeed;

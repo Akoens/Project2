@@ -17,7 +17,6 @@ public class LicensePlateGenerator {
 
     /**
      * Constructor for the LicensePlateGenerator object, which takes three integer parameters.
-     *
      * @param dutchRatio   the dutch nationality ratio of appearing cars.
      * @param germanRatio  the german nationality ratio of appearing cars.
      * @param belgianRatio the belgian nationality ratio of appearing cars.

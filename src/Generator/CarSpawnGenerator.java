@@ -51,7 +51,6 @@ public class CarSpawnGenerator {
         } else {
             return new DisabledCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         }
-
     }
 
     /**

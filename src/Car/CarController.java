@@ -16,7 +16,7 @@ public class CarController {
     }
 
     /**
-     * A method that updates the drawn field every time it's called.
+     * Method that updates the drawn field.
      */
     public void updateView() {
         view.updateView(car);
