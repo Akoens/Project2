@@ -55,10 +55,15 @@ public class Location {
         return car != null;
     }
 
+
     /**
      * Method to see which kind of location(enum)-type this location is.
      * @return the corresponding location(enum)-type.
      */
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
+    }
+
     public LocationType getLocationType() {
         return locationType;
     }

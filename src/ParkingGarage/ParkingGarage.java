@@ -1,8 +1,6 @@
 package ParkingGarage;
 
-import Car.Car;
-import Car.CarQueue;
-
+import Car.*;
 import java.util.ArrayList;
 
 public class ParkingGarage {
@@ -28,10 +26,20 @@ public class ParkingGarage {
         locations = new Location[floors][rows][places];
         queues = new ArrayList<CarQueue>();
 
-        for (int floor = 0; floor < floors; floor++)
+        for (int floor=0; floor<floors; floor++)
             for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++)
                     locations[floor][row][place] = new Location();
+        for (int i = 0; i < 8; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.DISABLED);
+        }
+        for (int i = 8; i < 40; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
+        }
+        for (int i = 0; i < 20; i++) {
+            locations[1][0][i].setLocationType(Location.LocationType.RECHARGE);
+        }
+
     }
 
     /**
@@ -103,11 +111,37 @@ public class ParkingGarage {
      * @return a location object.
      */
     public Location getFirstFreeLocation() {
+        return getFirstFreeLocation(Location.LocationType.DEFAULT);
+    }
+
+    public Location getFirstFreeLocation(Car car) {
+        Location location = null;
+
+        if (car instanceof ReservationCar) {
+            location = getFirstFreeLocation(Location.LocationType.RESERVED);
+        }
+
+        if (car instanceof ElectricCar) {
+            location = getFirstFreeLocation(Location.LocationType.RECHARGE);
+        }
+
+        if (car instanceof DisabledCar) {
+            location = getFirstFreeLocation(Location.LocationType.DISABLED);
+        }
+
+        if (location == null) {
+            location = getFirstFreeLocation();
+        }
+
+        return location;
+    }
+
+    public Location getFirstFreeLocation(Location.LocationType locationType) {
         for (int floor = 0; floor < floors; floor++)
             for (int row = 0; row < rows; row++)
                 for (int place = 0; place < places; place++) {
                     Location location = getLocation(floor, row, place);
-                    if (location != null && !location.hasCar()) {
+                    if (location != null && !location.hasCar() && location.getLocationType() == locationType) {
                         return location;
                     }
                 }
@@ -129,10 +163,24 @@ public class ParkingGarage {
                 }
     }
 
+
     /**
      * Method to see how many cars are inside of the ParkingGarage at that time.
      * @return the car count as an integer.
      */
+    public int getLocationCount() {
+        int count = 0;
+        for (int floor = 0; floor < floors; floor++)
+            for (int row = 0; row < rows; row++)
+                for (int place = 0; place < places; place++) {
+                    Location location = getLocation(floor, row, place);
+                    if (location != null) {
+                        count++;
+                    }
+                }
+        return count;
+    }
+
     public int getCarCount() {
         int count = 0;
         for (int floor = 0; floor < floors; floor++)

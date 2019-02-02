@@ -1,32 +1,48 @@
 package Car;
 
+import UI.InterfaceContext;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class CarView extends Box {
+public class CarView extends JPanel {
 
-    private JLabel isPayingLabel;
-    private JLabel hasToPayLabel;
+    private InterfaceContext interfaceContext;
+
+    private BufferedImage carImage;
 
     /**
      * Constructor for the CarView object, takes zero parameters.
      */
     public CarView() {
-        super(BoxLayout.Y_AXIS);
-        isPayingLabel = new JLabel();
-        hasToPayLabel = new JLabel();
-        add(isPayingLabel);
-        add(hasToPayLabel);
+        interfaceContext = InterfaceContext.getInstance();
+        setOpaque(false);
     }
 
-    /**
-     * Method to set a Label's string/text to It's corresponding values whether it has paid, needs to pay, is paying or isn't paying.
-     *
-     * @param isPaying
-     * @param hasToPay
-     */
-    public void update(boolean isPaying, boolean hasToPay) {
-        isPayingLabel.setText(isPaying ? "This car is paying" : "This car is not paying");
-        hasToPayLabel.setText(hasToPay ? "This car has not paid yet" : "This car does not have to pay");
+    public void updateView(Car car) {
+        if (car == null) {
+            carImage = null;
+            return;
+        }
+
+        if (car instanceof AdHocCar) {
+            carImage = interfaceContext.getAdHocCarImage();
+        } else if (car instanceof ParkingPassCar) {
+            carImage = interfaceContext.getParkingPassCarImage();
+        } else if (car instanceof ReservationCar) {
+            carImage = interfaceContext.getReservationCarImage();
+        } else if (car instanceof DisabledCar) {
+            carImage = interfaceContext.getDisabledCarImage();
+        } else if (car instanceof ElectricCar) {
+            carImage = interfaceContext.getElectricCarImage();
+        }
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int padding = 10;
+        g.drawImage(carImage, padding / 2 + 4, padding / 2, getWidth() - padding, getHeight() - padding, null);
+    }
 }

@@ -95,4 +95,5 @@ public class CarBrandGenerator {
     public void addAverage(String brand) {
         average.add(brand);
     }
+
 }

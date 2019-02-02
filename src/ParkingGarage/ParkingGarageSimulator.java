@@ -3,54 +3,46 @@ package ParkingGarage;
 import Car.*;
 import Generator.CarSpawnGenerator;
 import Statistic.DataSet;
-import Statistic.GraphView;
 import Statistic.StatisticManager;
-import Statistic.StatisticWindow;
+import UI.InterfaceContext;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ParkingGarageSimulator {
 
-    private CarSpawnGenerator csg;
+    public static final int TIMESCALE_MIN = 1;
+    public static final int TIMESCALE_MAX = 1000;
+    private static final double PRICE = 3.00;
+
 
     public static final int TAG_THROUGHPUT = 0;
 
-    private ParkingGarage parkingGarage;
-    private ParkingGarageView parkingGarageView;
-
     private Thread thread;
     private Calendar calendar;
-
-    private double amountPaid = 0;
-    private static final double PRICE = 2.00;
-
-    private int lastHour;
+    private CarSpawnGenerator csg;
+    private ParkingGarage parkingGarage;
+    private InterfaceContext interfaceContext;
     private StatisticManager statisticManager;
+    private ArrayList<ParkingGarageSimulatorListener> listeners;
 
-    //private double timeScale = 1d;  //Every real life second a simulated second passes
-    //private double timeScale = 60d; //Every real life second a simulated minute passes
-    private double timeScale = 3750d; //Every real life second a simulated hour passes
+    private boolean paused;
+    private double revenue = 0;
+    private int lastHour;
+    private int timescale = 100;
 
-    /**
-     * Constructor for the ParkingGarageSimulator itself with three parameters.
-     *
-     * @param frame             a Jframe object.
-     * @param parkingGarage     a ParkingGarage object.
-     * @param parkingGarageView a ParkingGarageView object.
-     */
-    public ParkingGarageSimulator(JFrame frame, ParkingGarage parkingGarage, ParkingGarageView parkingGarageView) {
+    public ParkingGarageSimulator(ParkingGarage parkingGarage) {
+
         this.parkingGarage = parkingGarage;
-        this.parkingGarageView = parkingGarageView;
-
-        Point location = frame.getLocation();
-        location.x += frame.getWidth();
+        interfaceContext = InterfaceContext.getInstance();
 
         calendar = Calendar.getInstance();
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
-        statisticManager = new StatisticManager(new StatisticWindow("Car flow", location, new GraphView("Number of cars", "Hour of day", Color.BLACK)));
-        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[240], Color.BLUE));
+        statisticManager = new StatisticManager();
+        statisticManager.putDataSet(TAG_THROUGHPUT, new DataSet(new double[48], Color.BLUE));
+        listeners = new ArrayList<ParkingGarageSimulatorListener>();
 
         thread = new Thread(this::run);
         csg = new CarSpawnGenerator(200, 10, 5);
@@ -61,6 +53,15 @@ public class ParkingGarageSimulator {
      */
     public void start() {
         thread.start();
+        paused = false;
+    }
+
+    public void togglePause() {
+        paused = !paused;
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 
     /**
@@ -98,6 +99,7 @@ public class ParkingGarageSimulator {
                                 if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !car.getHasToPay()) {
                                     exitQueue.addCar(car);
                                     parkingGarage.carLeavesSpot(car);
+                                    raiseCarExit(car);
                                 }
                             }
 
@@ -115,10 +117,12 @@ public class ParkingGarageSimulator {
         for (CarQueue queue : parkingGarage.getCarQueues()) {
             if (queue instanceof CarEntryQueue) {
                 CarEntryQueue entryQueue = (CarEntryQueue) queue;
-                for (int i = 0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed(); ++i) {
+
+                for (int i=0; entryQueue.carsInQueue() > 0 && i < entryQueue.getEntrySpeed() && parkingGarage.getFirstFreeLocation() != null; ++i) {
                     Car car = entryQueue.removeCar();
-                    Location freeLocation = parkingGarage.getFirstFreeLocation();
+                    Location freeLocation = parkingGarage.getFirstFreeLocation(car);
                     parkingGarage.setCarAt(freeLocation, car);
+                    raiseCarEnter(car);
                 }
             }
         }
@@ -156,35 +160,29 @@ public class ParkingGarageSimulator {
                 int i = 0;
                 while (paymentQueue.carsInQueue() > 0 && i < paymentQueue.getPaymentSpeed()) {
                     Car car = paymentQueue.removeCar();
-                    if (car instanceof AdHocCar) {
-                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE;
+                    double amount = 0;
+                    if (car instanceof AdHocCar || car instanceof ElectricCar || car instanceof DisabledCar) {
+                        amount += (double) car.getInitialMinutesLeft() / 60 * PRICE;
                     }
+
                     if (car instanceof ReservationCar) {
-                        amountPaid += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
+                        amount += (double) car.getInitialMinutesLeft() / 60 * PRICE * 2;
                     }
                     i++;
                     car.setHasToPay(false);
                     car.setIsPaying(false);
+
+                    revenue += amount;
+                    raiseCarPayment(car, amount);
                 }
             }
         }
     }
 
+
     /**
      * Method to perform a simulation wide tick, which is a combination of all ticks.
      * This allows the simulation to function.
-     */
-    private void tick() {
-        performCarTick();
-        performCarGeneration();
-        performCarPayment();
-        performCarExit();
-        performCarEntry();
-        performStatisticTick();
-    }
-
-    /**
-     * Method to perform a statistic tick, which allows the graph to be drawn according to the amount of cars in the garage.
      */
     private void performStatisticTick() {
         if (lastHour == calendar.get(Calendar.HOUR_OF_DAY)) {
@@ -195,29 +193,91 @@ public class ParkingGarageSimulator {
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 
+    private void performListenerTick() {
+        raiseTick();
+    }
+
+    private void tick() {
+        performCarTick();
+        performCarGeneration();
+        performCarPayment();
+        performCarExit();
+        performCarEntry();
+        performStatisticTick();
+        performListenerTick();
+    }
+
+    private void raiseTick() {
+        for (ParkingGarageSimulatorListener listener : listeners)
+            if (listener != null)
+                listener.onTick();
+    }
+
+    private void raiseCarEnter(Car car) {
+        for (ParkingGarageSimulatorListener listener : listeners)
+            if (listener != null)
+                listener.onCarEnter(car);
+
+    }
+
+    private void raiseCarExit(Car car) {
+        for (ParkingGarageSimulatorListener listener : listeners)
+            if (listener != null)
+                listener.onCarExit(car);
+    }
+
+    private void raiseCarPayment(Car car, double revenue) {
+        for (ParkingGarageSimulatorListener listener : listeners)
+            if (listener != null)
+                listener.onCarPayment(car, revenue);
+    }
+
+    public void addParkingGarageSimulatorListener(ParkingGarageSimulatorListener listener) {
+        listeners.add(listener);
+    }
+
+    public void setTimescale(int timescale) {
+        this.timescale = timescale;
+    }
+
+    public int getTimescale() {
+        return timescale;
+    }
+
+    public Date getDate() {
+        return calendar.getTime();
+    }
+
+    public double getRevenue() {
+        return revenue;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
     /**
      * Method to call to start running the simulation itself.
      */
     private void run() {
         while (true) {
             try {
-                advanceTime();
-                tick();
-                updateView();
-                Thread.sleep((long) (60000d / timeScale));
+                if (!paused) {
+                    advanceTime();
+                    tick();
+                }
+                updateViews();
+                interfaceContext.repaint();
+                Thread.sleep(1000 / timescale);
             } catch (InterruptedException e) {
                 return;
             }
         }
     }
 
-    /**
-     * Method which redraws the garage once a tick has passed inside the simulation.
-     */
-    public void updateView() {
-        parkingGarageView.updateView(calendar.getTime(), parkingGarage, amountPaid);
-        parkingGarageView.repaint();
-        parkingGarageView.revalidate();
+    public void updateViews() {
+        interfaceContext.getSimulatorPanel().getParkingGarageView().updateView(parkingGarage);
+        statisticManager.updateView();
     }
 
 }

@@ -4,6 +4,8 @@ import Car.Car;
 import Car.AdHocCar;
 import Car.ParkingPassCar;
 import Car.ReservationCar;
+import Car.ElectricCar;
+import Car.DisabledCar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +17,6 @@ public class CarSpawnGenerator {
     private LicensePlateGenerator lpg;
 
     private Random rd;
-    private double spawnRate;
 
     /**
      * Constructor for the CarSpawnGenerator taking three parameters.
@@ -30,7 +31,6 @@ public class CarSpawnGenerator {
         rd = new Random();
         cbg = new CarBrandGenerator();
         lpg = new LicensePlateGenerator(dr, gr, br);
-
     }
 
     /**
@@ -39,13 +39,17 @@ public class CarSpawnGenerator {
      * @return the new randomly generated car object.
      */
     public Car randomCar(int minutesLeft) {
-        int decide = rd.nextInt(99) + 1;
-        if (decide <= 33) {
+        int decide = rd.nextInt(100) + 1;
+        if (decide <= 70) {
             return new AdHocCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else if (decide < 66) {
+        } else if (decide <= 85) {
             return new ParkingPassCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
-        } else {
+        } else if (decide <= 93) {
             return new ReservationCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
+        } else if (decide <= 99) {
+            return new ElectricCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
+        } else {
+            return new DisabledCar(lpg.generatePlate(), cbg.getRandomBrand(), randomStayMinutes(minutesLeft));
         }
 
     }
@@ -70,7 +74,7 @@ public class CarSpawnGenerator {
      */
     public ArrayList<Car> carGeneration(Calendar calendar) {
         ArrayList<Car> cars = new ArrayList<Car>();
-        spawnRate = rd.nextDouble();
+        double spawnRate = rd.nextDouble();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int dayNumber = calendar.get(Calendar.DAY_OF_WEEK);
         boolean isWeekend = false;

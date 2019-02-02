@@ -3,7 +3,7 @@ package Car;
 import java.awt.*;
 
 public class ParkingPassCar extends Car {
-    private static final Color COLOR = Color.blue;
+    public static final Color COLOR = Color.orange;
 
     /**
      * @param licensePlate a string containing a license plate-type.

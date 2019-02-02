@@ -1,100 +1,100 @@
 package ParkingGarage;
 
+import mdlaf.animation.MaterialUIMovement;
+import mdlaf.utils.MaterialColors;
+
 import javax.swing.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class ParkingGarageView extends JPanel {
+public class ParkingGarageView extends JPanel implements ActionListener {
 
-    private SimpleDateFormat dateFormat;
-    private Image carParkImage;
-    private Dimension size;
 
-    /**
-     * Constructor for the ParkingGarageView object with zero parameters.
-     */
+    private static final String ACTION_PREVIOUS = "ACTION_PREVIOUS";
+    private static final String ACTION_NEXT = "ACTION_NEXT";
+
+    private JLabel floorLabel;
+
+    private JPanel grid;
+    private ArrayList<LocationView> locationViews;
+    private int floor = 0;
+
     public ParkingGarageView() {
-        super();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        setDoubleBuffered(true);
+        locationViews = new ArrayList<LocationView>();
 
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        size = new Dimension(800, 800);
+        JPanel header = new JPanel(new BorderLayout());
+        JButton nextFloorButton = new JButton("Next");
+        nextFloorButton.setActionCommand(ACTION_NEXT);
+        JButton previousFloorButton = new JButton("Previous");
+        previousFloorButton.setActionCommand(ACTION_PREVIOUS);
+        floorLabel = new JLabel("Floor 1", SwingConstants.CENTER);
+        header.add(nextFloorButton, BorderLayout.EAST);
+        header.add(previousFloorButton, BorderLayout.WEST);
+        header.add(floorLabel, BorderLayout.CENTER);
 
-        setBackground(Color.GRAY);
+        JButton[] buttons = new JButton[]{previousFloorButton, nextFloorButton};
+        for (JButton button : buttons) {
+            button.addActionListener(this);
+            button.setBackground(MaterialColors.WHITE);
+            button.setForeground(MaterialColors.BLUE_500);
+            MaterialUIMovement.add(button, MaterialColors.GRAY_300);
+        }
+
+        JPanel content = new JPanel(new GridBagLayout());
+        grid = new JPanel(new GridLayout(0, 4, 8, 2));
+        grid.setMaximumSize(new Dimension(250, 900));
+        grid.setPreferredSize(new Dimension(250, 800));
+        grid.setMinimumSize(new Dimension(250, 800));
+        content.add(grid);
+        add(header, BorderLayout.PAGE_START);
+        add(content, BorderLayout.CENTER);
     }
 
-    /**
-     * Method to paint the graphical component of the parking garage.
-     * @param g a Graphics object.
-     */
-    public void paintComponent(Graphics g) {
-        if (carParkImage == null) {
-            return;
+    public void updateView(ParkingGarage parkingGarage) {
+        if (locationViews.size() != parkingGarage.getRows()*parkingGarage.getPlaces()) {
+            grid.removeAll();
+            for (int i=0; i<parkingGarage.getRows()*parkingGarage.getPlaces(); i++) {
+                LocationView locationView = new LocationView();
+                locationViews.add(locationView);
+                grid.add(locationView, 0, i%4);
+            }
         }
 
-        Dimension currentSize = getSize();
-        if (size.equals(currentSize)) {
-            g.drawImage(carParkImage, 0, 0, null);
-        } else {
-            g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
+        if (floor < 0) {
+            floor = parkingGarage.getFloors() - 1;
         }
+
+        if (floor >= parkingGarage.getFloors()) {
+            floor = 0;
+        }
+
+        Location[][] locations = parkingGarage.getLocations()[floor];
+
+        int i = 0;
+        for (Location[] row : locations)
+            for (Location l : row)
+                if (i < locationViews.size()) {
+                    LocationView locationView = locationViews.get(i++);
+                    if (locationView != null) {
+                        locationView.updateView(l);
+                    }
+                }
+        floorLabel.setText("Floor " + (floor + 1));
     }
 
-    /**
-     * Method to update the view when changes occur.
-     *
-     * @param time          a Date object.
-     * @param parkingGarage a ParkingGarage object.
-     * @param moneyPaid     a double which holds the amount of money paid.
-     */
-    public void updateView(Date time, ParkingGarage parkingGarage, double moneyPaid) {
-        if (!size.equals(getSize())) {
-            size = getSize();
-            carParkImage = createImage(size.width, size.height);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case ACTION_NEXT:
+                floor++;
+                break;
+            case ACTION_PREVIOUS:
+                floor--;
+                break;
         }
-
-        if (carParkImage == null) {
-            return;
-        }
-
-        Graphics graphics = carParkImage.getGraphics();
-        graphics.setColor(getBackground());
-        graphics.fillRect(0, 0, (int) size.getWidth(), (int) size.getHeight());
-
-        for (int floor = 0; floor < parkingGarage.getFloors(); floor++)
-            for (int row = 0; row < parkingGarage.getRows(); row++)
-                for (int place = 0; place < parkingGarage.getPlaces(); place++)
-                    drawPlace(graphics, parkingGarage.getLocation(floor, row, place), floor, row, place);
-
-        graphics.setColor(Color.WHITE);
-        graphics.drawString(dateFormat.format(time), 4, (int) size.getHeight() - 8);
-        graphics.drawString("$"+ String.format("%1.2f",moneyPaid), 4, (int) size.getHeight() - 20);
     }
-
-    /**
-     * Method to draw the corresponding color of car onto the location where it's supposed to be.
-     * @param graphics a graphics object.
-     * @param location a location object.
-     * @param floor a floor's number as an integer.
-     * @param row a row's number as an integer.
-     * @param place a place's number as an integer.
-     */
-    private void drawPlace(Graphics graphics, Location location, int floor, int row, int place) {
-        if (location == null) {
-            return;
-        }
-
-        if (location.hasCar()) {
-            graphics.setColor(location.getCar().getColor());
-        } else {
-            graphics.setColor(location.getColor());
-        }
-        graphics.fillRect(
-                floor * 260 + (1 + (int) Math.floor(row * 0.5)) * 75 + (row % 2) * 20,
-                60 + place * 10,
-                20 - 1,
-                10 - 1); // TODO use dynamic size or constants
-    }
-
 }
