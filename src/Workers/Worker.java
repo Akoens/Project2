@@ -9,7 +9,18 @@ public class Worker {
 
     public Worker(String jobName, int age, int stayMinutes) {
         this.stayMinutes = stayMinutes;
-        this.perHour = age * 0.23;
+        if (age <= 20) {
+            this.perHour = 11;
+        }
+        if (age > 20 && age <= 25) {
+            this.perHour = 13.50;
+        }
+        if (age > 25 && age <= 35) {
+            this.perHour = 16.50;
+        } else if (age > 35) {
+            this.perHour = 18.00;
+        }
+
         this.age = age;
         this.workDesc = jobName;
         this.workExperience = 0;

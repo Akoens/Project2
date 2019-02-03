@@ -31,9 +31,9 @@ public class WorkerGenerator {
     public ArrayList<Worker> generateWorkers(int sg, int w) {
         this.sg = sg;
         this.w = w;
-        int decideAge = rd.nextInt(78) + 18;
+        int decideAge = rd.nextInt(51) + 18;
         for (int x = 0; x <= sg; x++) {
-            workers.add(new Worker("Security Guard: " + x, decideAge, 10000000));
+            workers.add(new Worker("Security Guard: " + x, decideAge, 10)); //basically infinite
         }
         for (int x = 0; x <= w; x++) {
             workers.add(new Worker("Worker " + x, decideAge, randomStayMinutes(550)));
