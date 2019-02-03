@@ -41,7 +41,6 @@ public class WorkerGenerator {
         return workers;
     }
 
-
     /**
      * @param minimumMinutes minimum time a worker stays in the parking garage.
      * @return the random amount of minutes that a worker stays.

@@ -41,7 +41,7 @@ public class Location {
 
     /**
      * Method to return a specific car that's parked on that location.
-     * @return
+     * @return The car on that location.
      */
     public Car getCar() {
         return car;
@@ -49,21 +49,24 @@ public class Location {
 
     /**
      * Method to check if a location is already in use by a car.
-     * @return
+     * @return boolean of location having car
      */
     public boolean hasCar() {
         return car != null;
     }
 
-
     /**
-     * Method to see which kind of location(enum)-type this location is.
-     * @return the corresponding location(enum)-type.
+     * Method used to set the location type of all the locations.
+     * @param locationType a type of location that this locations has to be.
      */
     public void setLocationType(LocationType locationType) {
         this.locationType = locationType;
     }
 
+    /**
+     * Method to see which kind of location(enum)-type this location is.
+     * @return the corresponding location(enum)-type.
+     */
     public LocationType getLocationType() {
         return locationType;
     }

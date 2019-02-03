@@ -14,7 +14,6 @@ public class ParkingGarage {
 
     /**
      * Constructor for the ParkingGarage which takes three parameters.
-     *
      * @param floors an integer to decide how many floors there will be.
      * @param rows   an integer to decide how many rows there will be.
      * @param places an integer to decide how many places there will be.
@@ -136,6 +135,11 @@ public class ParkingGarage {
         return location;
     }
 
+    /**
+     * Method that finds the first free location in the parking garage.
+     * @param locationType the type of location that this location has to be.
+     * @return null if the location is not available.
+     */
     public Location getFirstFreeLocation(Location.LocationType locationType) {
         for (int floor = 0; floor < floors; floor++)
             for (int row = 0; row < rows; row++)
@@ -162,7 +166,6 @@ public class ParkingGarage {
                     }
                 }
     }
-
 
     /**
      * Method to see how many cars are inside of the ParkingGarage at that time.
@@ -207,7 +210,6 @@ public class ParkingGarage {
         if (location.hasCar()) {
             carLeavesSpot(location.getCar());
         }
-
         location.setCar(car);
     }
 }

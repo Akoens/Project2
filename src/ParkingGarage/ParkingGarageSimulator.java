@@ -56,10 +56,17 @@ public class ParkingGarageSimulator {
         paused = false;
     }
 
+    /**
+     * Method that toggles the pause by reversing it.
+     */
     public void togglePause() {
         paused = !paused;
     }
 
+    /**
+     * Method that gives the boolean for if the program is paused.
+     * @return paused boolean to check if the program is paused.
+     */
     public boolean isPaused() {
         return paused;
     }
@@ -178,7 +185,6 @@ public class ParkingGarageSimulator {
             }
         }
     }
-
 
     /**
      * Method to perform a simulation wide tick, which is a combination of all ticks.
