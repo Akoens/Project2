@@ -48,7 +48,7 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
         if (scrollContent.getRowCount() > MAX_SIZE) {
             model.removeRow(model.getRowCount() - 1);
         }
-        model.insertRow(0, new String[]{car.getLicensePlate(), car.getBrand(), String.valueOf(car.getInitialMinutesLeft()), car.getTypeCarByColor()});
+        model.insertRow(0, new String[]{car.getLicensePlate(), car.getBrand(), car.getTypeCarByColor(), String.valueOf(car.getInitialMinutesLeft())});
         revalidate();
     }
 
