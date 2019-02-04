@@ -24,6 +24,9 @@ public class InterfaceContext {
 
     private InterfaceContext() {}
 
+    /**
+     * Constructor/initializer for the interfaceContext object regarding car images.
+     */
     public void init() {
         simulatorPanel = new SimulatorPanel();
         carFeedPanel = new CarFeedPanel();
@@ -43,55 +46,94 @@ public class InterfaceContext {
         }
     }
 
+    /**
+     * @return the interfaceContext object.
+     */
     public static InterfaceContext getInstance() {
         return context;
     }
 
+    /**
+     * Method to refresh the panel with updated values.
+     */
     public void repaint() {
         simulatorPanel.repaint();
         graphPanel.repaint();
     }
 
+    /**
+     * @return the corresponding simulatorPanel object.
+     */
     public SimulatorPanel getSimulatorPanel() {
         return simulatorPanel;
     }
 
+    /**
+     * @return the corresponding carFeedPanel object.
+     */
     public CarFeedPanel getCarFeedPanel() {
         return carFeedPanel;
     }
 
+    /**
+     * @return the corresponding controlPanel object.
+     */
     public ControlPanel getControlPanel() {
         return controlPanel;
     }
 
+    /**
+     * @return the corresponding graphPanel object.
+     */
     public GraphPanel getGraphPanel() {
         return graphPanel;
     }
 
+    /**
+     * @return the corresponding headerPanel object.
+     */
     public HeaderPanel getHeaderPanel() {
         return headerPanel;
     }
 
+    /**
+     * @return the corresponding detailPanel object.
+     */
     public DetailPanel getDetailPanel() {
         return detailPanel;
     }
 
+    /**
+     * @return the assigned AdHocCar image object.
+     */
     public BufferedImage getAdHocCarImage() {
         return adHocCarImage;
     }
 
+    /**
+     * @return the assigned Parking Pass image object.
+     */
     public BufferedImage getParkingPassCarImage() {
         return parkingPassCarImage;
     }
 
+    /**
+     * @return the assigned reservation car object.
+     */
     public BufferedImage getReservationCarImage() {
         return reservationCarImage;
     }
 
+    /**
+     * @return the assigned electric car object.
+     */
     public BufferedImage getElectricCarImage() {
         return electricCarImage;
     }
 
+    /**
+     * @return the assigned disabled car object.
+     */
     public BufferedImage getDisabledCarImage() {
         return disabledCarImage;
     }

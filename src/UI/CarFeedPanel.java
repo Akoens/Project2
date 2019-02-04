@@ -21,7 +21,7 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
     private ApplicationState applicationState;
 
     /**
-     * Constructor for the CarFeedPanel.
+     * Constructor for the CarFeedPanel taking zero parameters with set values.
      */
     public CarFeedPanel() {
         applicationState = ApplicationState.getInstance();

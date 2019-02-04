@@ -13,6 +13,9 @@ public class GraphPanel extends JPanel {
 
     private GraphView graphView;
 
+    /**
+     * Constructor for the GraphPanel object taking zero parameters and having set values.
+     */
     public GraphPanel() {
         applicationState = ApplicationState.getInstance();
         interfaceContext = InterfaceContext.getInstance();
@@ -29,6 +32,9 @@ public class GraphPanel extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * @return the corresponding graphView object.
+     */
     public GraphView getGraphView() {
         return graphView;
     }

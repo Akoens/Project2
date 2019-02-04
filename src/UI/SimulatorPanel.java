@@ -14,9 +14,11 @@ import java.util.ArrayList;
 public class SimulatorPanel extends JPanel {
 
     private ApplicationState applicationState;
-
     private ParkingGarageView parkingGarageView;
 
+    /**
+     * Constructor for a simulator panel object, with no parameters and set values.
+     */
     public SimulatorPanel() {
         applicationState = ApplicationState.getInstance();
 
@@ -37,6 +39,11 @@ public class SimulatorPanel extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * method to return the parkingGarageView object.
+     *
+     * @return the corresponding parkingGarageView object.
+     */
     public ParkingGarageView getParkingGarageView() {
         return parkingGarageView;
     }

@@ -15,6 +15,9 @@ public class HeaderPanel extends JPanel implements ParkingGarageSimulatorListene
     private SimpleDateFormat dateFormat;
     private JLabel dateLabel;
 
+    /**
+     * Constructor for the HeaderPanel object with set values.
+     */
     public HeaderPanel() {
         applicationState = ApplicationState.getInstance();
         applicationState.getParkingGarageSimulator().addParkingGarageSimulatorListener(this);

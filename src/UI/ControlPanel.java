@@ -23,6 +23,9 @@ public class ControlPanel extends JPanel implements ChangeListener, ActionListen
     private JSlider timescaleSlider;
     private JLabel timescaleLabel;
 
+    /**
+     * Constructor for the controlPanel object taking zero parameters with set values.
+     */
     public ControlPanel() {
         applicationState = ApplicationState.getInstance();
         setMinimumSize(new Dimension(400, 64));
@@ -91,6 +94,9 @@ public class ControlPanel extends JPanel implements ChangeListener, ActionListen
 
     }
 
+    /**
+     * Method to set the button text to either resume or pause depending on which on is clicked.
+     */
     private void updatePauseButtonText() {
         pauseButton.setText(applicationState.isPaused() ? "Resume" : "Pause");
     }

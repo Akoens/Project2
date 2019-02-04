@@ -65,6 +65,9 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
 
     private double totalRevenue;
 
+    /**
+     * Constructor for the DetailPanel object with zero parameters and set values.
+     */
     public DetailPanel() {
         applicationState = ApplicationState.getInstance();
         applicationState.getParkingGarageSimulator().addParkingGarageSimulatorListener(this);
@@ -296,6 +299,10 @@ public class DetailPanel extends JPanel implements ParkingGarageSimulatorListene
     public void onCarExit(Car car) {
     }
 
+    /**
+     * Method to set the worker labels inside of the simulation with set values and weekend compensation.
+     * Supposed to be updated each tick.
+     */
     public void setWorkerAmount() {
         dayOfWeekLabel.setText(wg.getDayName(calendar.get(Calendar.DAY_OF_WEEK)) + " staff cost");
         dayOfWeekLabelProfit.setText(wg.getDayName(calendar.get(Calendar.DAY_OF_WEEK)) + " profit");

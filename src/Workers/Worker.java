@@ -7,6 +7,13 @@ public class Worker {
     private int age;
     private int workExperience;
 
+    /**
+     * Constructor for a worker object.
+     *
+     * @param jobName     specifies the job title of the worker as a string.
+     * @param age         is the age of the worker as an integer.
+     * @param stayMinutes is how long the worker will stay at work (in minutes) for per day as an integer.
+     */
     public Worker(String jobName, int age, int stayMinutes) {
         this.stayMinutes = stayMinutes;
         if (age <= 20) {
@@ -26,44 +33,18 @@ public class Worker {
         this.workExperience = 0;
     }
 
-
+    /**
+     * @return salary per hour as an double.
+     */
     public double getPerHour() {
         return perHour;
     }
 
-    public void setPerHour(double perHour) {
-        this.perHour = perHour;
-    }
-
+    /**
+     * @return the specific worker's description as a string.
+     */
     public String getWorkDesc() {
         return workDesc;
     }
 
-    public void setWorkDesc(String workDesc) {
-        this.workDesc = workDesc;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getWorkExperience() {
-        return workExperience;
-    }
-
-    public void setWorkExperience(int workExperience) {
-        this.workExperience = workExperience;
-    }
-
-    public int getStayMinutes() {
-        return stayMinutes;
-    }
-
-    public void setStayMinutes(int stayMinutes) {
-        this.stayMinutes = stayMinutes;
-    }
 }
