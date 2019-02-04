@@ -8,10 +8,16 @@ public abstract class StatisticView extends JComponent {
 
     private ArrayList<DataSet> dataSetList;
 
+    /**
+     * Constructor for the StatisticView.
+     */
     public StatisticView() {
         dataSetList = new ArrayList<>();
     }
 
+    /**
+     * Updates the view to represent the given dataSetList.
+     */
     public void updateView(ArrayList<DataSet> dataSetList) {
         this.dataSetList = dataSetList;
         repaint();

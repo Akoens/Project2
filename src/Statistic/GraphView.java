@@ -22,6 +22,9 @@ public class GraphView extends StatisticView implements MouseListener, MouseMoti
     private Point shift;
     private Point lastShift;
 
+    /**
+     * Updates the view to represent the given ParkingGarage.
+     */
     public GraphView(String xAxisLabel, String yAxisLabel, Color graphColor) {
         this.xAxisLabel = xAxisLabel;
         this.yAxisLabel = yAxisLabel;

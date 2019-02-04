@@ -12,6 +12,9 @@ public class SimulatorFrame extends JFrame {
     private ApplicationState applicationState;
     private InterfaceContext interfaceContext;
 
+    /**
+     * Constructor for the simulator frame with no parameters and set values.
+     */
     public SimulatorFrame() {
         super("Parkeer Beheer");
 
@@ -23,6 +26,9 @@ public class SimulatorFrame extends JFrame {
         applicationState.start();
     }
 
+    /**
+     * Method to initialize the window for the simulator frame.
+     */
     private void initWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1600, 900));
@@ -38,6 +44,10 @@ public class SimulatorFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * @return the split-view of the main frame with the corresponding panels.
+     * Graphpanel, Carfeedpanel and the Detailpanel.
+     */
     private JComponent initComponents() {
         JPanel simulatorControlsPanel = new JPanel(new BorderLayout());
         simulatorControlsPanel.setMinimumSize(new Dimension(432, 500));

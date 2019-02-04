@@ -12,6 +12,7 @@ public abstract class Car {
     private boolean hasToPay;
 
     /**
+     * Constructor for the car, four parameters
      * @param licensePlate a string containing a license plate-type.
      * @param brand        a string containing a brand-type.
      * @param minutesLeft  an integer determining how long a car should stay inside the garage.
@@ -25,6 +26,10 @@ public abstract class Car {
         this.hasToPay = hasToPay;
     }
 
+    /**
+     * Method that uses the color of the car to determine the type of car
+     * @return String Containing the type of car
+     */
     public String getTypeCarByColor() {
         if (this.getColor() == Color.GREEN) {
             return "Electric";
@@ -49,16 +54,13 @@ public abstract class Car {
     }
 
     /**
-     *
      * @return an integer with how many minutes the car has left inside the garage.
      */
     public int getMinutesLeft() {
         return minutesLeft;
     }
 
-
     /**
-     *
      * @return a boolean (true/false) whether the car is already paying the cost.
      */
     public boolean getIsPaying() {
@@ -66,7 +68,6 @@ public abstract class Car {
     }
 
     /**
-     *
      * @param isPaying set the boolean whether the car needs to pay or not.
      */
     public void setIsPaying(boolean isPaying) {
@@ -74,7 +75,6 @@ public abstract class Car {
     }
 
     /**
-     *
      * @return a boolean (true/false) If the car needs to pay.
      */
     public boolean getHasToPay() {
@@ -82,7 +82,6 @@ public abstract class Car {
     }
 
     /**
-     *
      * @param hasToPay set the boolean whether the car needs to pay or not.
      */
     public void setHasToPay(boolean hasToPay) {
@@ -90,15 +89,13 @@ public abstract class Car {
     }
 
     /**
-     *
-     * This method takes one minute off the minutesLeft variable, this way we cycle through ticks and decide if the car is going to leave.
+     * This method takes one minute off the minutesLeft variable in order to decide when a car will leave.
      */
     public void tick() {
         minutesLeft--;
     }
 
     /**
-     *
      * @return the car his brand in a string object.
      */
     public String getBrand() {
@@ -106,22 +103,21 @@ public abstract class Car {
     }
 
     /**
-     *
-     * @return the initial minitesLeft
+     * @return the initial minutesLeft of how long a car stays in the garage.
      */
     public int getInitialMinutesLeft() {
         return initialMinutesLeft;
     }
 
-
     /**
-     *
      * @return the car his license plate in a string object.
      */
     public String getLicensePlate() {
         return licensePlate;
     }
 
-
+    /**
+     * abstract method that gets the color
+     */
     public abstract Color getColor();
 }

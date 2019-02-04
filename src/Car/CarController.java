@@ -6,6 +6,7 @@ public class CarController {
     private CarView view;
 
     /**
+     * Constructor for the CarController with two parameters.
      * @param car  a car object.
      * @param view a CarView object.
      */
@@ -15,7 +16,7 @@ public class CarController {
     }
 
     /**
-     * A method that updates the drawn field every time it's called.
+     * Method that updates the drawn field.
      */
     public void updateView() {
         view.updateView(car);

@@ -14,6 +14,11 @@ public class LocationView extends JPanel {
     private Color barColor;
     private CarView carView;
 
+
+    /**
+     * Constructor for locationView with zero parameters.
+     * Sets the initial layout and size of the view.
+     */
     public LocationView() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(64, 32));
@@ -22,6 +27,10 @@ public class LocationView extends JPanel {
         add(carView, BorderLayout.CENTER);
     }
 
+    /**
+     * Method used to update changes to the view made by the model.
+     * @param location to determine the color that needs to be drawn by the view.
+     */
     public void updateView(Location location) {
         switch (location.getLocationType()) {
             case DEFAULT:
@@ -40,6 +49,10 @@ public class LocationView extends JPanel {
         carView.updateView(location.getCar());
     }
 
+    /**
+     * Method used to drawn all the locations.
+     * @param g Details about the graphics that need to be drawn.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

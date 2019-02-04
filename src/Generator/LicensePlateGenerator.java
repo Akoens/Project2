@@ -15,6 +15,12 @@ public class LicensePlateGenerator {
     private int belgianRatio;
     private int total;
 
+    /**
+     * Constructor for the LicensePlateGenerator object, which takes three integer parameters.
+     * @param dutchRatio   the dutch nationality ratio of appearing cars.
+     * @param germanRatio  the german nationality ratio of appearing cars.
+     * @param belgianRatio the belgian nationality ratio of appearing cars.
+     */
     public LicensePlateGenerator(int dutchRatio, int germanRatio, int belgianRatio) {
         this.dutchRatio = dutchRatio;
         this.germanRatio = germanRatio;
@@ -24,6 +30,10 @@ public class LicensePlateGenerator {
         total = dutchRatio + germanRatio + belgianRatio;
     }
 
+    /**
+     * Method to generate a a random license plate string using the given parameters from the constructor.
+     * @return a string object containing a Dutch, a German or a Belgium license plate.
+     */
     public String generatePlate() {
         int decideCountry = rd.nextInt(total);
         String licensePlate;
@@ -90,14 +100,28 @@ public class LicensePlateGenerator {
         return licensePlate;
     }
 
+    /**
+     * Method to decide a random character.
+     * @return a randomly decided character between A-Z in Uppercase.
+     */
     private char randomCharacter(){
         return (char) (rd.nextInt(26) + 65);
     }
 
+    /**
+     * Method to decide a random number.
+     * @return a randomly decided number between 0-9.
+     */
     private int randomNumber(){
         return rd.nextInt(10);
     }
 
+    /**
+     * Method to generate an x amount of letters or numbers concatenated into a string.
+     * @param x the amount of letters or numbers as an integer.
+     * @param type which type of character is needed, valid input will be: CHARACTER or NUMBER.
+     * @return the chosen amount and which type of characters concatenated into a string
+     */
     private String generateCharacters(int x, CharType type){
         StringBuilder result = new StringBuilder();
 
@@ -114,22 +138,34 @@ public class LicensePlateGenerator {
                 }
             case NUMBER:
                 if (x <= 4) {
-                    for (int i=0; i<x; i++)
+                    for (int i = 0; i<x; i++)
                         result.append(randomNumber());
                 }
         }
-        
+
         return result.toString();
     }
 
+    /**
+     * Method to retrieve the given Dutch ratio.
+     * @return the Dutch ratio as an integer.
+     */
     public int getDutchRatio() {
         return dutchRatio;
     }
 
+    /**
+     * Method to retrieve the given German ratio.
+     * @return the German ratio as an integer.
+     */
     public int getGermanRatio() {
         return germanRatio;
     }
 
+    /**
+     * Method to retrieve the given Belgian ratio.
+     * @return the Belgian ratio as an integer.
+     */
     public int getBelgianRatio() {
         return belgianRatio;
     }
