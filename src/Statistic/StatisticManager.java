@@ -9,22 +9,27 @@ public class StatisticManager {
 
     private HashMap<Integer, DataSet> dataSetMap;
 
+    /**
+     * Constructor for the StatisticManager.
+     */
     public StatisticManager() {
         dataSetMap = new HashMap<>();
     }
 
+    /**
+     * Adds a new dataset the the Manager wit the specified key.
+     * @param key an identifiable key for the dataset.
+     * @param dataSet the dataset to add.
+     */
     public void putDataSet(Integer key, DataSet dataSet) {
         dataSetMap.put(key, dataSet);
     }
 
-    public DataSet getDataSet(Integer key) {
-        if (!dataSetMap.containsKey(key)) {
-            return null;
-        }
-
-        return dataSetMap.get(key);
-    }
-
+    /**
+     * Adds a new value to a dataset based on a key
+     * @param key an identifiable key for the dataset.
+     * @param value the next value to be added to the dataset.
+     */
     public void updateDataSet(Integer key, double value) {
         if (!dataSetMap.containsKey(key)) {
             return;
@@ -45,6 +50,9 @@ public class StatisticManager {
         updateView();
     }
 
+    /**
+     * Updates the GraphView based on the current dataSetList.
+     */
     public void updateView() {
         ArrayList<DataSet> dataSetList = new ArrayList<>();
 

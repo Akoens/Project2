@@ -15,12 +15,14 @@ public class ParkingGarageView extends JPanel implements ActionListener {
     private static final String ACTION_PREVIOUS = "ACTION_PREVIOUS";
     private static final String ACTION_NEXT = "ACTION_NEXT";
 
-    private JLabel floorLabel;
-
     private JPanel grid;
-    private ArrayList<LocationView> locationViews;
     private int floor = 0;
+    private JLabel floorLabel;
+    private ArrayList<LocationView> locationViews;
 
+    /**
+     * Constructor for the ParkingGarageView.
+     */
     public ParkingGarageView() {
         setLayout(new BorderLayout());
         setDoubleBuffered(true);
@@ -54,6 +56,9 @@ public class ParkingGarageView extends JPanel implements ActionListener {
         add(content, BorderLayout.CENTER);
     }
 
+    /**
+     * Updates the view to represent the given ParkingGarage.
+     */
     public void updateView(ParkingGarage parkingGarage) {
         if (locationViews.size() != parkingGarage.getRows()*parkingGarage.getPlaces()) {
             grid.removeAll();

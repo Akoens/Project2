@@ -20,6 +20,9 @@ public class CarFeedPanel extends JPanel implements ParkingGarageSimulatorListen
     private Queue<JLabel> typeCarLabelQue;
     private ApplicationState applicationState;
 
+    /**
+     * Constructor for the CarFeedPanel.
+     */
     public CarFeedPanel() {
         applicationState = ApplicationState.getInstance();
         applicationState.getParkingGarageSimulator().addParkingGarageSimulatorListener(this);

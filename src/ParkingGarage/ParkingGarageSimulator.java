@@ -15,10 +15,8 @@ public class ParkingGarageSimulator {
 
     public static final int TIMESCALE_MIN = 1;
     public static final int TIMESCALE_MAX = 1000;
-    private static final double PRICE = 3.00;
-
-
     public static final int TAG_THROUGHPUT = 0;
+    private static final double PRICE = 3.00;
 
     private Thread thread;
     private Calendar calendar;
@@ -187,8 +185,7 @@ public class ParkingGarageSimulator {
     }
 
     /**
-     * Method to perform a simulation wide tick, which is a combination of all ticks.
-     * This allows the simulation to function.
+     * Method to perform all the statistics related operations per tick.
      */
     private void performStatisticTick() {
         if (lastHour == calendar.get(Calendar.HOUR_OF_DAY)) {
@@ -199,10 +196,17 @@ public class ParkingGarageSimulator {
         lastHour = calendar.get(Calendar.HOUR_OF_DAY);
     }
 
+    /**
+     * Method to raise all the attached ParkingGarageSimulatorListeners onTick methods at the end of the tick.
+     */
     private void performListenerTick() {
         raiseTick();
     }
 
+    /**
+     * Method to perform a simulation wide tick, which is a combination of all ticks.
+     * This allows the simulation to function.
+     */
     private void tick() {
         performCarTick();
         performCarGeneration();
@@ -213,12 +217,19 @@ public class ParkingGarageSimulator {
         performListenerTick();
     }
 
+    /**
+     * Method to call all the attached ParkingGarageSimulatorListeners onTick methods.
+     */
     private void raiseTick() {
         for (ParkingGarageSimulatorListener listener : listeners)
             if (listener != null)
                 listener.onTick();
     }
 
+    /**
+     * Method to call all the attached ParkingGarageSimulatorListeners onCarEnter methods.
+     * @param car the car that has been added to the ParkingGarage.
+     */
     private void raiseCarEnter(Car car) {
         for (ParkingGarageSimulatorListener listener : listeners)
             if (listener != null)
@@ -226,44 +237,66 @@ public class ParkingGarageSimulator {
 
     }
 
+    /**
+     * Method to call all the attached ParkingGarageSimulatorListeners onCarExit methods.
+     * @param car the car that has been added to the ParkingGarage.
+     */
     private void raiseCarExit(Car car) {
         for (ParkingGarageSimulatorListener listener : listeners)
             if (listener != null)
                 listener.onCarExit(car);
     }
 
+    /**
+     * Method to call all the attached ParkingGarageSimulatorListeners onCarPayment methods.
+     * @param car the car that has paid.
+     * @param revenue the amount the car has paid.
+     */
     private void raiseCarPayment(Car car, double revenue) {
         for (ParkingGarageSimulatorListener listener : listeners)
             if (listener != null)
                 listener.onCarPayment(car, revenue);
     }
 
+    /**
+     * Attaches a ParkingGarageSimulatorListener to the ParkingGarageSimulator.
+     * @param listener the ParkingGarageSimulatorListener to attach.
+     */
     public void addParkingGarageSimulatorListener(ParkingGarageSimulatorListener listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Sets the new timescale of the ParkingGarageSimulator.
+     * @param timescale the new timescale.
+     */
     public void setTimescale(int timescale) {
         this.timescale = timescale;
     }
 
+    /**
+     * @return timescale the timescale of the ParkingGarageSimulator.
+     */
     public int getTimescale() {
         return timescale;
     }
 
+    /**
+     * @return the current date of the simulation.
+     */
     public Date getDate() {
         return calendar.getTime();
     }
 
-    public double getRevenue() {
-        return revenue;
-    }
-
+    /**
+     * @return timescale the timescale of the ParkingGarageSimulator.
+     */
     public Calendar getCalendar() {
         return calendar;
     }
 
     /**
-     * Method to call to start running the simulation itself.
+     * Method to call to start running the simulation.
      */
     private void run() {
         while (true) {
@@ -281,6 +314,9 @@ public class ParkingGarageSimulator {
         }
     }
 
+    /**
+     * Updates the attached parkingGarageView.
+     */
     public void updateViews() {
         interfaceContext.getSimulatorPanel().getParkingGarageView().updateView(parkingGarage);
         statisticManager.updateView();
