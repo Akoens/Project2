@@ -2,12 +2,14 @@ package ParkingGarage;
 
 import Car.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ParkingGarage {
 
     private int floors;
     private int rows;
     private int places;
+    private Random rd;
 
     private Location[][][] locations;
     private ArrayList<CarQueue> queues;
@@ -22,6 +24,7 @@ public class ParkingGarage {
         this.floors = floors;
         this.rows = rows;
         this.places = places;
+        rd = new Random();
         locations = new Location[floors][rows][places];
         queues = new ArrayList<CarQueue>();
 
@@ -32,12 +35,13 @@ public class ParkingGarage {
         for (int i = 0; i < 8; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.DISABLED);
         }
-        for (int i = 8; i < 40; i++) {
+        for (int i = 8; i < 20; i++) {
+            locations[0][0][i].setLocationType(Location.LocationType.RECHARGE);
+        }
+        for (int i = 20; i < 50; i++) {
             locations[0][0][i].setLocationType(Location.LocationType.RESERVED);
         }
-        for (int i = 0; i < 20; i++) {
-            locations[1][0][i].setLocationType(Location.LocationType.RECHARGE);
-        }
+
 
     }
 
@@ -108,6 +112,7 @@ public class ParkingGarage {
     /**
      * Method to obtain the first location in the ParkingGarage.
      * @return a location object.
+     * Note: Electric car's have a chance of needing a recharge, by setting their initialminutesleft higher it will mean they will need to pay more for the time they stayed.
      */
     public Location getFirstFreeLocation() {
         return getFirstFreeLocation(Location.LocationType.DEFAULT);
@@ -121,7 +126,13 @@ public class ParkingGarage {
         }
 
         if (car instanceof ElectricCar) {
-            location = getFirstFreeLocation(Location.LocationType.RECHARGE);
+            if (rd.nextInt(100) > 75) {
+
+                car.setInitialMinutesLeft(car.getInitialMinutesLeft()*3);
+                location = getFirstFreeLocation(Location.LocationType.RECHARGE);
+            } else {
+                location = getFirstFreeLocation(Location.LocationType.DEFAULT);
+            }
         }
 
         if (car instanceof DisabledCar) {

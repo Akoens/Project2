@@ -117,6 +117,14 @@ public abstract class Car {
     }
 
     /**
+     * Set how long the car was originally in the garage, has impact on price.
+     * @param initialMinutesLeft is the new amount of minutes left of that car in the garage.
+     */
+    public void setInitialMinutesLeft(int initialMinutesLeft) {
+        this.initialMinutesLeft = initialMinutesLeft;
+    }
+
+    /**
      * abstract method that gets the color
      */
     public abstract Color getColor();
